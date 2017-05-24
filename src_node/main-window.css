@@ -1,4 +1,5 @@
 .sprite {
-    color:red;
+    color:white;
+    background-color:red;
     position: absolute;
 }

@@ -5,9 +5,11 @@
   "main": "src_node/index.js",
   "scripts": {
     "start": "electron .",
+    "makedo": "npm run build && npm start",
     "build": "npm run build:react -s",
     "build:react": "babel src_react -d src_compiled",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "watch": "babel -w src_react -d src_compiled"
   },
   "keywords": [],
   "author": "Logan Woodbury <Testare.i9z@gmail.com>",
@@ -28,10 +30,9 @@
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-es2016": "^6.24.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-react": "^6.24.1",
-    "babel-plugin-transform-class-properties": "^6.24.1"
+    "electron-react-devtools": "^0.4.0"
   }
 }
