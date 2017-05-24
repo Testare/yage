@@ -1,12 +1,12 @@
 {
   "name": "basic-platformer",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A basic platformer game engine with Electron and some other technologies.",
   "main": "src_node/index.js",
   "scripts": {
     "start": "electron .",
-    "build":"npm run build:react -s",
-    "build:react":"babel src_react -d src_compiled",
+    "build": "npm run build:react -s",
+    "build:react": "babel src_react -d src_compiled",
     "postinstall": "npm run build"
   },
   "keywords": [],
@@ -22,7 +22,9 @@
       "react",
       "es2017"
     ],
-    "plugins": ["transform-class-properties"]
+    "plugins": [
+      "transform-class-properties"
+    ]
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
