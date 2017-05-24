@@ -9,6 +9,8 @@ app.on("ready",_ => {
         width:500
     })
 
+    mainWindow.loadURL(`file://${__dirname}/main-window.html`);
+
     mainWindow.on("close", _ => {
         mainWindow = null
     })
