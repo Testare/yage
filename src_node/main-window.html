@@ -1,8 +1,10 @@
 <html>
     <head>
         <title>Basic Platformer</title>
+        <link rel="stylesheet" type="text/css" href="./main-window.css" />
     </head>
     <body>
-        <script>require('babel-register');document.onload=require('./main-window')</script>
+        <div id="react-mount" />
+        <script>document.onload=require('../src_compiled/main-window')</script>
     </body>
 </html>
