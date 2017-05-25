@@ -7,7 +7,7 @@ class Sprite extends React.Component {
         z: 20,
         name: "unnamed",
     }
-    state = Object.assign({},Sprite.default_state,this.props)
+    state = {...Sprite.default_state,...this.props}//Object.assign({},Sprite.default_state,this.props)
     componentWillReceiveProps(nextProps){
         this.setState(nextProps)
     }
@@ -30,7 +30,6 @@ class Sprite extends React.Component {
         }
     };
     update = _ => {
-        console.log("click registered")
         this.setState((prevState) => {
             console.log(prevState);
             return {
@@ -39,14 +38,24 @@ class Sprite extends React.Component {
             }
         })
     }
+    update2 = _ => {
+        this.setState((prevState) => {
+            return {
+                x:prevState.x-10,
+                y:prevState.y-10,
+            }
+        })
+    }
     render() {
         if(this.state.animation) {
             return <span className="spriteimg"
-                        onClick={this.update}
-                        style={this.animationStyle(this.state)}></span>
+                    onMouseEnter={this.update}
+                    onMouseLeave={this.update2}
+                         style={this.animationStyle(this.state)}></span>
         }
         return <p className="sprite"
-                  onClick={this.update}
+                  onMouseOver={this.update}
+                  onMouseOut={this.update2}
                   style={this.style(this.state)}>{this.state["name"]}</p>
     }
 }
