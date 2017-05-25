@@ -2,15 +2,14 @@
   "name": "basic-platformer",
   "version": "0.1.0",
   "description": "A basic platformer game engine with Electron and some other technologies.",
-  "main": "src_node/index.js",
+  "main": "src/index.js",
   "scripts": {
     "start": "electron .",
     "makedo": "npm run build && npm start",
     "build": "npm run build:react -s",
-    "build:react": "babel src_react -d src_compiled",
-    "build:haskell": "hastec '--start=$$HASTE_MAIN();module.exports=Haste;' haskcode.hs",
+    "build:react": "babel src/babel -d lib",
     "postinstall": "npm run build",
-    "watch": "babel -w src_react -d src_compiled"
+    "watch": "babel -w src/babel -d lib"
   },
   "keywords": [],
   "author": "Logan Woodbury <Testare.i9z@gmail.com>",
