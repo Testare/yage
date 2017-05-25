@@ -20,7 +20,8 @@
             "z":19
         },
         {
-            "x":400
+            "x":0,
+            "animation":"testcase"
         }
     ]
 }

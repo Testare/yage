@@ -3,3 +3,62 @@
     background-color:red;
     position: absolute;
 }
+
+.spriteimg {
+    position: absolute;
+    width:100;
+    height:90;
+    animation: testrotate 6s steps(10,end) infinite;
+}
+
+@keyframes testrotate {
+
+    0% {
+        background-position: 0px 0px;
+    }
+    20% {
+        background-position: 0px 0px;
+    }
+    20.1% {
+        background-position: -100px 0px;
+    }
+    40% {
+        background-position: -100px 0px;
+    }
+    41% {
+        background-position: -200px 0px;
+    }
+    50% {
+        background-position: -200px 0px;
+    }
+    51% {
+        background-position: -300px 0px;
+    }
+    60% {
+        background-position: -300px 0px;
+    }
+    61% {
+        background-position: -400px 0px;
+    }
+    70% {
+        background-position: -400px 0px;
+    }
+    71% {
+        background-position: -500px 0px;
+    }
+    80% {
+        background-position: -500px 0px;
+    }
+    81% {
+        background-position: -600px 0px;
+    }
+    90% {
+        background-position: -600px 0px;
+    }
+    91% {
+        background-position: -700px 0px;
+    }
+    100% {
+        background-position: -700px 0px;
+    }
+}

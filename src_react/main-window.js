@@ -2,5 +2,26 @@ const React = require("react")
 const ReactDOM = require("react-dom")
 const example_map = require("../assets/maps/default")
 const Map = require("./map")
+const Game = require("./game")
 
-ReactDOM.render(<Map {...example_map}/>,document.getElementById("react-mount"));
+const gameLoop = (map) => {
+    var tick = 0
+    var loop = setInterval( _ => {
+            map.setState( (prevState) => {
+            updatedSprites = prevState.sprites.map((spr) => {
+                const newX = (spr.x || 0) + 30
+                const newY = (spr.y || 0) - 10
+                return Object.assign({},spr,{x:newX,y:newY})
+            }).slice(1)
+            return {
+                sprites:updatedSprites
+            }
+        })
+        tick++
+        if(tick === 2) {
+            clearInterval(loop);
+        }
+    }, 1000)
+}
+
+ReactDOM.render(<Map ref={gameLoop} {...example_map}/>,document.getElementById("react-mount"));

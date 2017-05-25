@@ -8,6 +8,7 @@
     "makedo": "npm run build && npm start",
     "build": "npm run build:react -s",
     "build:react": "babel src_react -d src_compiled",
+    "build:haskell": "hastec '--start=$$HASTE_MAIN();module.exports=Haste;' haskcode.hs",
     "postinstall": "npm run build",
     "watch": "babel -w src_react -d src_compiled"
   },

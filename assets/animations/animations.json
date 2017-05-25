@@ -1,0 +1,8 @@
+{
+    "testcase": {
+        "src" : "testcase.png",
+        "width" : 100,
+        "height": 90,
+        "frames": 7 //Later I'll figure out how to do timing for the frames, and collision data
+    }
+}
