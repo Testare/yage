@@ -1,0 +1,30 @@
+{
+    "src":"dungeon.png",
+    "width":2000,
+    "height":500,
+    "spriteList": {
+        "george": {
+            "player": {
+                "actor":"george",
+                "animation":"waiting"
+            },
+            "behaviors":["waiting","talking"],
+            "physics": {
+                "ignoreCollisions": true, 
+                "posX":50,
+                "posY":50,
+                "velX":0,
+                "velY":0
+            }
+        },
+        "bob": {
+            "fromTemplate": "bob",
+            "physics": {
+                "posX":450,
+                "posY":50,
+                "velX":-1,
+                "velY":0
+            }
+        }
+    }
+}

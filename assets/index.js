@@ -4,9 +4,9 @@
 
 //This defines all the types of assets, and the functions to clean them
 assetReaders = {
-    "actors":(x) => (x),//require("./actors"),
+    "actors":require("./actors"),
     "maps":require("./maps"),
-    "template_sprites":x => x//require("./template_sprites")
+    "templateSprites":require("./templateSprites")
 }
 
 //requires the asset, and then passes json to the asset's assetReader to perform any necessary cleaning

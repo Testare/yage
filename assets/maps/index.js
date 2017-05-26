@@ -1,1 +1,1 @@
-module.exports = x => Object.assign({type:"MAP!!!1"},x)
+module.exports = x => Object.assign({type:"newType"},x)

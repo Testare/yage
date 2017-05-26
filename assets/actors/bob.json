@@ -1,0 +1,16 @@
+{
+    "walking": {
+        "src": "testcase.png",
+        "width": 100,
+        "height": 90,
+        "frames": [
+            {
+                "ticks":30,
+                "collisionData": {}
+            },
+            {
+                "ticks":20
+            }
+        ]
+    }
+}
