@@ -1,9 +1,3 @@
-let animations;
-
-module.exports = (animation) => {
-    let ret = animations[animation]
-    if(!ret)
-        ret = require(`../assets/animations/${animation}`);
-        animations[animation] = ret
-    return ret
-}
+module.exports = new Proxy({},{
+    get: (cache,asset) => cache[asset] || (cache[asset] = readSprite(asset))
+})
