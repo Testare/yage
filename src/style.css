@@ -1,15 +1,48 @@
-.sprite {
+html, body {
+    height: 100%;
+    margin: 3px;
+}
+#draw-viewport{
+    width:800px;
+    height:400px;
+    margin: 0px;
+    padding: 0px;
+    overflow:hidden;
+    border: 2px solid #555;
+}
+.drawsprite{
     color:white;
     background-color:red;
-    position: absolute;
+    background-position-y: 0px;
+    position:absolute;
+    width:min-content;
+    border:0px
+}
+.drawsprite img{
+    width:100%;
+    height:100%;
+    color:rgba(255,255,255,0);
+    opacity:0;
+}
+.drawmap {
+    height:500px;
+    position:relative;
+    top:0px;
+    left:0px;
+    background-color:#AFA;
+}
+.drawviewport {
+    overflow: hidden;
 }
 
 .spriteimg {
     position: absolute;
     width:100;
     height:90;
+    border:0px;
     animation: testrotate 6s steps(10,end) infinite;
 }
+
 
 @keyframes testrotate {
 

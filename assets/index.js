@@ -10,7 +10,7 @@ assetReaders = {
 }
 
 //requires the asset, and then passes json to the asset's assetReader to perform any necessary cleaning
-const reqAsset = (assetType,assetName) => assetReaders[assetType](require(`./${assetType}/${assetName}`))
+const reqAsset = (assetType,assetName) => Object.assign({name:assetName},assetReaders[assetType](require(`./${assetType}/${assetName}`)))
 
 module.exports = new Proxy({},{
     get: (cache,assetType) => (!assetReaders[assetType]) ? undefined : ( //If not a type defined in assetReaders, return undefined

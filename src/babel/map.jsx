@@ -1,26 +1,11 @@
-const React = require("react")
-const Sprite = require("./sprite")
-SpriteList = (props) => {
-        const sprites = props.sprites.map((spr,j) => {
-            return <Sprite key={`${j}`} {...spr}/>
-            //Will need better ids if I ever make sprite-lists modifiable... Which I probably will
-        })
-        return <div>{sprites}</div>
+const sprite = require("./sprite")
+const transform = require("./transform")
+module.exports.init = (initState) => {
+    const spriteRemap = (sprList) => {
+        return Object.keys(sprList).reduce((acm,key) => {
+            return {...acm,[key]:sprite.init({name:key,...sprList[key]})}
+        },{})
+    }
+    return transform(initState,{spriteList:spriteRemap})
 }
 
-class Map extends React.Component {
-    state = {
-        sprites: this.props.sprites || [],
-        name: this.props.name || "unnamed" //Probably should raise an error for unnamed maps, this should be unique
-    }
-    render() {
-        const {sprites,name} = this.state;
-        return (
-        <div>
-            <SpriteList mapname={name} sprites={sprites} />
-        </div>
-        )
-    }
-}
-
-module.exports = Map

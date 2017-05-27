@@ -6,7 +6,8 @@
         "george": {
             "player": {
                 "actor":"george",
-                "animation":"waiting"
+                "animation":"waiting",
+                "currentFrame":1
             },
             "behaviors":["waiting","talking"],
             "physics": {
@@ -15,7 +16,8 @@
                 "posY":50,
                 "velX":0,
                 "velY":0
-            }
+            },
+            "z":21
         },
         "bob": {
             "fromTemplate": "bob",

@@ -1,1 +1,3 @@
-module.exports = x => Object.assign({type:"newType"},x)
+module.exports = x => {
+    return Object.assign({type:"newType"},x)
+}

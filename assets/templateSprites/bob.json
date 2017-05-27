@@ -3,5 +3,6 @@
         "actor": "bob",
         "animation": "walking"
     },
-    "behaviors": ["walking"]
+    "behaviors": ["walking"],
+    "z": 19
 }
