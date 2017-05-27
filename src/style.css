@@ -9,14 +9,17 @@ html, body {
     padding: 0px;
     overflow:hidden;
     border: 2px solid #555;
+    background-color:black;
 }
 .drawsprite{
     color:white;
-    background-color:red;
     background-position-y: 0px;
     position:absolute;
     width:min-content;
-    border:0px
+    border:0px;
+    /*background-blend-mode: multiply;
+    background-color:rgb(255,174,201);
+    */
 }
 .drawsprite img{
     width:100%;

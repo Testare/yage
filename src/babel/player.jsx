@@ -4,7 +4,8 @@ const pAnimation = ({actor,animation}) => actor[animation]
 const actorInit = actor => actor
 
 module.exports.init = ({actor:actorName,...player}) => ({
-    currentFrame:0, //default
+    currentFrame:0, //defaults
+    flipped:false,
     ...player,
     ticks: 0, 
     actor:actorInit(assets.actors[actorName])
@@ -12,9 +13,10 @@ module.exports.init = ({actor:actorName,...player}) => ({
 
 module.exports.styleFor = ({currentFrame,...player}) => ({
     backgroundImage: `url('../assets/actors/strips/${pAnimation(player).src}')`,
-    backgroundPositionX: -currentFrame * pAnimation(player).width,
+    backgroundPositionX: -currentFrame * (1+ pAnimation(player).width), //The 1+ gives room for dividing lines
     width: pAnimation(player).width,
-    height: pAnimation(player).height
+    height: pAnimation(player).height,
+    transform: (player.flipped)?"scaleX(-1)":"none"
 })
 
 

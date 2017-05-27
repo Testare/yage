@@ -5,6 +5,9 @@
     </head>
     <body>
         <div id="react-mount" ></div>
-        <script>document.onload=require('../lib/main-window')</script>
+        <script>
+            const game = require('../lib/game')
+            game.loadMap('dungeon') 
+        </script>
     </body>
 </html>

@@ -4,5 +4,5 @@
         "animation": "walking"
     },
     "behaviors": ["walking"],
-    "z": 19
+    "zFrame": 19
 }
