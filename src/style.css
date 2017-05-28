@@ -2,14 +2,21 @@ html, body {
     height: 100%;
     margin: 3px;
 }
+#game-mount{
+    border: 2px solid #555;
+    overflow:hidden;
+}
 #draw-viewport{
+    backface-visibility: hidden;
     width:800px;
     height:400px;
+    left:400px;
     margin: 0px;
     padding: 0px;
     overflow:hidden;
-    border: 2px solid #555;
     background-color:black;
+    transform-origin: top left;
+    transform: scaleX(2) scaleY(1);
 }
 .drawsprite{
     color:white;

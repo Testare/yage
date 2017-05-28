@@ -24,12 +24,13 @@ module.exports.update =  ({currentFrame,ticks,...player}) => {
     //returns an update of the animation
     //maybe should have a flag at this level to pause animation
     //But more likely just have that flag set before this function is called
+    console.log(player)
     const frames = pAnimation(player).frames
-    const frameTicks = frames[currentFrames].ticks
+    const frameTicks = frames[currentFrame].ticks
     const newticks = frameTicks?((ticks + 1) % frameTicks):-1
     return ({
         ticks: newticks,
-        currentFrame: (newticks != 0)?currentFrame:((currentFrame +1) % frameTicks.length),
+        currentFrame:(newticks != 0)?currentFrame:((currentFrame + 1) % frames.length),
         ...player
     })
 }

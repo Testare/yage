@@ -1,34 +1,61 @@
+const _ = require('lodash');
 const React = require("react")
 const ReactDOM = require("react-dom")
+
 const DrawMap = require("./draw-map")
 
 const map = require("./map")
 const transform = require("./transform")
 const assets = require("../assets")
+const {update:playerUpdate} = require("./player")
 
-const gameLoop2 = (map) => {
+const updatePlayers = ({spriteList,...mapState}) => {
+    return {...mapState,
+    spriteList:_.mapValues(spriteList,({player,...spr}) => {
+        return {...spr,
+        player:playerUpdate(player)}
+    })}
+}
+window.updatePlayers = updatePlayers
+var currentLoop;
+
+const gameLoop = (map) => {
+    //Perhaps a bit a of a naive loop...
+    var mapState = map
+    window.mapState = map;
     var tick = 0
-    var loop = setInterval( _ => {
-            map.setState( (prevState) => {
-            updatedSprites = prevState.sprites.map((spr) => {
-                const incr = (inc) => (oldVal) => ((oldVal || 0) + inc)
-                return transform(spr,{x:incr(30),y:incr(10)})
-                //return Object.assign({},spr,{x:newX,y:newY})
-            }) //.slice(1)
-            return {
-                sprites:updatedSprites
-            }
-        })
-        tick++
-        if(tick === 1) {
-            clearInterval(loop);
+    const lastTick = -1 //Game stops when tick === lastTick. Just set it to -1 when ready to use for real
+    const interval = 17 //How many milliseconds to wait between frames
+    currentLoop = setInterval( _ => {
+        var nextMapState = updatePlayers(mapState)
+        console.log(tick)
+        console.log("+",new Date().getTime())
+        window.mapState = nextMapState
+        mapState = nextMapState
+        renderMap(nextMapState,_=>console.log("-",new Date().getTime()))
+        if(tick === lastTick) {
+            clearInterval(currentLoop);
         }
-    }, 1000)
+        tick++
+    }, interval)
+    window.currentLoop = currentLoop;
 }
+
+const renderMap = (mapState,callback=false) => {
+    const map = (<DrawMap {...mapState} />)
+    if(callback){
+        ReactDOM.render(map,document.getElementById("game-mount"),_ => {
+            callback(mapState,map)
+        });
+    } else {
+    ReactDOM.render(map,document.getElementById("game-mount"));
+    }
+
+} 
+
 module.exports.loadMap = mapName => {
-    const gameStop = (x) => {window.gameState=x}
-    const dungeon = map.init(assets.maps[mapName])
-    ReactDOM.render(<DrawMap ref={gameStop} {...dungeon} />,document.getElementById("react-mount"));
-    window.dungeon = dungeon
-    window.assets = assets //This is just so I can refer to assets in the console log
+    clearInterval(currentLoop)
+    renderMap(map.init(assets.maps[mapName]), gameLoop)
 }
+
+module.exports.renderMap = renderMap

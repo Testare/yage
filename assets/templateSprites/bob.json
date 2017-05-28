@@ -1,7 +1,9 @@
 {
     "player" : {
         "actor": "bob",
-        "animation": "walking"
+        "animation": "walking",
+        "currentFrame":2,
+        "flipped":true
     },
     "behaviors": ["walking"],
     "zFrame": 19

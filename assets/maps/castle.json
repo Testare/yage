@@ -1,22 +1,19 @@
 {
-    "src":"dungeon.png",
+    "src":"castle.png",
     "width":2000,
     "height":500,
-    "viewportX":0,
-    "viewportY":0,
     "spriteList": {
         "george": {
             "player": {
                 "actor":"george",
                 "animation":"waiting",
-                "flipped":true,
-                "currentFrame":4
+                "currentFrame":5
             },
             "behaviors":["waiting","talking"],
             "physics": {
                 "ignoreCollisions": true, 
-                "posX":0,
-                "posY":0,
+                "posX":50,
+                "posY":50,
                 "velX":0,
                 "velY":0
             },
