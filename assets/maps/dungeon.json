@@ -9,7 +9,6 @@
             "player": {
                 "actor":"george",
                 "animation":"waiting",
-                "flipped":true,
                 "currentFrame":4
             },
             "behaviors":["waiting","talking"],
