@@ -1,6 +1,6 @@
 const React = require("react")
 const ReactDOM = require("react-dom")
-const {ipcRenderer:ipc} = require("electron")
+//const {ipcRenderer:ipc} = require("electron")
 
 const DrawMap = require("./draw-map")
 

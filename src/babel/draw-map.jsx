@@ -14,6 +14,7 @@ SpriteList = (props) => (
 )
 
 const mapStyle = (state) => ({
+    backgroundImage: `url('../assets/maps/images/${state.src}')`,
     width: state.width,
     height: state.height,
     left: -state.viewportX,
@@ -41,7 +42,6 @@ const DrawMap = (props) => (
     <div
         id="draw-viewport"
         style={viewportStyle({resolution:resolution})}
-
     >
         <div
             className="drawmap"

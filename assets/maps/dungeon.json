@@ -2,8 +2,8 @@
     "src":"dungeon.png",
     "width":2000,
     "height":900,
-    "viewportX":0,
-    "viewportY":0,
+    "viewportX":1000,
+    "viewportY":359,
     "spriteList": {
         "george": {
             "player": {
