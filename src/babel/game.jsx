@@ -2,6 +2,7 @@ const _ = require('lodash');
 const fp = require('lodash/fp')
 const React = require("react")
 const ReactDOM = require("react-dom")
+const {ipcRenderer:ipc} = require("electron")
 
 const DrawMap = require("./draw-map")
 
@@ -21,7 +22,7 @@ var mapState
 //TEMP FUNCS
 //Probably will be changed somehow in the future, feels a bit out of place here
 
-const updatePlayers = fp.update('spriteList', 
+const updatePlayers = fp.update('spriteList',
     fp.mapValues(fp.update('player', playerUpdate))
 )
 
@@ -29,7 +30,6 @@ window.mapState = _ => mapState
 
 //FUNCS
 const runUpdate = state => updatePlayers(state) //STUB, to be modified
-
 
 const gameLoop = (map) => {
     mapState = map
@@ -51,7 +51,7 @@ const renderMap = (mapState,callback=false) => (callback)?(
 ) : (
     ReactDOM.render(<DrawMap {...mapState} />,document.getElementById("game-mount"))
 )
- 
+
 //EXPORTS
 module.exports.renderMap = renderMap
 module.exports.loadMap = mapName => {

@@ -1,20 +1,16 @@
 html, body {
-    height: 100%;
-    margin: 3px;
-}
-#game-mount{
-    overflow:hidden;
-    min-width:800px;
-}
-#draw-viewport{
-    border: 2px solid #555;
-    backface-visibility: hidden;
-    width:800px;
-    height:400px;
-    left:400px;
     margin: 0px;
+    background-color:black;
+    overflow:hidden;
+}
+
+
+#draw-viewport{
+    vertical-align: middle;
+    backface-visibility: hidden;
     padding: 0px;
     overflow:hidden;
+    border:1px solid gray;
     background-color:black;
     transform-origin: top left;
     transform: scaleX(1) scaleY(1);
