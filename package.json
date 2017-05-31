@@ -7,9 +7,9 @@
     "start": "electron .",
     "makedo": "npm run build && npm start",
     "build": "npm run build:react -s",
-    "build:react": "babel src/babel -d lib",
+    "build:react": "babel src/babel -d build",
     "postinstall": "npm run build",
-    "watch": "babel -w src/babel -d lib"
+    "watch": "babel -w src/babel -d build"
   },
   "keywords": [],
   "author": "Logan Woodbury <Testare.i9z@gmail.com>",

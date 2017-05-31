@@ -16,13 +16,7 @@ app.on("ready",_ => {
     //Menu.setApplicationMenu(null) //Might have to get more sophisticated for macOs, cuz this won't work
     //^Will have to do when not in development mode, since it reveals the app menu on "Alt"
     //Better yet maybe: Alt for pause?
-    mainWindow.once('ready-to-show', _ => {
-        ipc.once('rendered',(_,state) => {
-            mainWindow.show()
-            game.gameLoop(state)
-        })
-        mapState = game.loadMap("dungeon",mainWindow)
-    })
+    game.gameInit(mainWindow)
 
     mainWindow.loadURL(`file://${__dirname}/main-window.html`);
 

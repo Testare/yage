@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const fp = require('lodash/fp')
-const {ipcRenderer:ipc} = require("electron")
+const {ipcMain:ipc} = require("electron")
 
 const map = require("./map")
 const transform = require("./transform")
@@ -18,6 +18,27 @@ const interval = 17 //How many milliseconds to wait between frames
 var currentLoop
 var mapState
 var renderWindow
+
+const loadMap = (map) => {
+    clearInterval(currentLoop)
+    if(renderWindow)
+        renderWindow.webContents.send('render-map',map)
+}
+
+const gameInit = window => {
+    renderWindow = window
+    gameState = assets.config
+    mapstate = map.init(assets.maps[gameState.map])
+    console.log(mapstate)
+    window.once('ready-to-show', _ => {
+        ipc.once('rendered',(_,state) => {
+            gameLoop(state)
+        })
+        loadMap(mapstate)
+        window.show()
+    })
+    //Load assets and config and initialize from there
+}
 
 const renderMap = mapState => {
     if(renderWindow) {
@@ -50,11 +71,7 @@ const gameStop = _ => {
 }
 
 //EXPORTS
-module.exports.loadMap = (mapName, window) => {
-    clearInterval(currentLoop)
-    renderWindow = window
-    window.webContents.send('render-map',map.init(assets.maps[mapName]))
-}
-
+module.exports.loadMap = loadMap
+module.exports.gameInit = gameInit
 module.exports.gameLoop = gameLoop
 module.exports.gameStop = gameStop

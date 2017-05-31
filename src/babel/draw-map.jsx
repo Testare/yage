@@ -1,6 +1,9 @@
+const {remote} = require("electron")
 const React = require("react")
 const Sprite = require("./draw-sprite")
-const transform = require("./transform")
+const assets = require("../assets") //Should be remote.require, but for some reason that doesn't work!
+console.log(assets)
+console.log(assets.config)
 
 SpriteList = (props) => (
     <div>{
@@ -37,11 +40,10 @@ const viewportStyle = ({resolution:[width,height]}) => {
     } //Later: Possibility of stretch-rendering?
 }
 
-
 const DrawMap = (props) => (
     <div
         id="draw-viewport"
-        style={viewportStyle({resolution:resolution})}
+        style={viewportStyle(assets.config)}
     >
         <div
             className="drawmap"

@@ -1,5 +1,4 @@
 const sprite = require("./sprite")
-const transform = require("./transform")
 
 const spriteRemap = (sprList) => Object.keys(sprList).reduce(
     (acm,key) => ({
