@@ -2,8 +2,8 @@
     "src":"dungeon.png",
     "width":2000,
     "height":900,
-    "viewportX":1000,
-    "viewportY":359,
+    "viewportX":400,
+    "viewportY":50,
     "spriteList": {
         "george": {
             "player": {
@@ -14,8 +14,8 @@
             "behaviors":["waiting","talking"],
             "physics": {
                 "ignoreCollisions": true,
-                "posX":0,
-                "posY":0,
+                "posX":600,
+                "posY":50,
                 "velX":0,
                 "velY":0
             },

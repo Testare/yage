@@ -1,6 +1,9 @@
 const electron = require("electron");
 const {Menu,app, BrowserWindow, ipcMain: ipc} = electron;
-const {resolution:[resWidth,resHeight]} = require("../assets/gameConfig")
+const game = require("../build/game")
+const assets = require('../assets')
+const {resolution:[resWidth,resHeight]} = assets.config
+
 let mainWindow;
 app.on("ready",_ => {
     mainWindow = new BrowserWindow({
@@ -13,11 +16,18 @@ app.on("ready",_ => {
     //Menu.setApplicationMenu(null) //Might have to get more sophisticated for macOs, cuz this won't work
     //^Will have to do when not in development mode, since it reveals the app menu on "Alt"
     //Better yet maybe: Alt for pause?
-    mainWindow.once('ready-to-show',mainWindow.show)
+    mainWindow.once('ready-to-show', _ => {
+        ipc.once('rendered',(_,state) => {
+            mainWindow.show()
+            game.gameLoop(state)
+        })
+        mapState = game.loadMap("dungeon",mainWindow)
+    })
+
     mainWindow.loadURL(`file://${__dirname}/main-window.html`);
-    mainWindow.webContents.setZoomFactor(4)
 
     mainWindow.on("close", _ => {
+        game.gameStop()
         mainWindow = null
     })
 })
