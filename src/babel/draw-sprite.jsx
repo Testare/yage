@@ -1,6 +1,6 @@
 const React = require('react')
-const pAnimation = ({actor,animation}) => actor[animation]
 
+const pAnimation = ({actor,animation}) => actor[animation]
 const playerStyle = ({currentFrame,...player}) => ({
     backgroundImage: `url('../assets/actors/strips/${pAnimation(player).src}')`,
     backgroundPositionX: -currentFrame * (1+ pAnimation(player).width), //The 1+ gives room for dividing lines

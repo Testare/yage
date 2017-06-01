@@ -5,11 +5,10 @@ const {ipcRenderer:ipc} = require("electron")
 
 const DrawMap = require("./draw-map")
 
-const renderMap = (event,mapState) => {
-    return ReactDOM.render(<DrawMap {...mapState} />,document.getElementById("game-mount"),
-    _ => event.sender.send('rendered',mapState))
+const renderMap = (event,gameState) => {
+    return ReactDOM.render(<DrawMap {...gameState} />,document.getElementById("game-mount"),
+    _ => event.sender.send('rendered',gameState))
 }
-console.log("draw added")
 
 ipc.on('render-map',renderMap)
 

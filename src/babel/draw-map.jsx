@@ -1,30 +1,5 @@
-const {remote} = require("electron")
 const React = require("react")
-const Sprite = require("./draw-sprite")
-const assets = require("../assets") //Should be remote.require, but for some reason that doesn't work!
-console.log(assets)
-console.log(assets.config)
-
-SpriteList = (props) => (
-    <div>{
-        Object.keys(props).map(sprKey => (
-            <Sprite
-                key={sprKey}
-                {...props[sprKey]}
-            />)
-        )}
-    </div>
-)
-
-const mapStyle = (state) => ({
-    backgroundImage: `url('../assets/maps/images/${state.src}')`,
-    width: state.width,
-    height: state.height,
-    left: -state.viewportX,
-    top: -state.viewportY
-})
-
-const resolution = [640,400] //Hard-coded for now
+const DrawSprite = require("./draw-sprite")
 
 const viewportStyle = ({resolution:[width,height]}) => {
     let scale = Math.min(
@@ -40,19 +15,37 @@ const viewportStyle = ({resolution:[width,height]}) => {
     } //Later: Possibility of stretch-rendering?
 }
 
+const mapStyle = (state) => ({
+    backgroundImage: `url('../assets/maps/images/${state.src}')`,
+    width: state.width,
+    height: state.height,
+    left: -state.viewportX,
+    top: -state.viewportY
+})
+
 const DrawMap = (props) => (
     <div
         id="draw-viewport"
-        style={viewportStyle(assets.config)}
+        style={viewportStyle(props)}
     >
         <div
             className="drawmap"
-            style={mapStyle(props)}
+            style={mapStyle(props.map)}
         >
-            <SpriteList {...props.spriteList} />
+            <SpriteList {...props.map.spriteList} />
         </div>
     </div>
 )
 
+SpriteList = (props) => (
+    <div>{
+        Object.keys(props).map(sprKey => (
+            <DrawSprite
+                key={sprKey}
+                {...props[sprKey]}
+            />)
+        )}
+    </div>
+)
 
 module.exports = DrawMap
