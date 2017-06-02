@@ -1,10 +1,9 @@
-const _ = require('lodash');
 const fp = require('lodash/fp')
-const {ipcMain:ipc} = require("electron")
+const { ipcMain: ipc } = require("electron")
 
 const map = require("./map")
 const assets = require("../assets")
-const {update:playerUpdate} = require("./player")
+const { update: playerUpdate } = require("./player")
 
 //CONSTANTS
 const lastTick = -1 //Game stops when tick === lastTick. Just set it to -1 when ready to use for real
@@ -21,10 +20,10 @@ const gameInit = window => {
     mapstate = map.init(assets.maps[gameState.map])
     gameState = {
         ...gameState,
-        map:mapstate,
-        window:window
+        map: mapstate,
+        window: window
     }
-       return gameState
+    return gameState
     //Load assets and config and initialize from there
 }
 
@@ -36,10 +35,10 @@ const runUpdate = state => updatePlayers(state) //STUB, to be modified
 
 const onLoop = runState => _ => {
     runState.gameState = runUpdate(runState.gameState)
-    if(!runState.running || runState.tick == lastTick) {
+    if (!runState.running || runState.tick == lastTick) {
         clearInterval(runState.currentLoop)
     } else {
-        runState.gameState.window.webContents.send('render-map',runState.gameState)
+        runState.gameState.window.webContents.send('render-map', runState.gameState)
     }
     gameState.tick++
 }
@@ -47,13 +46,13 @@ const onLoop = runState => _ => {
 const startLoop = gameState => {
     //Closure to store the mutating state
     runState = {
-        gameState:gameState,
-        tick:0,
-        running:true
+        gameState: gameState,
+        tick: 0,
+        running: true
     }
     gameState.window.once('ready-to-show', _ => {
-        runState['currentLoop'] = setInterval(onLoop(runState),interval)
-        ipc.once('rendered',(_,mapState) => {
+        runState['currentLoop'] = setInterval(onLoop(runState), interval)
+        ipc.once('rendered', (_, mapState) => {
             gameState.window.show()
         })
     })
@@ -61,7 +60,7 @@ const startLoop = gameState => {
 }
 
 const stopRun = runState => {
-    runState.gameState.window = null;
+    runState.gameState.window = null
     clearInterval(runState.currentLoop)
     renderWindow = null
 }
