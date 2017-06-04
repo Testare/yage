@@ -1,4 +1,4 @@
-const assets = require("../assets")
+const assets = require("../../assets")
 
 const actorInit = actor => actor
 module.exports.init = ({actor:actorName,...player}) => ({

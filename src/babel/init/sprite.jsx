@@ -1,4 +1,4 @@
-const assets = require('../assets')
+const assets = require('../../assets')
 const {init:playerInit} = require('./player')
 
 let templateCount = 0
@@ -9,10 +9,10 @@ const template = (templateName,rawState) => ({
     ...rawState
 })
 
-const init = ({fromTemplate,...rawState}) => (!fromTemplate)?{
+const spriteInit = ({fromTemplate,...rawState}) => (!fromTemplate)?{
     zFrame:20,
     ...rawState,
     player:playerInit(rawState.player)
-}:init(template(fromTemplate,rawState))
+}:spriteInit(template(fromTemplate,rawState))
 
-module.exports.init = init
+module.exports.init = spriteInit

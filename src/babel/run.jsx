@@ -1,10 +1,10 @@
 const electron = require("electron");
 const fp = require('lodash/fp')
-const game = require("../build/game")
+const game = require("./init/game")
 const assets = require('../assets')
 const {ipcRenderer: ipc } = electron;
-const { update: playerUpdate } = require("./player")
-const draw = require("./ui/draw")
+const { update: playerUpdate } = require("./init/player")
+const ui = require("./ui")
 
 const lastTick = -1 //Game stops when tick === lastTick. Just set it to -1 when ready to use for real
 const interval = 17 //How many milliseconds to wait between frames
@@ -23,10 +23,9 @@ const onLoop = runAtom => _ => {
     if (!runAtom.running || runAtom.tick == lastTick) {
         clearInterval(runAtom.currentLoop)
     } else if(!runAtom.tick) {
-        draw.renderMap(runAtom.gameState,_=>ipc.send('rendered',true))
+        ui.renderMap(runAtom.gameState,_=>ipc.send('rendered',true))
     } else {
-        draw.renderMap(runAtom.gameState)
-        console.log("renderrenderrender")
+        ui.renderMap(runAtom.gameState)
     }
     runAtom.tick++
 }
