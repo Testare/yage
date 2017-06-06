@@ -1,5 +1,5 @@
 {
-  "name": "basic-platformer",
+  "name": "wurdar",
   "version": "0.1.0",
   "description": "A basic platformer game engine with Electron and some other technologies.",
   "main": "build/launcher.js",
