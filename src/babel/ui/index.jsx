@@ -5,11 +5,22 @@ const {ipcRenderer:ipc} = require("electron")
 
 const DrawMap = require("./draw-map")
 
-const renderMap = (gameState,callback) => {
-    //console.log("draw.renderMap+")
-    //console.log((new Date()).getMilliseconds())
-    return ReactDOM.render(<DrawMap {...gameState} />,document.getElementById("game-mount"),callback)
+let inputAtom = {
+    mouseIn:{},
+    mouseExited:{},
 }
+
+const updateInput = id => event => {
+    const eventType = event.nativeEvent.type
+    console.log(id)
+    console.log(eventType)
+}
+
+const renderMap = (gameState,callback) => {
+    return ReactDOM.render(<DrawMap {...gameState} update={updateInput}/>,document.getElementById("game-mount"),callback)
+}
+
 
 //EXPORTS
 module.exports.renderMap = renderMap
+module.exports.inputDeref = _ => ({...inputAtom})

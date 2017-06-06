@@ -23,13 +23,16 @@ const mapStyle = (state) => ({
     top: -state.viewportY
 })
 
-const DrawMap = (props) => (
+const DrawMap = ({update,...props}) => (
     <div
         id="draw-viewport"
         style={viewportStyle(props)}
     >
         <div
             className="drawmap"
+            onMouseEnter={update("map")}
+            onMouseLeave={update("map")}
+            onKeyDown={update("map")}
             style={mapStyle(props.map)}
         >
             <SpriteList {...props.map.spriteList} />
