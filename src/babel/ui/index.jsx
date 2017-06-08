@@ -14,6 +14,7 @@ const updateInput = id => event => {
     const eventType = event.nativeEvent.type
     console.log(id)
     console.log(eventType)
+    console.log(event)
 }
 
 const renderMap = (gameState,callback) => {

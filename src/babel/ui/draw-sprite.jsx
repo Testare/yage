@@ -1,6 +1,7 @@
 const React = require('react')
 
 const pAnimation = ({actor,animation}) => actor[animation]
+
 const playerStyle = ({currentFrame,...player}) => ({
     backgroundImage: `url('../assets/actors/strips/${pAnimation(player).src}')`,
     backgroundPositionX: -currentFrame * (1+ pAnimation(player).width), //The 1+ gives room for dividing lines
@@ -17,12 +18,25 @@ const spriteStyle = (props) => ({
     }
 )
 
-const DrawSprite = (props) => (
+const AreaMap = ({ update, name, player }) => (
+    <map name={`${name}マップ`}>
+        {(pAnimation(player).frames[player.currentFrame].collisionData || []).map(
+           (x, i) => (<area
+               key={i}
+               onClick={e => { e.preventDefault(); update("area")(e) }}
+               href="" {...x}
+           />))
+       }
+    </map>
+)
+
+const DrawSprite = props => (
     <span
         className="drawsprite"
         style={spriteStyle(props)}
     >
-        <img />
+        <AreaMap {...props} />
+        <img useMap={`#${props.name}マップ`}/>
     </span>
 )
 

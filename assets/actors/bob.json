@@ -6,13 +6,35 @@
         "frames": [
             {
                 "ticks":20,
-                "collisionData": {}
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "shape":"circle",
+                        "coords":"17,17,17"
+                    }
+                ]
             },
             {
-                "ticks":10
+                "ticks":10,
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "shape":"circle",
+                        "coords":"17,17,17"
+                    }
+                ]
+
             },
             {
-                "ticks":10
+                "ticks":10,
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "shape":"circle",
+                        "coords":"17,17,17"
+                    }
+                ]
+
             }
         ]
     }

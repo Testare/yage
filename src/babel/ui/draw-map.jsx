@@ -7,6 +7,7 @@ const viewportStyle = ({resolution:[width,height]}) => {
         ((window.innerHeight - 6)/height)
     )
     return {
+        // cursor:"none",
         width:width,
         height:height,
         transform: `scale(${scale}`,
@@ -30,20 +31,21 @@ const DrawMap = ({update,...props}) => (
     >
         <div
             className="drawmap"
-            onMouseEnter={update("map")}
+            /*onMouseEnter={update("map")}
             onMouseLeave={update("map")}
-            onKeyDown={update("map")}
+            onKeyDown={update("map")}*/
             style={mapStyle(props.map)}
         >
-            <SpriteList {...props.map.spriteList} />
+            <SpriteList update={update} {...props.map.spriteList} />
         </div>
     </div>
 )
 
-SpriteList = (props) => (
+SpriteList = ({update,...props}) => (
     <div>{
         Object.keys(props).map(sprKey => (
             <DrawSprite
+                update={update}
                 key={sprKey}
                 {...props[sprKey]}
             />)

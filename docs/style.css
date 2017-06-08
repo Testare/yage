@@ -3,6 +3,10 @@ html, body {
     background-color:black;
     overflow:hidden;
 }
+area {
+    /*cursor: inherit; /*When production time comes*/
+    cursor: crosshair; /*Just for debugging purposes*/
+}
 
 #draw-viewport{
     vertical-align: middle;

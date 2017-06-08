@@ -2,6 +2,7 @@ const assets = require('../assets')
 const {app, BrowserWindow, ipcMain: ipc } = require("electron")
 
 let gameWindow;
+const PRODUCTION = false
 
 app.on("ready", _ => {
     gameWindow = launchGame(assets)
@@ -18,11 +19,15 @@ const createWindow = ({ resolution: [resWidth, resHeight] }) => new BrowserWindo
 const launchGame = assets => {
     let window = createWindow(assets.config)
     window.loadURL(`file://${__dirname}/../docs/main-window.html`)
-    window.once('ready-to-show', _ => (
-        ipc.once('rendered', _ => (
-            window.show()
-        ))
-    ))
+    window.once('ready-to-show', (PRODUCTION)? (
+        _ => (
+            ipc.once('rendered', _ => (
+                window.show()
+            ))
+        )) : (
+            _ => window.show()
+        )
+    )
     window.on("close", _ => {
         stopGame()
     })
