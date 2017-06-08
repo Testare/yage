@@ -1,7 +1,7 @@
 {
-  "name": "wurdar",
+  "name": "yage",
   "version": "0.1.0",
-  "description": "A basic platformer game engine with Electron and some other technologies.",
+  "description": "Yet Another Game Engine. A basic platformer game engine with Electron and some other technologies.",
   "main": "build/launcher.js",
   "scripts": {
     "start": "electron .",
