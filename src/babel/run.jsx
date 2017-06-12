@@ -10,9 +10,6 @@ const lastTick = -1 //Game stops when tick === lastTick. Just set it to -1 when 
 const interval = 17 //How many milliseconds to wait between frames
 
 
-//This should not be here forever
-//Should be refactored to update submodule
-
 const onLoop = runAtom => _ => {
     runAtom.gameState = update(runAtom.gameState)
     if (!runAtom.running || runAtom.tick == lastTick) {
