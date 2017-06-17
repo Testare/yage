@@ -1,6 +1,6 @@
 {
   "name": "yage",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Yet Another Game Engine. A basic platformer game engine with Electron and some other technologies.",
   "main": "build/launcher.js",
   "scripts": {
