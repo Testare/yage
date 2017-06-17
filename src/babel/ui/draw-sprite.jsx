@@ -24,17 +24,17 @@ const AreaMap = ({ update, name, player }) => (
     <div>{
         pAnimation(player).frames.map((frame,index) => (
             <map
-                key={`${name}-${index}マップ`} 
-                name={`${name}-${index}マップ`} 
+                key={`${name}-${index}マップ`}
+                name={`${name}-${index}マップ`}
             >
                 {(frame.collisionData || []).map(
                     (x, i) => (<area
                         key={i}
-                        onMouseEnter={e => { e.preventDefault(); update("area")(e) }}
-                        onMouseLeave={e => {e.preventDefault(); update("area1")(e) }}
+                        onMouseOver={e => { e.preventDefault(); update("area")(e) }}
+                        onMouseOut={e => {e.preventDefault(); update("area1")(e) }}
                         href="" {...x}
                 />))}
-            </map>   
+            </map>
         ),[])
     }
         {/*<map name={`${name}マップ`}>

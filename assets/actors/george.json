@@ -5,7 +5,14 @@
         "height": 34,
         "frames": [
             {
-                "ticks":90
+                "ticks":90,
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "shape":"rect",
+                        "coords":"0,0,34,17"
+                    }
+                ]
             },
             {
                 "ticks":60

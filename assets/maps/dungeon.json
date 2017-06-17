@@ -14,8 +14,8 @@
             "behaviors":["waiting","talking"],
             "physics": {
                 "ignoreCollisions": true,
-                "posX":600,
-                "posY":50,
+                "posX":750,
+                "posY":393,
                 "velX":0,
                 "velY":0
             },
@@ -25,7 +25,7 @@
             "fromTemplate": "bob",
             "physics": {
                 "posX":450,
-                "posY":50,
+                "posY":393,
                 "velX":-1,
                 "velY":0
             }

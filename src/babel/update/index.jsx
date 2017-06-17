@@ -5,6 +5,11 @@ const updatePlayers = fp.update('map.spriteList',
     fp.mapValues(fp.update('player', playerUpdate))
 )
 
-const runUpdate = state => updatePlayers(state) //STUB, to be modified
+const testWrap = state => fn => {
+    state.map.spriteList.bob.physics.posX += 1;
+    return fn
+}
+
+const runUpdate = state => testWrap(state)(updatePlayers(state)) //STUB, to be modified
 
 module.exports = runUpdate

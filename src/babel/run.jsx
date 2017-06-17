@@ -9,9 +9,15 @@ const update = require('./update')
 const lastTick = -1 //Game stops when tick === lastTick. Just set it to -1 when ready to use for real
 const interval = 17 //How many milliseconds to wait between frames
 
+onkeydown = ui.keydown
+onkeyup = ui.keyup
+onmousedown = ui.keydown
+onmouseup = ui.keyup
 
 const onLoop = runAtom => _ => {
+    ui.next()
     runAtom.gameState = update(runAtom.gameState)
+    // console.log(ui.derefInputAtom())
     if (!runAtom.running || runAtom.tick == lastTick) {
         clearInterval(runAtom.currentLoop)
     } else if(!runAtom.tick) {
