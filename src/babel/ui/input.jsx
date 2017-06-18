@@ -35,6 +35,7 @@ const ON_KEY_DOWN = [
 
 let currentAtom = {}
 let nextAtom = {}
+let screenX = 0, screenY = 0, mapY = 0, mapX = 0
 
 module.exports.checkDown = code => !!(currentAtom[code] & KEY_DOWN)
 module.exports.checkUp = code => !(currentAtom[code] & KEY_DOWN)
@@ -42,6 +43,17 @@ module.exports.checkRelease = code => !!(currentAtom[code] & FLAG_RELEASE)
 module.exports.checkPress = code => !!(currentAtom[code] & FLAG_PRESS)
 
 module.exports.derefAtom = _ => ({ ...currentAtom })
+
+//Might be modified in the future to handle mouse position even when the mouse is outside the viewport.
+module.exports.cursorPos = (props,mapScale) => event => {
+    screenX = event.clientX - Math.ceil(parseFloat(event.currentTarget.style.marginLeft))
+    screenY = event.clientY - Math.ceil(parseFloat(event.currentTarget.style.marginTop))
+    let {viewportX,viewportY} = props.map
+    mapX = (screenX/mapScale + viewportX)
+    mapY = (screenY/mapScale + viewportY)
+}
+
+module.exports.mapPos = _ => [mapX,mapY]
 
 module.exports.inputDown = (event) => {
     code = event.code || ("Mouse" + event.button)
@@ -53,8 +65,7 @@ module.exports.inputUp = (event) => {
     nextAtom[code] = ON_KEY_UP[nextAtom[code] || KEY_UP]
 }
 
-//This should perform a &1 on all values of the keyStateAtom
-module.exports.next = _ => {
+module.exports.nextInput = _ => {
     currentAtom = nextAtom
     nextAtom = fp.mapValues(v => (v & 1))(nextAtom)
     return currentAtom
