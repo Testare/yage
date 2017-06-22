@@ -9,22 +9,50 @@
                 "collisionData": [
                     {
                         "type":"body",
-                        "shape":"rect",
-                        "coords":"0,0,34,17"
+                        "shape":"circle",
+                        "coords":"17,17,17"
                     }
                 ]
             },
             {
-                "ticks":60
+                "ticks":60,
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "shape":"circle",
+                        "coords":"17,17,17"
+                    }
+                ]
             },
             {
-                "ticks":10
+                "ticks":10,
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "shape":"circle",
+                        "coords":"17,17,17"
+                    }
+                ]
             },
             {
-                "ticks":50
+                "ticks":50,
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "shape":"circle",
+                        "coords":"17,17,17"
+                    }
+                ]
             },
             {
-                "ticks":5
+                "ticks":5,
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "shape":"circle",
+                        "coords":"17,17,17"
+                    }
+                ]
             }
         ]
     }

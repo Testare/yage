@@ -41,7 +41,6 @@ module.exports.checkDown = code => !!(currentAtom[code] & KEY_DOWN)
 module.exports.checkUp = code => !(currentAtom[code] & KEY_DOWN)
 module.exports.checkRelease = code => !!(currentAtom[code] & FLAG_RELEASE)
 module.exports.checkPress = code => !!(currentAtom[code] & FLAG_PRESS)
-
 module.exports.derefAtom = _ => ({ ...currentAtom })
 
 //Might be modified in the future to handle mouse position even when the mouse is outside the viewport.
