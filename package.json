@@ -1,13 +1,7 @@
 {
-<<<<<<< HEAD
   "name": "yage",
   "version": "0.2.0",
   "description": "Yet Another Game Engine. A basic platformer game engine with Electron and some other technologies.",
-=======
-  "name": "wurdar",
-  "version": "0.1.0",
-  "description": "A basic platformer game engine with Electron and some other technologies.",
->>>>>>> Changed dependencies to enable development, and changed project name
   "main": "build/launcher.js",
   "scripts": {
     "start": "electron .",
