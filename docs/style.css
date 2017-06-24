@@ -4,11 +4,12 @@ html, body {
     overflow:hidden;
 }
 area {
-    /*cursor: inherit; /*When production time comes*/
-    cursor: crosshair; /*Just for debugging purposes*/
+    cursor: inherit; /*When production time comes*/
+    /*cursor: crosshair; /*Just for debugging purposes*/
 }
 
 #draw-viewport{
+    cursor: none;
     vertical-align: middle;
     backface-visibility: hidden;
     padding: 0px;

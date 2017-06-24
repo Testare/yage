@@ -18,44 +18,11 @@ const spriteStyle = (props) => ({
     }
 )
 
-const report = msg => value => {console.log(msg);return value;}
-
-const AreaMap = ({ update, name, player }) => (
-    <div>{
-        pAnimation(player).frames.map((frame,index) => (
-            <map
-                key={`${name}-${index}マップ`}
-                name={`${name}-${index}マップ`}
-            >
-                {(frame.collisionData || []).map(
-                    (x, i) => (<area
-                        key={i}
-                        onMouseOver={e => { e.preventDefault(); update("area")(e) }}
-                        onMouseOut={e => {e.preventDefault(); update("area1")(e) }}
-                        href="" {...x}
-                />))}
-            </map>
-        ),[])
-    }
-        {/*<map name={`${name}マップ`}>
-            {(pAnimation(player).frames[player.currentFrame].collisionData || []).map(
-            (x, i) => (<area
-                key={i}
-                onClick={e => { e.preventDefault(); update("area")(e) }}
-                href="" {...x}
-            />))
-        }
-        </map>*/}
-    </div>
-)
-
 const DrawSprite = props => (
     <span
         className="drawsprite"
         style={spriteStyle(props)}
     >
-        <AreaMap {...props} />
-        <img useMap={`#${props.name}-${props.player.currentFrame}マップ`}/>
     </span>
 )
 

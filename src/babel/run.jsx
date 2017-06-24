@@ -13,9 +13,13 @@ onkeydown = ui.keydown
 onkeyup = ui.keyup
 onmousedown = ui.keydown
 onmouseup = ui.keyup
+//Mousemove isn't handled here, but in the ui module.
+//This means this is probably the wrong place for this to be handled as well
+//It's just easy to do here for now because this is the window context.
+//TODO Fix this by refactoring
 
 const onLoop = runAtom => _ => {
-    ui.next()
+    runAtom.gameState.input = ui.nextInput()
     runAtom.gameState = update(runAtom.gameState)
     // console.log(ui.derefInputAtom())
     if (!runAtom.running || runAtom.tick == lastTick) {

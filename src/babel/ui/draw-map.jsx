@@ -1,11 +1,15 @@
 const React = require("react")
 const DrawSprite = require("./draw-sprite")
+const input = require('./input')
 
-const viewportStyle = ({resolution:[width,height]}) => {
-    let scale = Math.min(
-        ((window.innerWidth - 6)/width),
-        ((window.innerHeight - 6)/height)
-    )
+const calcScale = ({resolution:[width,height]}) => Math.min(
+    ((window.innerWidth - 6)/width),
+    ((window.innerHeight - 6)/height)
+)
+
+const viewportStyle = (state) => {
+    let scale = calcScale(state)
+    let [width,height] = state.resolution
     return {
         // cursor:"none",
         width:width,
@@ -23,11 +27,12 @@ const mapStyle = (state) => ({
     left: -state.viewportX,
     top: -state.viewportY
 })
-
+//For some reason, onMouseMove isn't getting called anymore?
 const DrawMap = ({update,...props}) => (
     <div
         id="draw-viewport"
         style={viewportStyle(props)}
+        onMouseMove={input.cursorPos(props,calcScale(props))}
     >
         <div
             className="drawmap"

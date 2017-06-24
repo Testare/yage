@@ -26,7 +26,7 @@
             "physics": {
                 "posX":450,
                 "posY":393,
-                "velX":-1,
+                "velX":1,
                 "velY":0
             }
         }
