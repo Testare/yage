@@ -20,7 +20,12 @@
                     {
                         "type":"body",
                         "shape":"circle",
-                        "coords":"17,17,17"
+                        "coords":"17,17,10"
+                    },
+                    {
+                        "type":"ghost",
+                        "shape":"vector",
+                        "coords":"7,0,27,34"
                     }
                 ]
 
