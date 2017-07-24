@@ -1,9 +1,14 @@
 const fp = require("lodash/fp")
+const collision = require('./collision-broad')
 
-const moveSprites = fp.mapValues(
+//Probably redundant
+const moveSprites = spriteList=>fp.mapValues(
     ({ physics: { posX, posY, velX, velY, ...physics },
         ...sprite }) => {
-        //RUN COLLISION CHECKS HERE
+        // for (spr in spriteList) {
+        //     console.log("finding",spriteList[spr].name,sprite.name)
+        //     console.log("equals",spriteList[spr].name === sprite.name)
+        // }
         return {
             ...sprite,
             physics: {
@@ -14,7 +19,6 @@ const moveSprites = fp.mapValues(
                 velY: velY
             }
         }
-    }
-)
+    }, spriteList)
 
-module.exports.updateState = fp.update('map.spriteList',moveSprites)
+module.exports.updateState = fp.update('map',collision.runCollision)
