@@ -24,10 +24,11 @@ const ON_KEY_DOWN = [
     KEY_UNDEF2, KEY_PRESS,
     KEY_REPRESS, KEY_REPRESS
 ]
-/*The use is, the current state gets a new state on key-up or key-down events
-  through accessing this array newState = ON_KEY_UP[currentState]
-  There are gaps because the state uses bitflags, and some permutations are invalid states
-   */
+/**
+ * The use is, the current state gets a new state on key-up or key-down events
+ * through accessing this array newState = ON_KEY_UP[currentState]
+ * There are gaps because the state uses bitflags, and some permutations are invalid states
+ */
 
 // const ON_KEY_DOWN = [KEY_PRESS,KEY_DOWN,KEY_PRESS,KEY_PRESS]
 
@@ -44,7 +45,7 @@ module.exports.checkPress = code => !!(currentAtom[code] & FLAG_PRESS)
 module.exports.derefAtom = _ => ({ ...currentAtom })
 
 //Might be modified in the future to handle mouse position even when the mouse is outside the viewport.
-module.exports.cursorPos = (props,mapScale) => event => {
+module.exports.cursorPos = (props, mapScale) => event => {
     screenX = event.clientX - Math.ceil(parseFloat(event.currentTarget.style.marginLeft))
     screenY = event.clientY - Math.ceil(parseFloat(event.currentTarget.style.marginTop))
     let {viewportX,viewportY} = props.map
@@ -52,9 +53,10 @@ module.exports.cursorPos = (props,mapScale) => event => {
     mapY = (screenY/mapScale + viewportY)
 }
 
-module.exports.mapPos = _ => [mapX,mapY]
+module.exports.mapPos = _ => [mapX, mapY]
 
 module.exports.inputDown = (event) => {
+    console.log("INPUT:" + event.code);
     code = event.code || ("Mouse" + event.button)
     nextAtom[code] = ON_KEY_DOWN[nextAtom[code] || KEY_UP]
 }

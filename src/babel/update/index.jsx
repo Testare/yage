@@ -10,9 +10,23 @@ const updatePlayers = fp.update('map.spriteList',
 
 const testWrap = state => obj => {
     // Used for debugging, currently empty
-    // [x,y] = ui.mapPos() 
+    // [x,y] = ui.mapPos()
     // state.map.spriteList.bob.physics.posX = x - 17
     // state.map.spriteList.bob.physics.posY = y - 17
+    if (ui.checkDown('KeyA')) {
+        obj.map.spriteList.bob.physics.velX = -1;
+    } else if (ui.checkDown('KeyD')) {
+        obj.map.spriteList.bob.physics.velX = 1;
+    } else {
+        obj.map.spriteList.bob.physics.velX = 0;
+    }
+    if (ui.checkDown('KeyW')) {
+        obj.map.spriteList.bob.physics.velY = -1;
+    } else if (ui.checkDown('KeyS')) {
+        obj.map.spriteList.bob.physics.velY = 1;
+    } else {
+        obj.map.spriteList.bob.physics.velY = 0;
+    }
     return obj
 }
 

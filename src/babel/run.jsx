@@ -9,10 +9,10 @@ const update = require('./update')
 const lastTick = -1 //Game stops when tick === lastTick. Just set it to -1 when ready to use for real
 const interval = 17 //How many milliseconds to wait between frames
 
-onkeydown = ui.keydown
-onkeyup = ui.keyup
-onmousedown = ui.keydown
-onmouseup = ui.keyup
+onkeydown = ui.inputDown
+onkeyup = ui.inputUp
+onmousedown = ui.inputDown
+onmouseup = ui.inputUp
 //Mousemove isn't handled here, but in the ui module.
 //This means this is probably the wrong place for this to be handled as well
 //It's just easy to do here for now because this is the window context.
