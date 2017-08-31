@@ -1,3 +1,6 @@
+/**
+ * This file is me expirementing, trying to figure out a good way to define behavior in a functional way.
+ */
 const demoState = {
     name:"George",
     friends:{

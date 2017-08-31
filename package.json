@@ -6,10 +6,11 @@
   "scripts": {
     "start": "electron .",
     "makedo": "npm run build && npm start",
-    "build": "npm run build:react -s",
-    "build:react": "babel src/babel -d build",
+    "build": "npm run build:jsx -s && npm run build:docs -s",
+    "build:jsx": "babel src/main/jsx -d build",
+    "build:docs": "cp -r src/main/docs/* build",
     "postinstall": "npm run build",
-    "watch": "babel -w src/babel -d build"
+    "watch": "babel -w src/main/jsx -d build"
   },
   "keywords": [],
   "author": "Logan Woodbury <Testare.i9z@gmail.com>",

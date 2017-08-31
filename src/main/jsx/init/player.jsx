@@ -1,7 +1,5 @@
-const assets = require("../../assets")
-
 const actorInit = actor => actor
-module.exports.init = ({actor:actorName,...player}) => ({
+module.exports.init = assets => ({actor:actorName,...player}) => ({
     currentFrame:0, //defaults
     flipped:false,
     ...player,

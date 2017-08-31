@@ -18,7 +18,7 @@ const createWindow = ({ resolution: [resWidth, resHeight] }) => new BrowserWindo
 
 const launchGame = assets => {
     let window = createWindow(assets.config)
-    window.loadURL(`file://${__dirname}/../docs/main-window.html`)
+    window.loadURL(`file://${__dirname}/main-window.html`)
     window.once('ready-to-show', (PRODUCTION)? (
         _ => (
             ipc.once('rendered', _ => (
