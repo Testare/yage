@@ -1,0 +1,46 @@
+{
+    "walking": {
+        "src": "bob.png",
+        "width": 34,
+        "height": 34,
+        "frames": [
+            {
+                "ticks":20,
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "shape":"circle",
+                        "coords":"17,17,17"
+                    }
+                ]
+            },
+            {
+                "ticks":10,
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "shape":"circle",
+                        "coords":"17,17,10"
+                    },
+                    {
+                        "type":"ghost",
+                        "shape":"vector",
+                        "coords":"7,0,27,34"
+                    }
+                ]
+
+            },
+            {
+                "ticks":10,
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "shape":"circle",
+                        "coords":"17,17,17"
+                    }
+                ]
+
+            }
+        ]
+    }
+}

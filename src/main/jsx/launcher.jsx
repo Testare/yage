@@ -1,8 +1,14 @@
-const assets = require('../assets')
+const path = require("path");
+const asset_path = (process.argv.length > 2) ? path.join(__dirname, "../", process.argv[2]) : '../assets';
+const assets = require(asset_path)
 const {app, BrowserWindow, ipcMain: ipc } = require("electron")
 
 let gameWindow;
 const PRODUCTION = false
+
+ipc.on('get-assets', (event, arg)=> {
+    event.returnValue=asset_path;
+})
 
 app.on("ready", _ => {
     gameWindow = launchGame(assets)
@@ -39,3 +45,4 @@ const stopGame = window => {
     window = null
 }
 
+process.argv.forEach((value,index)=>console.log(index + ":" + value));

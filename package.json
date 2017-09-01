@@ -4,7 +4,8 @@
   "description": "Yet Another Game Engine. A basic platformer game engine with Electron and some other technologies.",
   "main": "build/launcher.js",
   "scripts": {
-    "start": "electron .",
+    "test": "electron . 'assets_test'",
+    "start": "electron . 'assets'",
     "makedo": "npm run build && npm start",
     "build": "npm run build:jsx -s && npm run build:docs -s",
     "build:jsx": "babel src/main/jsx -d build",
