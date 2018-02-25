@@ -5,17 +5,7 @@
         "height": 34,
         "frames": [
             {
-                "ticks":90,
-                "collisionData": [
-                    {
-                        "type":"body",
-                        "shape":"circle",
-                        "coords":"17,17,17"
-                    }
-                ]
-            },
-            {
-                "ticks":60,
+                "ticks":10,
                 "collisionData": [
                     {
                         "type":"body",
@@ -35,7 +25,7 @@
                 ]
             },
             {
-                "ticks":50,
+                "ticks":10,
                 "collisionData": [
                     {
                         "type":"body",
@@ -45,7 +35,17 @@
                 ]
             },
             {
-                "ticks":5,
+                "ticks":10,
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "shape":"circle",
+                        "coords":"17,17,17"
+                    }
+                ]
+            },
+            {
+                "ticks":3,
                 "collisionData": [
                     {
                         "type":"body",
