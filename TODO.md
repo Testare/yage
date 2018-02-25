@@ -3,9 +3,11 @@
     * Capturing the events
     * Creating an "input state agent"
 * Update behavior
-* Refactor source directory to maven-style (src/main/jsx/...)
 * Narrow collision engine
-* Asset injection
-* Asset injection in init: Is there a better way?
 * Test code?
 * Figure out that weird "scale" function and how it should be placed.
+* Investigate bablify/browserify. Probably should separate run and launcher
+* Asset loading
+* Separate the launcher that determines the assets and the launcher that starts the program. This way the first launcher can be the executable and the second will be part of the library.
+* JSDocs?
+* ClojureScript?

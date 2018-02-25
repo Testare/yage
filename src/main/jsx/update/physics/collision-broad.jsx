@@ -1,4 +1,5 @@
 const fp = require("lodash/fp")
+const {checkCollision} = require('./collision-narrow');
 //Should be renamed, since this has to move the sprites as well
 const runCollision = ({spriteList,...map}) => {
     //later I can work in init on creating the collision arary
@@ -41,12 +42,18 @@ const runCollisionInstance = (spriteList, instanceSprite) => {
             )
         }, spriteList
     )
-    if(overlaps.length != 0) {
-        //NARROW PHASE COLLISION
+    if (overlaps.length != 0) {
+        // NARROW PHASE COLLISION
+        // COLLISION HANDLING
+        const collisionResults = overlaps.map(overlap=>checkCollision(spriteList, instanceSprite, overlap))
+        // Determine if a collision has occured
+        // Determine if the collision should affect movement
+        // Determine how much the collision should affect movement
+        // ... Currently just says "Just cancel the movement"
         return spriteList
     } else {
-        //MOVEMENT LOGIC
-        //THIS NEEDS TO BE REFACTORED TO SOMETHING
+        // MOVEMENT LOGIC
+        // THIS NEEDS TO BE REFACTORED TO SOMETHING
         return {
             ...spriteList,
             [instanceSprite.name]:{
