@@ -1,13 +1,30 @@
+# Essential Features
+* Git organization
+* Better documentation
 * UI interactivity (Capturing and accurate reporting of mouse and keyboard events)
     * Creation of good image maps for mouse collision information
     * Capturing the events
     * Creating an "input state agent"
-* Update behavior
+* Behavior updates
+    * More util functions for Sprites
+    * Parameters for behavior (Customization for behaviors in Sprite JSON)
+    * Behavior game-dev-level compilation
+    * Behaviors React-style JSX?
+    * Behaviors for Levels, Viewport, Game, etc.
+    * Sprite user-defined state?
+    * Sprite hasBehavior
 * Narrow collision engine
 * Test code?
-* Figure out that weird "scale" function and how it should be placed.
-* Investigate bablify/browserify. Probably should separate run and launcher
+* Multiple maps on one screen
+* HTML Sprites
+* Music/Audio
 * Asset loading
-* Separate the launcher that determines the assets and the launcher that starts the program. This way the first launcher can be the executable and the second will be part of the library.
+    * Update draw-sprite to not have the background-url for sprites hardcoded
+
+# Bugs/Code Improvements
+* Figure out that weird "scale" function and how it should be placed.
+
+# Extra features
 * JSDocs?
 * ClojureScript?
+* Other languages for behaviors?

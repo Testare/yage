@@ -3,6 +3,7 @@ const React = require('react')
 const pAnimation = ({actor,animation}) => actor[animation]
 
 const playerStyle = ({currentFrame,...player}) => ({
+    // This URL should not be hard-coded: Needs to load from assets loader
     backgroundImage: `url('../assets/actors/strips/${pAnimation(player).src}')`,
     backgroundPositionX: -currentFrame * (1+ pAnimation(player).width), //The 1+ gives room for dividing lines
     width: pAnimation(player).width,

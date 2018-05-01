@@ -11,7 +11,7 @@
                 "animation":"waiting",
                 "currentFrame":4
             },
-            "behaviors":["waiting","talking"],
+            "behaviors":[],
             "physics": {
                 "ignoreCollisions": true,
                 "posX":750,

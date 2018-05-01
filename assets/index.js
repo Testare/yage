@@ -5,6 +5,7 @@
 //This defines all the types of assets, and the functions to clean them
 assetReaders = {
     "actors":require("./actors"),
+    "behaviors":require("./behaviors"),
     "maps":require("./maps"),
     "templateSprites":require("./templateSprites")
 }

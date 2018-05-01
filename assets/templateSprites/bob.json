@@ -5,6 +5,6 @@
         "currentFrame":2,
         "flipped":true
     },
-    "behaviors": ["walking"],
+    "behaviors": ["wasd"],
     "zFrame": 19
 }

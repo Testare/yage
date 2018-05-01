@@ -28,6 +28,7 @@
       "es2017"
     ],
     "plugins": [
+      "macros",
       "transform-class-properties",
       "transform-object-rest-spread"
     ]
@@ -35,6 +36,7 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
+    "babel-plugin-macros": "^2.2.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-es2017": "^6.24.1",

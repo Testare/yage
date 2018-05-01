@@ -23,7 +23,7 @@ onmouseup = ui.inputUp
 
 const onLoop = runAtom => _ => {
     runAtom.gameState.input = ui.nextInput()
-    runAtom.gameState = update(runAtom.gameState)
+    runAtom.gameState = update(assets)(runAtom.gameState)
     // console.log(ui.derefInputAtom())
     if (!runAtom.running || runAtom.tick == lastTick) {
         clearInterval(runAtom.currentLoop)
@@ -52,7 +52,6 @@ const stopRun = runAtom => {
 }
 
 let globalRunAtom;
-
 
 globalRunAtom = startRun(init.game(assets));
 
