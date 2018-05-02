@@ -3,7 +3,7 @@
         "actor": "bob",
         "animation": "walking",
         "currentFrame":2,
-        "flipped":true
+        "flipped":false
     },
     "behaviors": ["wasd"],
     "zFrame": 19

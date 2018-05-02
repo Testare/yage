@@ -55,5 +55,52 @@
                 ]
             }
         ]
+    },
+    "spinning": {
+        "src": "george_spinning.png",
+        "width": 34,
+        "height": 34,
+        "frames": [
+            {
+                "ticks":5,
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "shape":"circle",
+                        "coords":"17,17,17"
+                    }
+                ]
+            },
+            {
+                "ticks":5,
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "shape":"circle",
+                        "coords":"17,17,17"
+                    }
+                ]
+            },
+            {
+                "ticks":5,
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "shape":"circle",
+                        "coords":"17,17,17"
+                    }
+                ]
+            },
+            {
+                "ticks":5,
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "shape":"circle",
+                        "coords":"17,17,17"
+                    }
+                ]
+            }
+        ]
     }
 }

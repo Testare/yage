@@ -8,6 +8,8 @@
 * Behavior updates
     * More util functions for Sprites
     * Parameters for behavior (Customization for behaviors in Sprite JSON)
+    * Behavior creation utils
+    * Behavior initialization
     * Behavior game-dev-level compilation
     * Behaviors React-style JSX?
     * Behaviors for Levels, Viewport, Game, etc.
