@@ -15,6 +15,8 @@
     * Behaviors for Levels, Viewport, Game, etc.
     * Sprite user-defined state?
     * Sprite hasBehavior
+    * Self-terminating Temporary behaviors ("effects")
+
 * Narrow collision engine
 * Test code?
 * Multiple maps on one screen
