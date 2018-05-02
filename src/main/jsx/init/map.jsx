@@ -1,5 +1,6 @@
 const sprite = require("./sprite")
 
+// TODO This can probably be updated with some lodash functions and mapping the values
 const spriteRemap = (assets, sprList) => Object.keys(sprList).reduce(
     (acm,key) => ({
         ...acm,

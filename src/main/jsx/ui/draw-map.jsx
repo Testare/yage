@@ -2,6 +2,7 @@ const React = require("react")
 const DrawSprite = require("./draw-sprite")
 const input = require('./input')
 
+// TODO Is this the best place for this?
 const calcScale = ({resolution:[width,height]}) => Math.min(
     ((window.innerWidth - 6)/width),
     ((window.innerHeight - 6)/height)
@@ -11,7 +12,7 @@ const viewportStyle = (state) => {
     let scale = calcScale(state)
     let [width,height] = state.resolution
     return {
-        // cursor:"none",
+        // cursor:"none", // TODO Should probably clean this up
         width:width,
         height:height,
         transform: `scale(${scale}`,
@@ -20,6 +21,7 @@ const viewportStyle = (state) => {
     } //Later: Possibility of stretch-rendering?
 }
 
+// TODO This assets folder line should not be hard-coded
 const mapStyle = (state) => ({
     backgroundImage: `url('../assets/maps/images/${state.src}')`,
     width: state.width,
@@ -27,6 +29,7 @@ const mapStyle = (state) => ({
     left: -state.viewportX,
     top: -state.viewportY
 })
+// TODO clean all this up, remove update from this and draw.jsx
 //For some reason, onMouseMove isn't getting called anymore?
 const DrawMap = ({update,...props}) => (
     <div
