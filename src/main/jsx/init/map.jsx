@@ -1,3 +1,4 @@
+const _ = require('lodash')
 const sprite = require("./sprite")
 
 const spriteRemap = (assets, sprList) => Object.keys(sprList).reduce(
@@ -8,10 +9,11 @@ const spriteRemap = (assets, sprList) => Object.keys(sprList).reduce(
     {}
 )
 
-const audioInit = (audio) => ({
+const audioInit = ({tracks={}, ...audio}) => ({
     fadeRate: 0,
-    sounds: {}, // Switch this and the following line to not allow sounds at start of map
+    tracks: _.mapValues(tracks,v=>[v]),
     ...audio,
+    sounds: {}, // Switch this and the previous line to allow sounds at start of map
     soundCounter: 0
 })
 

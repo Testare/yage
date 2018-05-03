@@ -14,6 +14,6 @@ module.exports.playSound = (state, sound) => _.update(state,'map.audio',
         }
     }))
 
-module.exports.switchTrack = (state, trackName, trackSource) => state
-module.exports.setTrack = (state, trackName, trackSource) => state //No fading
+module.exports.switchTrack = (state, trackName, song) => state
+module.exports.setTrack = (state, trackName, song) => _.update(state, `map.audio.tracks['${trackName}']`,_.constant([song])) //No fading
 module.exports.clearTrack = (state, trackName) => state
