@@ -1,6 +1,7 @@
 const React = require("react")
 const DrawSprite = require("./draw-sprite")
 const input = require('./input')
+const AudioPlayer = require('./ui-audio')
 
 const calcScale = ({resolution:[width,height]}) => Math.min(
     ((window.innerWidth - 6)/width),
@@ -42,6 +43,7 @@ const DrawMap = ({update,...props}) => (
             style={mapStyle(props.map)}
         >
             <SpriteList update={update} {...props.map.spriteList} />
+            <AudioPlayer {...props.map.audio} />
         </div>
     </div>
 )

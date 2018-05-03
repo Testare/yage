@@ -1,10 +1,13 @@
 const _ = require('lodash');
 
 module.exports.update = 
-    ({utils:{sprites:{getAnimation, setAnimation}}, state, me}) => (!ui.checkPress('KeyB'))
+    ({utils:{audio:{playSound}, sprites:{getAnimation, setAnimation}}, state, me}) => (!ui.checkPress('KeyB'))
         ? state
-        : setAnimation(
-            state,
-            me,
-            (getAnimation(state, me) === 'waiting') ? 'spinning' : 'waiting'
+        : playSound(
+            setAnimation(
+                state,
+                me,
+                (getAnimation(state, me) === 'waiting') ? 'spinning' : 'waiting'
+            ),
+            "ping.mp3"
         )
