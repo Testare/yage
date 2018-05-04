@@ -60,7 +60,7 @@ const DrawSprite = props => (
         className="drawsprite"
         style={spriteStyle(props)}
     >
-    <DrawCollisionFrame {...props} />
+    {/*<DrawCollisionFrame {...props} />*/}
     </span>
 )
 

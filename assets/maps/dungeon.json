@@ -29,6 +29,39 @@
                 "velX":1,
                 "velY":0
             }
+        },
+        "bullet1": {
+            "fromTemplate": "bullet",
+            "physics": {
+                "posX": 800,
+                "posY": 100,
+                "velX":0,
+                "velY":0
+            }
+        },
+        "bullet2": {
+            "fromTemplate": "bullet",
+            "physics": {
+                "posX": 750,
+                "posY": 100,
+                "velX":0,
+                "velY":0
+            },
+            "player": {
+                "currentFrame": 1
+            }
+        },
+        "bullet3": {
+            "fromTemplate": "bullet",
+            "physics": {
+                "posX": 700,
+                "posY": 100,
+                "velX":0,
+                "velY":0
+            },
+            "player": {
+                "currentFrame": 2
+            }
         }
     }
 }

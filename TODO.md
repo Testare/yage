@@ -6,14 +6,17 @@
     * Parameters for behavior (Customization for behaviors in Sprite JSON)
     * Behavior creation utils
     * Behavior initialization
-    * Behaviors that only need to run initially? (Possible "onstart" attribute separate from behaviors)
+    * Behaviors that only need to run initially? (Possible "onstart" attribute separate from behaviors, or behaviors that remove themselves)
     * Behavior game-dev-level compilation
     * Behaviors React-style JSX?
     * Behaviors for Levels, Viewport, Game, etc.
     * Sprite user-defined state?
     * Sprite hasBehavior
 * Narrow collision engine
-* Multiple maps on one screen?
+    * Collision behaviors: ghost - elastic - inelastic
+    * Box - Box
+    * Circle - Box
+    * Circle - Circle
 * HTML Sprites
 * Asset loading
     * Update draw-sprite to not have the background-url for sprites hardcoded
@@ -25,9 +28,14 @@
 * Figure out that weird "scale" function and how it should be placed.
 
 # Extra features
+* Multiple maps on one screen?
 * JSDocs?
 * ClojureScript?
 * Other languages for behaviors?
+* Narrow collision engine: vectors
+    * Box - Vector
+    * Circle - Vector
+    * Vector - Vector
 
 # Areas for optimization
 * Behaviors pulled to centralized place
