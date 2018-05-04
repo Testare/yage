@@ -13,5 +13,5 @@ module.exports.update =
                 "switch.mp3"
             ),
             "main",
-            ["switch.mp3",1.0]
+            ["ticker.mp3",.3]
         ))

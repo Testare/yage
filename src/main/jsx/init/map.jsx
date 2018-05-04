@@ -9,9 +9,10 @@ const spriteRemap = (assets, sprList) => Object.keys(sprList).reduce(
     {}
 )
 
-const audioInit = ({tracks={}, ...audio}) => ({
+const audioInit = ({tracks={},soundBoards=["all"], ...audio}) => ({
     fadeRate: 0,
     tracks: _.mapValues(tracks,v=>[v]),
+    soundBoards:soundBoards,
     ...audio,
     sounds: {}, // Switch this and the previous line to allow sounds at start of map
     soundCounter: 0
