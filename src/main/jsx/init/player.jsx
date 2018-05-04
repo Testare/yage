@@ -2,10 +2,6 @@ const actorInit = actor => actor
 
 module.exports.init = assets => actor => {
     const {actor:actorName, ...player} = (typeof actor === 'string') ? {actor:actor} : actor
-    console.log(actor)
-    console.log(actorName)
-    console.log(player)
-    console.log("---")
     return {
         currentFrame:0, //defaults
         flipped:false,

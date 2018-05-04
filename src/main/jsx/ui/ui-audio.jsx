@@ -18,27 +18,29 @@ class Song extends React.Component {
     }
 }
 
-const Sound = ({name, src}) => <audio autoPlay src={src} onEnded={_=>audio.markForCleanup(name)} />
-const Track = ({assetpath, srcs}) => <div>
-        {srcs.map(audio.toStandardAudio).map(src=> <Song volume={src[1]} key={src[0]} src={path.join(assetpath, src[0])} />)}
+const Track = ({assetPath, srcs}) => <div>
+        {srcs.map(audio.toStandardAudio).map(src=> <Song volume={src[1]} key={src[0]} src={path.join(assetPath, 'audio', src[0])} />)}
     </div>
-const SoundBoard = ({assetpath, name}) => {
-    const sounds = (name === "all") ? fs.readdirSync(path.join(".",assetpath)) : [] // TODO implement optional soundboards
+
+const SoundBoard = ({assetPath, name}) => {
+    const sounds = (name === "all") ? fs.readdirSync(path.join(assetPath, 'audio')) : [] // TODO implement optional soundboards
     return <div key='sb'>
-        {sounds.map(src=><audio src={path.join("..",assetpath,src)} key={src} />)}
+        {sounds.map(src=><audio src={path.join(assetPath,'audio',src)} key={src} />)}
     </div>
 }
 
-const AudioPlayer = ({soundBoards, tracks, sounds}) => ( // TODO pass assetpath instead of hardcoding it
+const Sound = ({assetPath, name, src}) => <audio autoPlay src={path.join(assetPath, 'audio', src)} onEnded={_=>audio.markForCleanup(name)} />
+
+const AudioPlayer = ({assetPath, soundBoards, tracks, sounds}) => ( 
     <div>
-        <div key="soundBoards">
-            {soundBoards.map((name) => <SoundBoard key={name} assetpath="assets/audio/" name={name} />)}
-        </div>
         <div key="tracks">
-            {Object.keys(tracks).map((name) => <Track key={name} assetpath="../assets/audio/" srcs={tracks[name]} />)}
+            {Object.keys(tracks).map((name) => <Track key={name} assetPath={assetPath} srcs={tracks[name]} />)}
+        </div>
+        <div key="soundBoards">
+            {soundBoards.map((name) => <SoundBoard key={name} assetPath={assetPath} name={name} />)}
         </div>
         <div key="sounds">
-            {Object.keys(sounds).map((name) => <Sound key={name} name={name} src={`../assets/audio/${sounds[name]}`} />)}
+            {Object.keys(sounds).map((name) => <Sound key={name} name={name} assetPath={assetPath} src={sounds[name]} />)}
         </div>
     </div>
 )

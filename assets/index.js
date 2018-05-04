@@ -13,9 +13,11 @@ assetReaders = {
 //requires the asset, and then passes json to the asset's assetReader to perform any necessary cleaning
 const reqAsset = (assetType,assetName) => Object.assign({name:assetName},assetReaders[assetType](require(`./${assetType}/${assetName}`)))
 
-module.exports = new Proxy({},{
+module.exports = path => new Proxy({},{
     get: (cache,assetType) => (!assetReaders[assetType]) ? (
-        (assetType === 'config')?require('./config'):undefined
+        (assetType === 'config')? require('./config')
+        : (assetType === 'assetPath')? path
+        : undefined
     ) : ( //If not a type defined in assetReaders, return undefined
         cache[assetType] || (cache[assetType] = new Proxy({},{ //returns a proxy for that assetType from the cache (creating if necessary)
             get: (subCache,assetName) => subCache[assetName] || (subCache[assetName] = reqAsset(assetType,assetName))

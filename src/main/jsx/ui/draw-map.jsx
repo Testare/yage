@@ -2,6 +2,9 @@ const React = require("react")
 const DrawSprite = require("./draw-sprite")
 const input = require('./input')
 const AudioPlayer = require('./ui-audio')
+const _ = require('lodash')
+const path = require('path')
+
 
 // TODO Is this the best place for this?
 const calcScale = ({resolution:[width,height]}) => Math.min(
@@ -10,8 +13,8 @@ const calcScale = ({resolution:[width,height]}) => Math.min(
 )
 
 const viewportStyle = (state) => {
-    let scale = calcScale(state)
-    let [width,height] = state.resolution
+    const scale = calcScale(state)
+    const [width,height] = state.resolution
     return {
         // cursor:"none", // TODO Should probably clean this up
         width:width,
@@ -23,8 +26,8 @@ const viewportStyle = (state) => {
 }
 
 // TODO This assets folder line should not be hard-coded
-const mapStyle = (state) => ({
-    backgroundImage: `url('../assets/maps/images/${state.src}')`,
+const mapStyle = (assetPath, state) => ({
+    backgroundImage: `url('${path.join(assetPath,'maps/images/',state.src)}')`,
     width: state.width,
     height: state.height,
     left: -state.viewportX,
@@ -32,28 +35,30 @@ const mapStyle = (state) => ({
 })
 // TODO clean all this up, remove update from this and draw.jsx
 //For some reason, onMouseMove isn't getting called anymore?
-const DrawMap = ({update,...props}) => (
+const DrawMap = (props) => (
     <div
         id="draw-viewport"
         style={viewportStyle(props)}
-        onMouseMove={input.cursorPos(props,calcScale(props))} // NOTE If we ever make a game have multiple maps, this will need to move
+        onMouseMove={input.cursorPos(props, calcScale(props))} // NOTE If we ever make a game have multiple maps, this will need to move
         onWheel={input.wheelScroll}
     >
         <div
             className="drawmap"
-            style={mapStyle(props.map)}
+            style={mapStyle(props.assetPath, props.map)}
         >
-            <SpriteList update={update} {...props.map.spriteList} />
-            <AudioPlayer {...props.map.audio} />
+            <SpriteList update={update} {..._.pick(props,['assetPath','debug'])} {...props.map.spriteList} />
+            <AudioPlayer {...props.map.audio} {..._.pick(props,['assetPath','debug'])} />
         </div>
     </div>
 )
 
-SpriteList = ({update,...props}) => (
+SpriteList = ({update, assetPath, debug, ...props}) => (
     <div>{
         Object.keys(props).map(sprKey => (
             <DrawSprite
                 update={update}
+                debug={debug}
+                assetPath={assetPath}
                 key={sprKey}
                 {...props[sprKey]}
             />)

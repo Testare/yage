@@ -1,4 +1,4 @@
-# Essential Features
+# Essential Features for 1.0
 * Git organization
 * Better documentation
 * Behavior updates
@@ -17,25 +17,31 @@
     * Box - Box
     * Circle - Box
     * Circle - Circle
+    * Optional draw collision
+    * Collision information for the map
 * HTML Sprites
 * Asset loading
-    * Update draw-sprite to not have the background-url for sprites hardcoded
-    * Also for draw-map backgrounds
-    * Also for audio
+    * When assets not found, throw better errors
+    * Load asset folders without needing the specified "index.js" files
 * Actor loading: Preload background images so switching animations is smoother
+* Rename "build" to "yage"?
+* Determine how to use yage as a node dependency so NPM can be used to build games
 
-# Bugs/Code Improvements
-* Figure out that weird "scale" function and how it should be placed.
-
-# Extra features
-* Multiple maps on one screen?
-* JSDocs?
-* ClojureScript?
-* Other languages for behaviors?
+# Later features
 * Narrow collision engine: vectors
     * Box - Vector
     * Circle - Vector
     * Vector - Vector
+
+# Bugs/Code Improvements
+* Figure out that weird "scale" function and how it should be placed.
+
+# Possible extra features
+* Multiple maps on one screen?
+* JSDocs?
+* ClojureScript?
+* Other languages for behaviors?
+
 
 # Areas for optimization
 * Behaviors pulled to centralized place

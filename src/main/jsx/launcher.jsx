@@ -1,6 +1,7 @@
 const path = require("path");
-const asset_path = (process.argv.length > 2) ? path.join(__dirname, "../", process.argv[2]) : '../assets';
-const assets = require(asset_path)
+const asset_path = path.join(__dirname, (process.argv.length > 2) ? path.join("../", process.argv[2]) : '../assets');
+const assets = require('./loader').loadAssetsFromPath(asset_path)
+//const assets = require(asset_path)(asset_path)
 const {app, BrowserWindow, ipcMain: ipc } = require("electron")
 
 let gameWindow;
