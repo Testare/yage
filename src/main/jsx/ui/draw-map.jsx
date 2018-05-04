@@ -35,13 +35,11 @@ const DrawMap = ({update,...props}) => (
     <div
         id="draw-viewport"
         style={viewportStyle(props)}
-        onMouseMove={input.cursorPos(props,calcScale(props))}
+        onMouseMove={input.cursorPos(props,calcScale(props))} // NOTE If we ever make a game have multiple maps, this will need to move
+        onWheel={input.wheelScroll}
     >
         <div
             className="drawmap"
-            /*onMouseEnter={update("map")}
-            onMouseLeave={update("map")}
-            onKeyDown={update("map")}*/
             style={mapStyle(props.map)}
         >
             <SpriteList update={update} {...props.map.spriteList} />

@@ -43,6 +43,7 @@ module.exports.checkUp = code => !(currentAtom[code] & KEY_DOWN)
 module.exports.checkRelease = code => !!(currentAtom[code] & FLAG_RELEASE)
 module.exports.checkPress = code => !!(currentAtom[code] & FLAG_PRESS)
 module.exports.derefAtom = _ => ({ ...currentAtom })
+module.exports.checkWheel = _ => currentAtom["wheel"]
 
 //Might be modified in the future to handle mouse position even when the mouse is outside the viewport.
 module.exports.cursorPos = (props, mapScale) => event => {
@@ -51,12 +52,21 @@ module.exports.cursorPos = (props, mapScale) => event => {
     let {viewportX,viewportY} = props.map
     mapX = (screenX/mapScale + viewportX)
     mapY = (screenY/mapScale + viewportY)
+    // NOTE If we get multiple maps, this will need to change. We can store the
+    // screenX/mapScale (mapScale really being screenScale, since the maps are
+    // all made to fit the screen resolution specified), but the viewportX and
+    // viewportY of the different maps would have to be added for individual
+    // maps.
+    // 
 }
 
 module.exports.mapPos = _ => [mapX, mapY]
 
+module.exports.wheelScroll = event => {
+    nextAtom["wheel"] = [event.deltaX, event.deltaY, event.deltaZ]
+}
+
 module.exports.inputDown = (event) => {
-    console.log("INPUT:" + event.code);
     code = event.code || ("Mouse" + event.button)
     nextAtom[code] = ON_KEY_DOWN[nextAtom[code] || KEY_UP]
 }
