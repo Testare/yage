@@ -12,6 +12,8 @@
     * Behaviors for Levels, Viewport, Game, etc.
     * Sprite user-defined state?
     * Sprite hasBehavior
+    * Self-terminating Temporary behaviors ("effects")
+
 * Narrow collision engine
     * Collision behaviors: ghost - elastic - inelastic
     * Box - Box
@@ -41,7 +43,6 @@
 * JSDocs?
 * ClojureScript?
 * Other languages for behaviors?
-
 
 # Areas for optimization
 * Behaviors pulled to centralized place
