@@ -11,6 +11,7 @@ const assets = loader.loadAssetsFromPath(ipc.sendSync('get-assets','ping'))
 
 const lastTick = -1 // Game stops when tick === lastTick. Just set it to -1 when ready to use for real
 const interval = 17 // How many milliseconds to wait between frames
+const cleanupInterval = 120 // How many frames between similar cleanup ops
 
 onkeydown = ui.inputDown
 onkeyup = ui.inputUp
@@ -24,6 +25,13 @@ onmouseup = ui.inputUp
 const onLoop = runAtom => _ => {
     runAtom.gameState.input = ui.nextInput()
     runAtom.gameState = update(assets)(runAtom.gameState)
+    if (runAtom.tick % cleanupInterval == 0) { 
+        // Every so often, remove finished sounds from ui
+        runAtom.gameState = ui.cleanupSound(runAtom.gameState)
+        // If more cleanup ops are necessary, switch with a switch statement
+        // Do different cleanup ops for different values of runAtom.tick % cleanupInterval
+        // To avoid putting huge loads on a single frame
+    }
     // console.log(ui.derefInputAtom())
     if (!runAtom.running || runAtom.tick == lastTick) {
         clearInterval(runAtom.currentLoop)

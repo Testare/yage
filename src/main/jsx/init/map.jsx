@@ -1,3 +1,4 @@
+const _ = require('lodash')
 const sprite = require("./sprite")
 
 // TODO This can probably be updated with some lodash functions and mapping the values
@@ -9,9 +10,19 @@ const spriteRemap = (assets, sprList) => Object.keys(sprList).reduce(
     {}
 )
 
-module.exports.init = assets => ({spriteList,...initState}) => ({
+const audioInit = ({tracks={},soundBoards=["all"], ...audio}) => ({
+    fadeRate: 0,
+    tracks: _.mapValues(tracks,v=>[v]),
+    soundBoards:soundBoards,
+    ...audio,
+    sounds: {}, // Switch this and the previous line to allow sounds at start of map
+    soundCounter: 0
+})
+
+module.exports.init = assets => ({audio, spriteList,...initState}) => ({
     viewportX:0, //defaults
     viewportY:0,
+    audio: audioInit(audio),
     ...initState,
     spriteList:spriteRemap(assets, spriteList)
 })

@@ -4,6 +4,15 @@
     "height":900,
     "viewportX":400,
     "viewportY":50,
+    "audio": {
+        "fadeRate":3.5,
+        "tracks":{
+            "main":["ticker.mp3", 0.05]
+        }, 
+        "sounds":{
+            "sound1":"ping.mp3"
+        }
+    },
     "spriteList": {
         "george": {
             "player": {
