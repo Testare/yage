@@ -8,6 +8,13 @@ const runOps = ({ops, ...state}, document) => ({
         state
     )
 })
+const log = (state, document, {message, displayState}) => {
+    console.log(message)
+    if (displayState) {
+        console.log("^", state)
+    }
+    return state;
+}
 
 // Different ops
 const loadMap = (state, document, params) => {
@@ -40,6 +47,7 @@ const screenshotMap = (state, document, params) => {
 const opActs = {
     loadMap:["load-map", loadMap],
     loadState:["load-state", loadState],
+    log:["log", log],
     pause:["pause", pause],
     saveState:["save-state", saveState],
     screenshot:["screenshot", screenshotMap]    
