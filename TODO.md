@@ -61,6 +61,7 @@
     * Save game state
     * Loading new level
     * Loading game state
+    * Screenshot
 
 # After 1.0
 * yage ide (name?) to help create the "assets" object for different games
@@ -71,6 +72,7 @@
     * Box - Vector
     * Circle - Vector
     * Vector - Vector
+* Creating sprite from screenshot
 
 # Bugs/Code Improvements
 * Figure out that weird "scale" function and how it should be placed.
