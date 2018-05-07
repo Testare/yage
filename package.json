@@ -1,6 +1,10 @@
 {
   "name": "yage",
   "version": "0.4.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Testare/yage"
+  },
   "description": "Yet Another Game Engine. A basic platformer game engine with Electron and some other technologies.",
   "main": "build/launcher.js",
   "scripts": {
