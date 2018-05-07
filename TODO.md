@@ -61,7 +61,6 @@
     * Save game state
     * Loading new level
     * Loading game state
-    * Screenshot
 
 # After 1.0
 * yage ide (name?) to help create the "assets" object for different games
@@ -76,6 +75,9 @@
 
 # Bugs/Code Improvements
 * Figure out that weird "scale" function and how it should be placed.
+* Bug with screepshot op and flipped images being clipped wrong near the
+  edges. Try to get resolved with html2canvas first, but if not, do a 
+  work around.
 
 # Possible extra features
 * Multiple maps on one screen?

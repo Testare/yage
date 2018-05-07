@@ -1,4 +1,6 @@
 const _ = require('lodash')
+const html2canvas = require('html2canvas')
+const fs = require('fs')
 
 const runOps = ({ops, ...state}, document) => ({
     ops:[],
@@ -37,8 +39,28 @@ const saveState = (state, document, params) => {
     return state;
 }
 
-const screenshotMap = (state, document, params) => {
-    console.log("screenshot!");
+const screenshotMap = (state, document, {target="img.png", mapHtmlId="render-screen", h2cparams={logging:false}, errHandler=(error=>{if(error) console.error(error)})}) => {
+    // There are two bugs in html2canvas that make this a bit more difficult.
+    // The first bug has to do with the size of the canvas when the rendered
+    // element is transformed. A work around for this has been put in place
+    // in the draw-map: Rendering a div with the proper height and width.
+    //
+    // Current bug in HTML2CANVAS: Images rotated with scaleX(), but where only
+    // part of the image is rendered, will have the wrong half of them rendered
+    // This means the screenshot will be buggy around the edges.
+    //
+    // It might be possible to have a work around where we change render-screen
+    // and draw-map to overflow:visible, and then have another div around them
+    // with overflow:hidden. We then render the one with overflow:visible.
+    //
+    // https://github.com/niklasvh/html2canvas/issues/1524
+    html2canvas(document.getElementById(mapHtmlId), h2cparams).then(
+        screenshot=>{
+            img = screenshot.toDataURL()
+            var data = img.replace(/^data:image\/\w+;base64,/, "");
+            var buf = new Buffer(data, 'base64');
+            fs.writeFileSync(target, buf)
+        }).catch(errHandler)
     return state;
 }
 
