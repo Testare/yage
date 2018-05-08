@@ -27,7 +27,7 @@ const onLoop = runAtom => _ => {
     runAtom.gameState.input = ui.nextInput()
     runAtom.gameState = update(assets)(runAtom.gameState)
     if (runAtom.gameState.ops.length != 0) {
-        runAtom.gameState = ops.runOps(runAtom.gameState, document)
+        runAtom.gameState = ops.runOps(runAtom.gameState, document, assets)
     }
     if (runAtom.tick % cleanupInterval == 0) { 
         // Every so often, remove finished sounds from ui

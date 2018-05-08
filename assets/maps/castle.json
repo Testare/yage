@@ -1,19 +1,32 @@
 {
-    "src":"castle.png",
+    "src":"dungeon.png",
     "width":2000,
-    "height":500,
+    "height":900,
+    "viewportX":400,
+    "viewportY":50,
+    "audio": {
+        "fadeRate":3.5,
+        "tracks":{
+        }
+    },
     "spriteList": {
         "george": {
             "player": {
                 "actor":"george",
                 "animation":"waiting",
-                "currentFrame":5
+                "currentFrame":4
             },
-            "behaviors":["waiting","talking"],
+            "behaviors":[
+                "toggle",
+                "saveOnP",
+                "saveMeOnO",
+                "loadOnL",
+                "loadMeOnK"
+            ],
             "physics": {
-                "ignoreCollisions": true, 
-                "posX":50,
-                "posY":50,
+                "ignoreCollisions": true,
+                "posX":550,
+                "posY":393,
                 "velX":0,
                 "velY":0
             },
@@ -23,8 +36,8 @@
             "fromTemplate": "bob",
             "physics": {
                 "posX":450,
-                "posY":50,
-                "velX":-1,
+                "posY":393,
+                "velX":1,
                 "velY":0
             }
         }

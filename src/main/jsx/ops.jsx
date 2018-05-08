@@ -2,17 +2,18 @@ const _ = require('lodash')
 const html2canvas = require('html2canvas')
 const fs = require('fs')
 const path = require('path')
+const init = require('./init')
 
 // This runs all the specified ops in the state
-const runOps = ({ops, ...state}, document) => ({
+const runOps = ({ops, ...state}, document, assets) => ({
     ops:[],
     ..._.reduce(
         ops,
-        (state_, [opName,opParams])=> opActs[opName](state_,document,opParams),
+        (state_, [opName,opParams])=> opActs[opName](state_, opParams, document, assets),
         state
     )
 })
-const log = (state, document, {message, displayState}) => {
+const log = (state, {message, displayState}) => {
     console.log(message)
     if (displayState) {
         console.log("^", state)
@@ -20,11 +21,15 @@ const log = (state, document, {message, displayState}) => {
     return state;
 }
 
-// Different ops
-const loadMap = (state, document, params) => {
-    console.log("load map!");
-    return state;
-}
+// Pretty simple op: Loads one of the map assets
+// Only one property of the params object, mapName. It is the
+// only property, but it is a necessary property with no default
+// value.
+// * mapName: Name of the map to load. ".json" not necessary.
+const loadMap = (state, {mapName}, __, assets) => ({
+    ...state,
+    map:init.map(assets)(assets.maps[mapName])
+})
 
 // Most of these parameters can be figured out from the saveState function.
 // * segment: If not specified, the segment will be used from the save file. If
@@ -43,7 +48,7 @@ const loadMap = (state, document, params) => {
 //   changes in state you want to perform from the "op" timeslot, instead of
 //   the normal update cycle timeslot.
 
-const loadState = (state, document, {fileLocation, segment, saveName="sav.json", loadHandler=_.identity}) => {
+const loadState = (state, {fileLocation, segment, saveName="sav.json", loadHandler=_.identity}) => {
     const saveLocation = fileLocation || path.join(state.assetPath,"saves",saveName)
     const loadFrame = loadHandler(JSON.parse(fs.readFileSync(saveLocation,'utf8')))
     const trueSegment = segment || loadFrame.segment
@@ -51,7 +56,7 @@ const loadState = (state, document, {fileLocation, segment, saveName="sav.json",
     return loadedState;
 }
 
-const pause = (state, document, params) => {
+const pause = (state, params) => {
     console.log("pause!");
     return state;
 }
@@ -71,7 +76,7 @@ const pause = (state, document, params) => {
 //
 // The savefile format is a json object with {segment, version, saveObject}.
 // The other two are the values specified in the parameters
-const saveState = (state, document, {fileLocation, segment, saveName="sav.json", version="0", saveHandler=_.identity}) => {
+const saveState = (state, {fileLocation, segment, saveName="sav.json", version="0", saveHandler=_.identity}) => {
     const saveLocation = fileLocation || path.join(state.assetPath,"saves",saveName)
     const saveObject = saveHandler(segment ? _.get(state, segment) : state)
     const saveFrame = {
@@ -91,7 +96,12 @@ const saveState = (state, document, {fileLocation, segment, saveName="sav.json",
 // * h2cparams: html2canvas parameters. Default is just turning off logging.
 // * errHandler: Handles errors, duh
 
-const screenshot = (state, document, {fileLocation="img.png", mapHtmlId="render-screen", h2cparams={logging:false}, errHandler=(error=>{if(error) console.error(error)})}) => {
+const screenshot = (state, {
+        fileLocation="img.png",
+        mapHtmlId="render-screen",
+        h2cparams={logging:false},
+        errHandler=(error=>{if(error) console.error(error)})
+    }, document) => {
     // There are two bugs in html2canvas that make this a bit more difficult.
     // The first bug has to do with the size of the canvas when the rendered
     // element is transformed. A work around for this has been put in place

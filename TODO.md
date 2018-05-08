@@ -58,7 +58,7 @@
       represented in the game state object, or affect game state in a way that
       doesn't work well mid-update
     * Pause game
-    * Loading new level
+    * Quit game
     * Config option: default save location
 
 # After 1.0
