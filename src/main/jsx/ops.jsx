@@ -5,11 +5,11 @@ const path = require('path')
 const init = require('./init')
 
 // This runs all the specified ops in the state
-const runOps = ({ops, ...state}, document, assets) => ({
+const runOps = ({ops, ...state}, utils) => ({
     ops:[],
     ..._.reduce(
         ops,
-        (state_, [opName,opParams])=> opActs[opName](state_, opParams, document, assets),
+        (state_, [opName,opParams])=> opActs[opName](state_, opParams, utils),
         state
     )
 })
@@ -26,7 +26,7 @@ const log = (state, {message, displayState}) => {
 // only property, but it is a necessary property with no default
 // value.
 // * mapName: Name of the map to load. ".json" not necessary.
-const loadMap = (state, {mapName}, __, assets) => ({
+const loadMap = (state, {mapName}, {assets}) => ({
     ...state,
     map:init.map(assets)(assets.maps[mapName])
 })
@@ -88,6 +88,11 @@ const saveState = (state, {fileLocation, segment, saveName="sav.json", version="
     return state;
 }
 
+const quitGame = (state, params, {runAtom}) => {
+    runAtom.running = false;
+    return state
+}
+
 // Takes a screenshot of the map and saves it to a file
 // parameter specs:
 // * target: the location to save the image
@@ -101,7 +106,7 @@ const screenshot = (state, {
         mapHtmlId="render-screen",
         h2cparams={logging:false},
         errHandler=(error=>{if(error) console.error(error)})
-    }, document) => {
+    }, {document}) => {
     // There are two bugs in html2canvas that make this a bit more difficult.
     // The first bug has to do with the size of the canvas when the rendered
     // element is transformed. A work around for this has been put in place
@@ -126,27 +131,19 @@ const screenshot = (state, {
     return state;
 }
 
+
 // Op directory
-// Form: identifier: [string-identifier, function]
-// Probably can change it to just being opActs= {loadMap, loadState, ...}
 const opActs = {
     loadMap,
     loadState,
     log,
     pause,
     saveState,
-    screenshot
+    screenshot,
+    quitGame
 }
-/*const opActs = {
-    loadMap:["loadMap", loadMap],
-    loadState:["loadState", loadState],
-    log:["log", log],
-    pause:["pause", pause],
-    saveState:["saveState", saveState],
-    screenshot:["screenshot", screenshotMap]    
-}*/
 
 // Use for when ops are registered
-const optags = _.mapValues(opActs, (__,k)=>k)
+const optags = _.mapValues(opActs, (__,key)=>key)
 
 module.exports = {optags, runOps}

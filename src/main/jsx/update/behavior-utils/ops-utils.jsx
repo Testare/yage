@@ -5,6 +5,7 @@ const {optags} = require('../../ops')
 // This probably should not be exported
 registerOp = (state, newOp) => _.update(state,'ops',x=>_.concat(x,[newOp]))
 registerOpParams = tag => (state, params) => registerOp(state, [tag, params])
+quitGame = state => registerOp(state, [optags.quitGame, ({})])
 
 // Parameter-accepting functions
 loadGameStateParams = registerOpParams(optags.loadState) 
@@ -49,5 +50,6 @@ module.exports = {
     togglePauseGame,
     loadMap,
     screenshotMap,
-    screenshotMapToFile
+    screenshotMapToFile,
+    quitGame
 }

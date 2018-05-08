@@ -27,7 +27,7 @@ const onLoop = runAtom => _ => {
     runAtom.gameState.input = ui.nextInput()
     runAtom.gameState = update(assets)(runAtom.gameState)
     if (runAtom.gameState.ops.length != 0) {
-        runAtom.gameState = ops.runOps(runAtom.gameState, document, assets)
+        runAtom.gameState = ops.runOps(runAtom.gameState, {document, assets, runAtom})
     }
     if (runAtom.tick % cleanupInterval == 0) { 
         // Every so often, remove finished sounds from ui
@@ -38,7 +38,9 @@ const onLoop = runAtom => _ => {
     }
     // console.log(ui.derefInputAtom())
     if (!runAtom.running || runAtom.tick == lastTick) {
-        clearInterval(runAtom.currentLoop)
+        // clearInterval(runAtom.currentLoop)
+        stopRun(runAtom);
+
     } else if(!runAtom.tick) {
         ui.renderMap(runAtom.gameState,_=>ipc.send('rendered',true))
     } else {
@@ -60,7 +62,9 @@ const startRun = gameState => {
 
 const stopRun = runAtom => {
     clearInterval(runAtom.currentLoop)
-    runAtom[running] = false
+    runAtom.running = false
+    console.log("daby")
+    ipc.send('game-finished')
 }
 
 let globalRunAtom;

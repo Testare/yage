@@ -38,6 +38,10 @@ const launchGame = assets => {
     window.on("close", _ => {
         stopGame()
     })
+    ipc.once('game-finished', _=> {
+        window.destroy()
+        stopGame()
+    })
     return window
 }
 
@@ -45,5 +49,3 @@ const stopGame = window => {
     // window.webContents.send('stop-game',1)
     window = null
 }
-
-process.argv.forEach((value,index)=>console.log(index + ":" + value));
