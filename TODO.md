@@ -58,9 +58,8 @@
       represented in the game state object, or affect game state in a way that
       doesn't work well mid-update
     * Pause game
-    * Save game state
     * Loading new level
-    * Loading game state
+    * Config option: default save location
 
 # After 1.0
 * yage ide (name?) to help create the "assets" object for different games

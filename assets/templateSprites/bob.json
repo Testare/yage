@@ -5,6 +5,9 @@
         "currentFrame":2,
         "flipped":false
     },
-    "behaviors": ["wasd"],
+    "behaviors": [
+        "wasd",
+        "loadGeorgePlayerOnJ"
+    ],
     "zFrame": 19
 }

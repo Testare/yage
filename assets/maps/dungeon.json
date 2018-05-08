@@ -22,7 +22,10 @@
             },
             "behaviors":[
                 "toggle",
-                "saveOnP"
+                "saveOnP",
+                "saveMeOnO",
+                "loadOnL",
+                "loadMeOnK"
             ],
             "physics": {
                 "ignoreCollisions": true,

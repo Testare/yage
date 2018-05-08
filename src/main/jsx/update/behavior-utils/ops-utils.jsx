@@ -20,7 +20,9 @@ unpauseGame = (state) => pauseParams(state, {pauseValue:false})
 togglePauseGame = (state) => pauseParams(state, {pauseValue:"toggle"}) 
 
 // Basic use functions
+saveGameStateNamed = (state, saveName) => saveGameStateParams(state, {saveName})
 saveGameStateTo = (state, fileLocation) => saveGameStateParams(state, {fileLocation})
+loadGameStateNamed = (state, saveName) => loadGameStateParams(state, {saveName})
 loadGameStateFrom = (state, fileLocation) => loadGameStateParams(state, {fileLocation})
 loadMap = (state, mapName) => loadMapParams(state, {mapName})
 
@@ -32,17 +34,20 @@ screenshotMapToFile = (state, fileLocation) => screenshotMapParams(state, {fileL
 
 module.exports = {
     loadGameStateParams,
-    loadGameStateFrom,
-    log,
+    loadMapParams,
     logParams,
-    logState,
     saveGameStateParams,
+    screenshotMapParams,
+    loadGameStateFrom,
+    loadGameStateNamed,
+    log,
+    logState,
+    saveGameStateNamed,
     saveGameStateTo,
     pauseGame,
     unpauseGame,
     togglePauseGame,
     loadMap,
-    loadMapParams,
     screenshotMap,
     screenshotMapToFile
 }
