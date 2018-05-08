@@ -1,5 +1,5 @@
 const _ = require('lodash')
-module.exports.update = ({utils:{sprites}, ui, state, me}) => _.flow(
+module.exports.update = ({utils:{sprites}, ui, me}) => state => _.flow(
     _ => sprites.updatePhysics(state, me, {
         velX: ui.checkDown('KeyA') 
             ? -3

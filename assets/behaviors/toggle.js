@@ -1,7 +1,7 @@
 const _ = require('lodash');
 
 module.exports.update = 
-    ({utils:{audio:{playSound,setTrack}, sprites:{getAnimation, setAnimation}}, state, me}) => (!ui.checkPress('KeyB'))
+    ({utils:{audio:{playSound,setTrack}, sprites:{getAnimation, setAnimation}}, me}) => state => (!ui.checkPress('KeyB'))
         ? state
         : (k=>{_.once(console.log)(k); return k})(setTrack(
             playSound(
