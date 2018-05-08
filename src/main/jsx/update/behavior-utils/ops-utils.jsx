@@ -1,9 +1,9 @@
-const _ = require('lodash')
+const _fp = require('lodash/fp')
 const {optags} = require('../../ops')
 // Later this might need to be required from another module
 
 // This probably should not be exported
-registerOp = (state, newOp) => _.update(state,'ops',x=>_.concat(x,[newOp]))
+registerOp = (state, newOp) => _fp.update(state,'ops',x=>_fp.concat(x,[newOp]))
 registerOpParams = tag => (state, params) => registerOp(state, [tag, params])
 quitGame = state => registerOp(state, [optags.quitGame, ({})])
 
@@ -16,9 +16,9 @@ saveGameStateParams = registerOpParams(optags.saveState)
 screenshotMapParams = registerOpParams(optags.screenshot)
 
 // Pausing functions
-pauseGame = (state) => pauseParams(state, {pauseValue:true}) 
-unpauseGame = (state) => pauseParams(state, {pauseValue:false}) 
-togglePauseGame = (state) => pauseParams(state, {pauseValue:"toggle"}) 
+pauseGame = (state) => pauseParams(state, {pause:true}) 
+unpauseGame = (state) => pauseParams(state, {pause:false}) 
+togglePauseGame = (state) => pauseParams(state, {pause:p=>!p}) 
 
 // Basic use functions
 saveGameStateNamed = (state, saveName) => saveGameStateParams(state, {saveName})

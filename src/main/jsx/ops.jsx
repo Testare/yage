@@ -1,4 +1,4 @@
-const _ = require('lodash')
+const _fp = require('lodash/fp')
 const html2canvas = require('html2canvas')
 const fs = require('fs')
 const path = require('path')
@@ -7,12 +7,16 @@ const init = require('./init')
 // This runs all the specified ops in the state
 const runOps = ({ops, ...state}, utils) => ({
     ops:[],
-    ..._.reduce(
-        ops,
+    ..._fp.reduce(
         (state_, [opName,opParams])=> opActs[opName](state_, opParams, utils),
-        state
+        state,
+        ops
     )
 })
+
+// Logs to console
+// * message: The message to log
+// * displayState: if true, will log the state to the console as well
 const log = (state, {message, displayState}) => {
     console.log(message)
     if (displayState) {
@@ -48,17 +52,20 @@ const loadMap = (state, {mapName}, {assets}) => ({
 //   changes in state you want to perform from the "op" timeslot, instead of
 //   the normal update cycle timeslot.
 
-const loadState = (state, {fileLocation, segment, saveName="sav.json", loadHandler=_.identity}) => {
+const loadState = (state, {fileLocation, segment, saveName="sav.json", loadHandler=_fp.identity}) => {
     const saveLocation = fileLocation || path.join(state.assetPath,"saves",saveName)
     const loadFrame = loadHandler(JSON.parse(fs.readFileSync(saveLocation,'utf8')))
     const trueSegment = segment || loadFrame.segment
-    const loadedState = trueSegment ? _.update(state, trueSegment, _=>loadFrame.saveObject) : loadFrame.saveObject
+    const loadedState = trueSegment ? _fp.update(trueSegment, _=>loadFrame.saveObject, state) : loadFrame.saveObject
     return loadedState;
 }
 
-const pause = (state, params) => {
-    console.log("pause!");
-    return state;
+// Pauses the game
+// * pause: If this is a boolean value, it sets paused to this value. If this
+//   is a function, it applies it to the current value of 
+const pause = (state, {pause}) => {
+    const paused = (typeof pause === 'boolean') ? pause : pause(state.paused);
+    return {...state, paused} 
 }
 
 // Default saves to sav.json in the assets/saves folder (not the best default folder perhaps)
@@ -76,9 +83,9 @@ const pause = (state, params) => {
 //
 // The savefile format is a json object with {segment, version, saveObject}.
 // The other two are the values specified in the parameters
-const saveState = (state, {fileLocation, segment, saveName="sav.json", version="0", saveHandler=_.identity}) => {
+const saveState = (state, {fileLocation, segment, saveName="sav.json", version="0", saveHandler=_fp.identity}) => {
     const saveLocation = fileLocation || path.join(state.assetPath,"saves",saveName)
-    const saveObject = saveHandler(segment ? _.get(state, segment) : state)
+    const saveObject = saveHandler(segment ? _fp.prop(state, segment) : state)
     const saveFrame = {
         version,
         segment,
@@ -131,7 +138,6 @@ const screenshot = (state, {
     return state;
 }
 
-
 // Op directory
 const opActs = {
     loadMap,
@@ -144,6 +150,6 @@ const opActs = {
 }
 
 // Use for when ops are registered
-const optags = _.mapValues(opActs, (__,key)=>key)
+const optags = _fp.mapValues.convert({cap:false})(opActs, (__,key)=>key)
 
 module.exports = {optags, runOps}

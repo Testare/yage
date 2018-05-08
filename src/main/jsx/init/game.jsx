@@ -3,6 +3,7 @@ const _ = require('lodash')
 
 const gameInit = assets => ({
     ops:[],
+    paused:false,
     ...assets.config,
     map: map.init(assets)(assets.maps[assets.config.map]),
     assetPath:assets.assetPath

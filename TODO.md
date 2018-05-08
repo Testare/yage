@@ -28,6 +28,7 @@
     * Behaviors for Levels, Viewport, Game, etc.
     * Sprite/Level/Viewport/Game user-defined state?
     * Sprite hasBehavior
+    * Behavior while paused
 * HTML Sprites
     * Sprites created using normal html rather than sprite json
 * Physics
@@ -57,7 +58,7 @@
     * Single-use commands that don't directly affect or can't be well
       represented in the game state object, or affect game state in a way that
       doesn't work well mid-update
-    * Pause game
+    * Change behavior to work with _.flow/fp.pipe
     * Config option: default save location
 
 # After 1.0
