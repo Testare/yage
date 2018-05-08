@@ -6,16 +6,16 @@
     "url": "https://github.com/Testare/yage"
   },
   "description": "Yet Another Game Engine. A basic platformer game engine with Electron and some other technologies.",
-  "main": "build/launcher.js",
+  "main": "yage/launcher.js",
   "scripts": {
     "test": "electron . 'stessa'",
     "start": "electron . 'assets'",
     "makedo": "npm run build && npm start",
     "build": "npm run build:jsx -s && npm run build:docs -s",
-    "build:jsx": "babel src/main/jsx -d build",
-    "build:docs": "cp -r src/main/docs/* build",
+    "build:jsx": "babel src/main/jsx -d yage",
+    "build:docs": "cp -r src/main/docs/* yage",
     "postinstall": "npm run build",
-    "watch": "babel -w src/main/jsx -d build"
+    "watch": "babel -w src/main/jsx -d yage"
   },
   "files":["build"],
   "keywords": [],
