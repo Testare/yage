@@ -1,10 +1,10 @@
-const _ = require('lodash');
+const _ = require('lodash/fp');
 
 module.exports.update = 
-    ({utils, state, me}) => (!ui.checkPress('KeyO')) 
-        ? state 
-        : utils.ops.logState(
-            utils.ops.saveGameStateParams(state,{saveName:`${me}-save.json`, segment:`map.spriteList['${me}']`,version:"a"}),
-            "Heyo"
+    ({utils, me}) => (!ui.checkPress('KeyO')) 
+        ? _.identity 
+        : _.pipe(
+            utils.ops.logState("Heyo"),
+            utils.ops.saveGameStateParams({saveName:`${me}-save.json`, segment:`map.spriteList['${me}']`,version:"a"})
         )
              //saveGameStateTo(state,"saveFile")

@@ -53,11 +53,11 @@ const loadMap = (state, {mapName}, {assets}) => ({
 //   the normal update cycle timeslot.
 
 const loadState = (state, {fileLocation, segment, saveName="sav.json", loadHandler=_fp.identity}) => {
-    const saveLocation = fileLocation || path.join(state.assetPath,"saves",saveName)
+    const saveLocation = fileLocation || path.resolve(state.assetPath, '../', state.defaultSaveLocation, saveName)
     const loadFrame = loadHandler(JSON.parse(fs.readFileSync(saveLocation,'utf8')))
     const trueSegment = segment || loadFrame.segment
     const loadedState = trueSegment ? _fp.update(trueSegment, _=>loadFrame.saveObject, state) : loadFrame.saveObject
-    return loadedState;
+    return loadedState
 }
 
 // Pauses the game
@@ -84,8 +84,8 @@ const pause = (state, {pause}) => {
 // The savefile format is a json object with {segment, version, saveObject}.
 // The other two are the values specified in the parameters
 const saveState = (state, {fileLocation, segment, saveName="sav.json", version="0", saveHandler=_fp.identity}) => {
-    const saveLocation = fileLocation || path.join(state.assetPath,"saves",saveName)
-    const saveObject = saveHandler(segment ? _fp.prop(state, segment) : state)
+    const saveLocation = fileLocation || path.resolve(state.assetPath, '../', state.defaultSaveLocation, saveName)
+    const saveObject = saveHandler(segment ? _fp.prop(segment, state) : state)
     const saveFrame = {
         version,
         segment,
@@ -150,6 +150,6 @@ const opActs = {
 }
 
 // Use for when ops are registered
-const optags = _fp.mapValues.convert({cap:false})(opActs, (__,key)=>key)
+const optags = _fp.mapValues.convert({cap:false})((v,k)=>k, opActs)
 
 module.exports = {optags, runOps}

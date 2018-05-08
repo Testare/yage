@@ -54,12 +54,6 @@
     * Rename "build" to "yage"?
     * Determine how to use yage as a node dependency so NPM can be used to
       build games
-* Ops system
-    * Single-use commands that don't directly affect or can't be well
-      represented in the game state object, or affect game state in a way that
-      doesn't work well mid-update
-    * Change behavior to work with _.flow/fp.pipe
-    * Config option: default save location
 
 # After 1.0
 * yage ide (name?) to help create the "assets" object for different games

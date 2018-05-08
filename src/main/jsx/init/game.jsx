@@ -1,9 +1,9 @@
 const map = require("./map")
-const _ = require('lodash')
 
 const gameInit = assets => ({
     ops:[],
     paused:false,
+    defaultSaveLocation:"assets/saves",
     ...assets.config,
     map: map.init(assets)(assets.maps[assets.config.map]),
     assetPath:assets.assetPath
