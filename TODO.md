@@ -51,8 +51,6 @@
     * Preload background images so switching animations is smoother
 * Packaging
     * Rename "build" to "yage"?
-    * Determine how to use yage as a node dependency so NPM can be used to
-      build games
 * Ops system
     * Single-use commands that don't directly affect or can't be well
       represented in the game state object, or affect game state in a way that
