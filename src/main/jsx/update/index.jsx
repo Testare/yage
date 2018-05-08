@@ -12,7 +12,7 @@ const updatePlayers = fp.update('map.spriteList',
 
 const updateSpriteBehavior = (behaviors, state) => fp.reduce(
         (state_, sprName) =>  fp.reduce(
-            (state__, behNam) => behaviors[behNam].update({ui:ui, state:state__, me:sprName, utils:behaviorUtils}),
+            (state__, behNam) => behaviors[behNam].update({ui:ui, me:sprName, utils:behaviorUtils})(state__),
             state_,
             state.map.spriteList[sprName].behaviors
         ),
