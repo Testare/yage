@@ -20,7 +20,10 @@
                 "animation":"waiting",
                 "currentFrame":4
             },
-            "behaviors":["toggle"],
+            "behaviors":[
+                "toggle"
+
+            ],
             "physics": {
                 "ignoreCollisions": true,
                 "posX":750,

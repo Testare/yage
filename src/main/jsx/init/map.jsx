@@ -23,6 +23,7 @@ module.exports.init = assets => ({audio, spriteList,...initState}) => ({
     viewportX:0, //defaults
     viewportY:0,
     audio: audioInit(audio),
+    data: {},
     ...initState,
     spriteList:spriteRemap(assets, spriteList)
 })

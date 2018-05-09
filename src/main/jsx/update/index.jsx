@@ -1,18 +1,45 @@
-//Hackish... Later this should just be based in the state
 const fp = require('lodash/fp')
 const ui = require('../ui')
 const behaviorUtils = require('./behavior-utils')
 
-const { update: playerUpdate } = require("./update-player") //This should be moved to the update folder
+const { update: playerUpdate } = require("./update-player")
 const {updateState: physicsUpdate} = require("./physics")
 
 const updatePlayers = fp.update('map.spriteList',
     fp.mapValues(fp.update('player', playerUpdate))
 )
 
-const updateSpriteBehavior = (behaviors, state) => fp.reduce(
+// Check that the state still looks something like a state
+// Might be updated later, but best to keep it simple
+const checkStateReturned = fp.compose(
+    fp.every(fp.identity),
+    fp.juxt([
+        fp.hasIn('map'),
+        fp.hasIn('name')
+    ]))
+
+// If an error returns an invalid state, ignore the change and send an error message to console
+const errorCheckBehavior = (behaviorName, safeState) => state => 
+    checkStateReturned(state) 
+        ? state 
+        : (
+            console.error(`Behavior "${behaviorName}" produced invalid state`),
+            console.error(state),
+            safeState
+        )
+
+const getBehaviorNameAndParams = (behavior) => fp.isString(behavior)
+        ? [behavior, {}]
+        : behavior
+
+const updateSpriteBehavior = behaviors => state => fp.reduce(
         (state_, sprName) =>  fp.reduce(
-            (state__, behNam) => behaviors[behNam].update({ui:ui, me:sprName, utils:behaviorUtils})(state__),
+            (state__, behavior) => (
+                [behNam, params] = getBehaviorNameAndParams(behavior),
+                errorCheckBehavior(behNam, state__)
+                    (behaviors[behNam].update(
+                        {ui, params, me:sprName, ...behaviorUtils, utils:behaviorUtils})
+                        (state__))),
             state_,
             state.map.spriteList[sprName].behaviors
         ),
@@ -20,35 +47,13 @@ const updateSpriteBehavior = (behaviors, state) => fp.reduce(
         Object.keys(state.map.spriteList)
     )
 
-const testWrap = state => obj => {
-    return obj
-    // Used for debugging, currently empty
-    // [x,y] = ui.mapPos()
-    // state.map.spriteList.bob.physics.posX = x - 17
-    // state.map.spriteList.bob.physics.posY = y - 17
-    if (ui.checkDown('KeyA')) {
-        obj.map.spriteList.bob.physics.velX = -1;
-    } else if (ui.checkDown('KeyD')) {
-        obj.map.spriteList.bob.physics.velX = 1;
-    } else {
-        obj.map.spriteList.bob.physics.velX = 0;
-    }
-    if (ui.checkDown('KeyW')) {
-        obj.map.spriteList.bob.physics.velY = -1;
-    } else if (ui.checkDown('KeyS')) {
-        obj.map.spriteList.bob.physics.velY = 1;
-    } else {
-        obj.map.spriteList.bob.physics.velY = 0;
-    }
-    return obj
-}
-
-const runUpdate = assets => state => testWrap(state)(
-    updateSpriteBehavior(assets.behaviors, 
-        physicsUpdate(
-            updatePlayers(state)
-        )
+// Update the state!
+const runUpdate = assets => fp.pipe(
+        (state => state.paused 
+            ? state
+            : physicsUpdate(updatePlayers(state))
+        ),
+        updateSpriteBehavior(assets.behaviors)
     )
-) //STUB, to be modified
 
 module.exports = runUpdate
