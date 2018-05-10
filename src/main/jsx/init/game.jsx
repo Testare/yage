@@ -1,5 +1,6 @@
 const _ = require('lodash/fp')
 const map = require("./map")
+const {initializeBehaviors} = require('./behaviors')
 
 const initSpriteGroups = _.compose(
     _.head,
@@ -12,9 +13,9 @@ const initSpriteGroups = _.compose(
 )
 
 const gameInit = assets => {
-    const spriteGroups = initSpriteGroups(assets.config.spriteGroups || []) 
-    return {
-        gameBehavior:[],
+    const spriteGroups = initSpriteGroups(assets.config.spriteGroups || [])
+    return initializeBehaviors(assets, {
+        behaviors:[],
         data:{},
         ops:[],
         paused:false,
@@ -24,7 +25,7 @@ const gameInit = assets => {
         map: map.init(assets)(assets.maps[assets.config.map], spriteGroups),
         assetPath:assets.assetPath
         //Load assets and config and initialize from there
-    }
+    })
 }
 
 module.exports.init = gameInit

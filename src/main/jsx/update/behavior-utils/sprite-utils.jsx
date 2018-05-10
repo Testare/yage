@@ -1,8 +1,18 @@
 const _ = require('lodash/fp')
 
 let cloneCount = 0;
+// ANIMATION
+const bName = behavior => _.isString(behavior) ? behavior : behavior[0]
+
+const removeBehavior = (spriteName, behaviorName, state) => _.update(
+    `map.spriteList["${spriteName}"].behaviors`,
+    _.filter(behavior => (bName(behavior) != behaviorName)),
+    state
+)
 
 const cloneMasterSprite = (spr, physics, state) => cloneMasterSpriteCallback(spr, physics, (m=>s=>s), state)
+
+//  Needs to be changed to apply behaviorInitialization after cloning
 const cloneMasterSpriteCallback = (spr, physics, callback, state) => (
     name = `${spr}.${cloneCount++}つ`,
     _.curry(callback)(name)(_.update(

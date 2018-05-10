@@ -9,6 +9,7 @@
         "wasd",
         ["burningSM", {"key":"KeyC"}],
         "loadGeorgePlayerOnJ",
+        ["secretmessage", {"message":"It's a secret to everyone!"}],
         "shootTom"
     ],
     "groups": [

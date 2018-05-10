@@ -1,5 +1,6 @@
 const _ = require('lodash/fp')
 
+const init = _.update('data',data=>Object.assign({"burnit":true}, data))
 
 const update = ({me, utils, ui, params, sprites}) => utils.sm(me, "burningSM", {
     "init":"cool",
@@ -19,4 +20,4 @@ const update = ({me, utils, ui, params, sprites}) => utils.sm(me, "burningSM", {
     },
 })
 
-module.exports = {update}
+module.exports = {update, init}

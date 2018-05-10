@@ -1,6 +1,7 @@
 const _ = require('lodash')
 const _fp = require('lodash/fp')
 const sprite = require("./sprite")
+const {initializeBehaviors} = require('./behaviors')
 
 // TODO This can probably be updated with some lodash functions and mapping the values
 // CLEANUP
@@ -38,16 +39,21 @@ const getAnimations = _fp.compose(
 
 const init = assets => ({audio, spriteList:sprites,...initState}, spriteGroups) => {
     const [spriteList, masterSpriteList] = spriteRemap(assets, sprites, spriteGroups)
-    return {
-        viewportX:0,
-        viewportY:0,
-        audio: audioInit(audio),
-        ...initState,
-        spriteList,
-        masterSpriteList,
-        animations:getAnimations({...spriteList, ...masterSpriteList})
-    }
+    return initializeBehaviors(assets, 
+        {
+            viewportX:0, //defaults
+            viewportY:0,
+            audio: audioInit(audio),
+            data: {},
+            behaviors: {},
+            ...initState,
+            spriteList,
+            masterSpriteList,
+            animations:getAnimations({...spriteList, ...masterSpriteList})
+        }
+    )
 }
+
 
 const loadMap = assets => mapName => state => ({...state, map:init(assets)(assets.maps[mapName], state.spriteGroups)})
 

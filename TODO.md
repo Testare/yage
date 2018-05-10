@@ -23,16 +23,15 @@
     * Behavior creation utils
     * remove "utils" from behavior
     * More util functions for Sprites
-    * Behavior initialization
-    * Behaviors that only need to run initially? (Possible "onstart" attribute
-      separate from behaviors, or behaviors that remove themselves)
-    * Self-terminating Temporary behaviors ("effects")
     * Behavior game-dev-level compilation
     * Behaviors React-style JSX?
     * Behaviors for Maps and Game
     * Sprite hasBehavior
     * Behavior while paused
     * behavior-utils chaining?
+    * Should behavior initializations been done with the whole state object 
+      like the updates are? Or keep them as they are with only the object they
+      possess?
 * HTML Sprites
     * Sprites created using normal html rather than sprite json
 * Physics

@@ -1,5 +1,6 @@
 const _ = require('lodash/fp')
 const {init:playerInit} = require('./player')
+const {initializeBehaviors} = require('./behaviors')
 
 let templateCount = 0
 
@@ -19,15 +20,15 @@ const template = (assets, templateName, rawState) => {{
     }
 }}
 
-const applyOffset = sprite => _.isEmpty(sprite.physics)
-    ? sprite
-    : {...sprite, physics: {
+const applyOffsetAndBehaviors = (assets, sprite) => _.isEmpty(sprite.physics)
+    ? sprite //Masters don't have behaviors initialized until they are cloned
+    : initializeBehaviors(assets, {...sprite, physics: {
         velX:0,
         velY:0,
         ...sprite.physics,
         posX:sprite.physics.posX - sprite.player.actor[sprite.player.animation].offsetX,
         posY:sprite.physics.posY - sprite.player.actor[sprite.player.animation].offsetY
-    }}
+    }})
 
 // This function might need to be refactored to another location
 const spriteGroupsToFlag = (spriteGroupMap, spriteGroups) => _.reduce(
@@ -43,8 +44,9 @@ const spriteInit = assets => (spr, spriteGroups) => {
     else {
         const {fromTemplate, ...rawState} = spr
         return (!fromTemplate)
-        ? applyOffset({
+        ? applyOffsetAndBehaviors(assets, {
             data: {},
+            behaviors: [],
             zFrame:20,
             ...rawState,
             collidesWith:spriteGroupsToFlag(spriteGroups, rawState.collidesWith || ["map"]), // Should default be none or map?
