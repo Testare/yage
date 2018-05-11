@@ -1,6 +1,6 @@
 const fp = require('lodash/fp')
 const ui = require('../ui')
-const behaviorUtils = require('./behavior-utils')
+const behaviorUtils = require('../behavior/utils')
 
 const { update: playerUpdate } = require("./update-player")
 const {updateState: physicsUpdate} = require("./physics")
