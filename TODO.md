@@ -1,4 +1,8 @@
 # yage 0.7
+* Behavior "create" method
+* Behavior creation utils
+* remove "utils" from behavior
+* Move behavior-utils out of the update folder, and rename it
 
 # Essential Features for yage-1.0
 * Git organization
