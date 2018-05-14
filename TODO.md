@@ -41,11 +41,6 @@
         * Optional draw collision
         * Collision information for the map
         * Collision lists
-* Asset loading
-    * When assets not found, throw better errors
-    * Convention > Configuration: defaults 'n such
-        * Animation image names: actor$animation.png or actor.png(animation ===
-          'main'
 * Actor loading
     * Preload background images so switching animations is smoother
 * Packaging

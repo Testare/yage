@@ -2,6 +2,7 @@ const path = require('path')
 
 // This will create a cache that loads assets as needed for second-level assets
 // (assets divided into folders, basically everything outside of config)
+// Trying to load assets that don't exist throws an error
 const secondLevelAssets = (assetPath, assetType) => new Proxy({},{ 
     get: (cache, assetName) => 
         cache[assetName] 
@@ -11,11 +12,17 @@ const secondLevelAssets = (assetPath, assetType) => new Proxy({},{
 })
 
 // Creates the assets object from an asset path
-module.exports.loadAssetsFromPath = assetPath => ({
-    "actors":secondLevelAssets(assetPath, "actors"),
-    "behaviors":secondLevelAssets(assetPath, "behaviors"),
-    "maps":secondLevelAssets(assetPath, "maps"),
-    "templateSprites":secondLevelAssets(assetPath, "templateSprites"),
-    "config":require(path.join(assetPath, "config")),
-    "assetPath":assetPath
-})
+module.exports.loadAssetsFromPath = assetPath => {
+    try {
+        return {
+            "actors":secondLevelAssets(assetPath, "actors"),
+            "behaviors":secondLevelAssets(assetPath, "behaviors"),
+            "maps":secondLevelAssets(assetPath, "maps"),
+            "templateSprites":secondLevelAssets(assetPath, "templateSprites"),
+            "config":require(path.join(assetPath, "config")),
+            "assetPath":assetPath
+        }
+    } catch (ex) {
+        throw Error(`Error loading game assets configuration from path: ${assetPath}`)
+    }
+}
