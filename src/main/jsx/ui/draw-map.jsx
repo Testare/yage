@@ -46,13 +46,20 @@ const DrawMap = (props) => (
             className="drawmap"
             style={mapStyle(props.assetPath, props.map)}
         >
+            <PreloadAnimations assetPath={props.assetPath} animations={props.map.animations} />
             <SpriteList update={update} {..._.pick(props,['assetPath','debug'])} {...props.map.spriteList} />
             <AudioPlayer {...props.map.audio} {..._.pick(props,['assetPath','debug'])} />
         </div>
     </div>
 )
 
-SpriteList = ({update, assetPath, debug, ...props}) => (
+const PreloadAnimations = ({assetPath, animations}) => (
+    <div style={{display:"none"}}>
+        {animations.map(src => <img key={src} src={path.join(assetPath,"animations", src)} />)}
+    </div>
+)
+
+const SpriteList = ({update, assetPath, debug, ...props}) => (
     <div>{
         Object.keys(props).map(sprKey => (
             <DrawSprite

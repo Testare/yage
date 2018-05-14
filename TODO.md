@@ -47,8 +47,6 @@
     * Convention > Configuration: defaults 'n such
         * Animation image names: actor$animation.png or actor.png(animation ===
           'main'
-* Actor loading
-    * Preload background images so switching animations is smoother
 * Packaging
     * Rename "build" to "yage"?
     * Determine how to use yage as a node dependency so NPM can be used to
