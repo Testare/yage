@@ -30,7 +30,7 @@ const initSpriteBehaviors = state => _.reduce(
     state,
     _.keys(state.map.spriteList)
 )
-const initMapBehaviors = initBehaviorsForMe(x=>x.map.behaviors, "MAP")
-const initGameBehaviors = initBehaviorsForMe(x=>x.behaviors, "GAME")
+const initMapBehaviors = _.compose(initSpriteBehaviors, initBehaviorsForMe(x=>x.map.behaviors, "MAP"))
+const initGameBehaviors = _.compose(initMapBehaviors, initBehaviorsForMe(x=>x.behaviors, "GAME"))
 
 module.exports = {initializeBehaviors}
