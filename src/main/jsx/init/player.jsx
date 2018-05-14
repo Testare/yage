@@ -1,4 +1,5 @@
-const actorInit = actor => actor
+const _ = require('lodash')
+const actorInit = ({name, ...actor}) => ({name, ..._.mapValues(actor, anim=>({offsetX:0, offsetY:0, ...anim}))})
 
 module.exports.init = assets => actor => {
     const {actor:actorName, ...player} = (typeof actor === 'string') ? {actor:actor} : actor

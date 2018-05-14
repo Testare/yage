@@ -69,6 +69,7 @@
                 "velY":0
             },
             "player": {
+                "animation":"hit",
                 "currentFrame": 2
             }
         }

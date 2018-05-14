@@ -33,7 +33,6 @@
 * Physics
     * "Master sprites" (Non-entity sprites)
     * Sprite cloning
-    * Actor XY-offset
     * Sprites locked to viewport (ghost collision only)
     * Narrow collision engine
         * ignoreCollision
