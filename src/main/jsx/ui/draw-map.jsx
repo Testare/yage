@@ -54,14 +54,17 @@ const DrawMap = (props) => (
 
 SpriteList = ({update, assetPath, debug, ...props}) => (
     <div>{
-        Object.keys(props).map(sprKey => (
+        Object.keys(props).map(sprKey => 
+            props[sprKey].physics 
+            ? (
             <DrawSprite
                 update={update}
                 debug={debug}
                 assetPath={assetPath}
                 key={sprKey}
                 {...props[sprKey]}
-            />)
+            />) 
+            : undefined
         )}
     </div>
 )

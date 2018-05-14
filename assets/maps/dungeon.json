@@ -39,6 +39,7 @@
                 "velY":0
             }
         },
+        "bullet":"bullet",
         "bullet1": {
             "fromTemplate": "bullet",
             "physics": {

@@ -1,3 +1,6 @@
+# yage-0.5
+* Preloading master sprites
+
 # Essential Features for yage-1.0
 * Git organization
     * Git branches (master, devo, feature branches)
@@ -31,7 +34,6 @@
 * HTML Sprites
     * Sprites created using normal html rather than sprite json
 * Physics
-    * "Master sprites" (Non-entity sprites)
     * Sprite cloning
     * Sprites locked to viewport (ghost collision only)
     * Narrow collision engine
@@ -75,6 +77,8 @@
 
 # Bugs/Code Improvements
 * Figure out that weird "scale" function and how it should be placed.
+* If I haven't already done it, remove the update function from the ui
+* If I haven't already done it, stop templated sprites from trying to name themselves in init/sprite
 
 # Possible extra features
 * Multiple maps on one screen?
