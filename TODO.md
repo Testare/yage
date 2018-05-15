@@ -35,6 +35,9 @@
 * HTML Sprites
     * Sprites created using normal html rather than sprite json
 * Physics
+    * Collision checking behavior
+    * Sprite Groups
+    * Collision Lists
     * Sprites locked to viewport (ghost collision only)
     * Narrow collision engine
         * ignoreCollision

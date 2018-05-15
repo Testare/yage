@@ -12,8 +12,8 @@ const playerStyle = (assetPath, {currentFrame,...player}) => ({
 })
 
 const spriteStyle = (props) => ({
-        left: props.physics.posX - pAnimation(props.player).offsetX,
-        top: props.physics.posY - pAnimation(props.player).offsetY,
+        left: props.physics.posX,
+        top: props.physics.posY,
         zIndex : props.zFrame,
         ...playerStyle(props.assetPath,props.player)
     }

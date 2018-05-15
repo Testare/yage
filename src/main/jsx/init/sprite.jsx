@@ -14,6 +14,15 @@ const template = (assets, templateName, rawState) => ({
     }
 })
 
+const applyOffset = sprite => _.isEmpty(sprite.physics)
+    ? sprite
+    : {...sprite, physics: {
+        ...sprite.physics,
+        posX:sprite.physics.posX - sprite.player.actor[sprite.player.animation].offsetX,
+        posY:sprite.physics.posY - sprite.player.actor[sprite.player.animation].offsetY,
+        candy:true
+    }}
+
 const spriteInit = (assets) => spr => {
     if (_.isString(spr)) {
         return spriteInit(assets)((k = template(assets, spr, {}), console.log(k), k))
@@ -21,12 +30,14 @@ const spriteInit = (assets) => spr => {
     else {
         const {fromTemplate, ...rawState} = spr
         return (!fromTemplate)
-        ? {
+        ? applyOffset({
             zFrame:20,
             ...rawState,
             player:playerInit(assets)(rawState.player)
-        } : spriteInit(assets)(template(assets, fromTemplate, rawState))
+        }) : spriteInit(assets)(template(assets, fromTemplate, rawState))
     }
 } 
+
+
 
 module.exports.init = spriteInit
