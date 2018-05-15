@@ -1,5 +1,6 @@
 # yage-0.5
 * Preloading master sprites
+* Initialize behaviors for cloned sprites
 
 # Essential Features for yage-1.0
 * Git organization
@@ -34,7 +35,6 @@
 * HTML Sprites
     * Sprites created using normal html rather than sprite json
 * Physics
-    * Sprite cloning
     * Sprites locked to viewport (ghost collision only)
     * Narrow collision engine
         * ignoreCollision

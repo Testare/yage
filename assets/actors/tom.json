@@ -1,0 +1,41 @@
+{
+    "main": {
+        "src": "tom.png",
+        "width": 34,
+        "height": 34,
+        "frames": [
+            {
+                "ticks":8,
+                "collisionData": [
+                    {
+                        "type":"ghost",
+                        "shape":"circle",
+                        "coords":"17,17,17"
+                    }
+                ]
+            },
+            {
+                "ticks":4,
+                "collisionData": [
+                    {
+                        "type":"ghost",
+                        "shape":"circle",
+                        "coords":"17,17,10"
+                    }
+                ]
+
+            },
+            {
+                "ticks":4,
+                "collisionData": [
+                    {
+                        "type":"ghost",
+                        "shape":"circle",
+                        "coords":"17,17,17"
+                    }
+                ]
+
+            }
+        ]
+    }
+}
