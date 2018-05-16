@@ -30,7 +30,8 @@ const audioInit = ({tracks={},soundBoards=["all"], ...audio}) => ({
 const getAnimations = _fp.compose(
     _fp.uniq,
     _fp.filter(_fp.identity),
-    _fp.flatMap(sprite => _fp.map(anim => anim.src, sprite.player.actor))
+    _fp.flatMap(sprite => _fp.map(anim => anim.src, sprite.player.actor)),
+    k=>(console.log(k),k)
 )
 
 module.exports.init = assets => ({audio, spriteList:sprites,...initState}) => (
@@ -42,7 +43,7 @@ module.exports.init = assets => ({audio, spriteList:sprites,...initState}) => (
         ...initState,
         spriteList,
         masterSpriteList,
-        animations:getAnimations(spriteList)
+        animations:getAnimations({...spriteList, ...masterSpriteList})
     }
 )
 
