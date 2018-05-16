@@ -1,3 +1,10 @@
+# yage 0.5
+* Behavior "create" method
+* Behavior creation utils
+* remove "utils" from behavior
+* Preloading master sprites
+* Initialize behaviors for cloned sprites
+
 # Essential Features for yage-1.0
 * Git organization
     * Git branches (master, devo, feature branches)
@@ -17,21 +24,22 @@
       functional programming
 * Behavior updates
     * More util functions for Sprites
-    * Parameters for behavior (Customization for behaviors in Sprite JSON)
-    * Behavior creation utils
     * Behavior initialization
     * Behaviors that only need to run initially? (Possible "onstart" attribute
       separate from behaviors, or behaviors that remove themselves)
     * Self-terminating Temporary behaviors ("effects")
     * Behavior game-dev-level compilation
-    * Behcviors React-style JSX?
-    * Behaviors for Levels, Viewport, Game, etc.
-    * Sprite/Level/Viewport/Game user-defined state?
+    * Behaviors React-style JSX?
+    * Behaviors for Maps and Game
     * Sprite hasBehavior
+    * Behavior while paused
+    * behavior-utils chaining?
 * HTML Sprites
     * Sprites created using normal html rather than sprite json
 * Physics
-    * Actor XY-offset
+    * Collision checking behavior
+    * Sprite Groups
+    * Collision Lists
     * Sprites locked to viewport (ghost collision only)
     * Narrow collision engine
         * ignoreCollision
@@ -41,26 +49,10 @@
         * Optional draw collision
         * Collision information for the map
         * Collision lists
-* Asset loading
-    * When assets not found, throw better errors
-    * Load asset folders without needing the specified "index.js" files
-    * Convention > Configuration: defaults 'n such
-        * Animation image names: actor$animation.png or actor.png(animation ===
-          'main'
-* Actor loading
-    * Preload background images so switching animations is smoother
 * Packaging
-    * Rename "build" to "yage"?
-    * Determine how to use yage as a node dependency so NPM can be used to
-      build games
-* Ops system
-    * Single-use commands that don't directly affect or can't be well
-      represented in the game state object, or affect game state in a way that
-      doesn't work well mid-update
-    * Pause game
-    * Save game state
-    * Loading new level
-    * Loading game state
+    * Package game as executable?
+* Ops
+    * Error handling for load/save operation when file not found
 
 # After 1.0
 * yage ide (name?) to help create the "assets" object for different games
@@ -71,9 +63,15 @@
     * Box - Vector
     * Circle - Vector
     * Vector - Vector
+* Creating sprite from screenshot
 
 # Bugs/Code Improvements
 * Figure out that weird "scale" function and how it should be placed.
+* Bug with screepshot op and flipped images being clipped wrong near the
+  edges. Try to get resolved with html2canvas first, but if not, do a 
+  work around.
+* If I haven't already done it, remove the update function from the ui
+* If I haven't already done it, stop templated sprites from trying to name themselves in init/sprite
 
 # Possible extra features
 * Multiple maps on one screen?

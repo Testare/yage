@@ -5,6 +5,11 @@
         "currentFrame":2,
         "flipped":false
     },
-    "behaviors": ["wasd"],
+    "behaviors": [
+        "wasd",
+        ["burningSM", {"key":"KeyC"}],
+        "loadGeorgePlayerOnJ",
+        "shootTom"
+    ],
     "zFrame": 19
 }

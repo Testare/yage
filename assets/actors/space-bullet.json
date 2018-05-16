@@ -1,6 +1,5 @@
 {
     "main":{
-        "src": "space-bullet.png",
         "width": 25,
         "height": 25,
         "frames": [
@@ -31,6 +30,45 @@
                         "type":"ghost",
                         "shape":"circle",
                         "coords":"12.5,12.5,12.5"
+                    }
+                ]
+            }
+        ]
+    },
+    "hit": {
+        "src": "space-bullet.hit.png",
+        "width": 50,
+        "height": 50,
+        "offsetX": 12.5,
+        "offsetY": 12.5,
+        "frames": [
+            {
+                "ticks":10,
+                "collisionData": [
+                    {
+                        "type":"ghost",
+                        "shape":"circle",
+                        "coords":"25,25,25"
+                    }
+                ]
+            },
+            {
+                "ticks":10,
+                "collisionData": [
+                    {
+                        "type":"ghost",
+                        "shape":"circle",
+                        "coords":"25,25,25"
+                    }
+                ]
+            },
+            {
+                "ticks":10,
+                "collisionData": [
+                    {
+                        "type":"ghost",
+                        "shape":"circle",
+                        "coords":"25,25,25"
                     }
                 ]
             }

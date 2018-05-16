@@ -1,17 +1,14 @@
-const _ = require('lodash');
+const _ = require('lodash/fp');
 
 module.exports.update = 
-    ({utils:{audio:{playSound,setTrack}, sprites:{getAnimation, setAnimation}}, me}) => state => (!ui.checkPress('KeyB'))
-        ? state
-        : (k=>{_.once(console.log)(k); return k})(setTrack(
-            playSound(
-                setAnimation(
-                    state,
-                    me,
-                    (getAnimation(state, me) === 'waiting') ? 'spinning' : 'waiting'
-                ),
-                "switch.mp3"
-            ),
-            "main",
-            ["ticker.mp3",.3]
-        ))
+    ({utils:{audio:{playSound,setTrack}, sprites:{getAnimation, setAnimation}}, me}) =>
+        (!ui.checkPress('KeyB'))
+            ? _.identity
+            : state => {
+                const toggledAnimation = (getAnimation(me, state) === 'waiting') ? 'spinning' : 'waiting';
+                return _.pipe(
+                    setAnimation(me, toggledAnimation),
+                    playSound("switch.mp3"),
+                    setTrack("main",["ticker.mp3",.3])
+                )(state)
+            }

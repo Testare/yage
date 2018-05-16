@@ -14,13 +14,23 @@
         }
     },
     "spriteList": {
+        "tom": {
+            "player": "tom",
+            "zFrame": 18
+        },
         "george": {
             "player": {
                 "actor":"george",
                 "animation":"waiting",
                 "currentFrame":4
             },
-            "behaviors":["toggle"],
+            "behaviors":[
+                "toggle",
+                "saveOnP",
+                "saveMeOnO",
+                "loadOnL",
+                "loadMeOnK"
+            ],
             "physics": {
                 "ignoreCollisions": true,
                 "posX":750,
@@ -39,6 +49,7 @@
                 "velY":0
             }
         },
+        "bullet":"bullet",
         "bullet1": {
             "fromTemplate": "bullet",
             "physics": {
@@ -69,6 +80,7 @@
                 "velY":0
             },
             "player": {
+                "animation":"hit",
                 "currentFrame": 2
             }
         }

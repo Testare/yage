@@ -1,17 +1,45 @@
-const _ = require('lodash')
+const _ = require('lodash/fp')
+
+let cloneCount = 0;
+
+const cloneMasterSprite = (spr, physics, state) => cloneMasterSpriteCallback(spr, physics, (m=>s=>s), state)
+const cloneMasterSpriteCallback = (spr, physics, callback, state) => (
+    name = `${spr}.${cloneCount++}つ`,
+    _.curry(callback)(name)(_.update(
+        'map.spriteList',
+        spriteList => ({...spriteList, [name]:({...state.map.masterSpriteList[spr], physics, name})}),
+        state
+    ))
+)
 
 // ANIMATION
-module.exports.setAnimationFlipped = (state, spriteName, flipped) => _.update(state,`map.spriteList["${spriteName}"].player.flipped`,_=>flipped)
-module.exports.setAnimation = (state, spriteName, animationName) => _.update(state,`map.spriteList["${spriteName}"].player`,p=>({...p,animation:animationName, currentFrame: 0, ticks: 0}))
-module.exports.getAnimation = (state, spriteName) => state.map.spriteList[spriteName].player.animation
+const setAnimation = (spriteName, animationName, state) => _.update(`map.spriteList["${spriteName}"].player`,p=>({...p,animation:animationName, currentFrame: 0, ticks: 0}), state)
+const getAnimation = (spriteName, state) => state.map.spriteList[spriteName].player.animation
+const isAnimationFlipped = (spriteName, state) => state.map.spriteList[spriteName].player.flipped
+const setAnimationFlipped = (spriteName, flipped, state) => _.update(`map.spriteList["${spriteName}"].player.flipped`,_=>flipped, state)
 // Implement this: module.exports.checkAnimationFinished = (state, spriteName) =>
 
-module.exports.updateSprite = (state, spriteName, spriteUpdate) => _.update(
-    state,
+const updateSprite = (spriteName, spriteUpdate, state) => _.update(
     `map.spriteList['${spriteName}']`, 
-    (typeof spriteUpdate === 'function') ? spriteUpdate : (spr) => (Object.assign(spr, spriteUpdate)))
+    (typeof spriteUpdate === 'function') ? spriteUpdate : (spr) => (Object.assign(spr, spriteUpdate)),
+    state)
 
-module.exports.updatePhysics = (state, spriteName, physicsUpdate) => _.update(
-    state,
+const getPhysics = (spriteName, state) => state.map.spriteList[spriteName].physics
+const updatePhysics = (spriteName, physicsUpdate, state) => _.update(
     `map.spriteList['${spriteName}'].physics`, 
-    (typeof physicsUpdate === 'function') ? physicsUpdate : (phys) => (Object.assign(phys, physicsUpdate)))
+    (typeof physicsUpdate === 'function') ? physicsUpdate : (phys) => (Object.assign(phys, physicsUpdate)),
+    state)
+
+const functions = {
+    cloneMasterSpriteCallback,
+    cloneMasterSprite,
+    getAnimation,
+    setAnimation,
+    isAnimationFlipped,
+    setAnimationFlipped,
+    updateSprite,
+    getPhysics,
+    updatePhysics
+}
+
+module.exports = _.mapValues(_.curry, functions)
