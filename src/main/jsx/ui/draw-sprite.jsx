@@ -5,7 +5,7 @@ const pAnimation = ({actor,animation}) => actor[animation]
 
 const playerStyle = (assetPath, {currentFrame,...player}) => ({
     backgroundImage: `url('${path.join(assetPath,'animations',pAnimation(player).src)}')`,
-    backgroundPositionX: -currentFrame * (1+ pAnimation(player).width), //The 1+ gives room for dividing lines
+    backgroundPositionX: -currentFrame * (1+ pAnimation(player).width), // The 1+ gives room for dividing lines
     width: pAnimation(player).width,
     height: pAnimation(player).height,
     transform: (player.flipped)?"scaleX(-1)":"none"
@@ -60,7 +60,7 @@ const DrawSprite = props => (
         className="drawsprite"
         style={spriteStyle(props)}
     >
-    {(props.debug && props.debug['drawCollision'])?<DrawCollisionFrame {...props} /> : null }
+    {(props.debug && props.debug['drawCollision']) ? <DrawCollisionFrame {...props} /> : null }
     </span>
 )
 

@@ -2,7 +2,6 @@ const _ = require('lodash')
 const _fp = require('lodash/fp')
 const sprite = require("./sprite")
 
-// TODO This can probably be updated with some lodash functions and mapping the values
 const spriteRemap = (assets, sprList) => Object.keys(sprList).reduce(
     ([spAcm, mspAcm], key) => (spr = {...sprite.init(assets)(sprList[key]), name:key},
         _.isEmpty(spr.physics)
@@ -37,7 +36,7 @@ const getAnimations = _fp.compose(
 module.exports.init = assets => ({audio, spriteList:sprites,...initState}) => (
     [spriteList, masterSpriteList] = spriteRemap(assets, sprites),
     {
-        viewportX:0, //defaults
+        viewportX:0,
         viewportY:0,
         audio: audioInit(audio),
         ...initState,

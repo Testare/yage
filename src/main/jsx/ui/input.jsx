@@ -1,7 +1,7 @@
 const fp = require("lodash/fp")
 
-const FLAG_RELEASE = 0b010
-const FLAG_PRESS = 0b100
+const FLAG_RELEASE = 0b010 //2
+const FLAG_PRESS = 0b100 //4
 const KEY_UP = 0b0 //0
 const KEY_DOWN = 0b1 //1
 const KEY_RELEASE = FLAG_RELEASE | KEY_UP //2
@@ -24,6 +24,7 @@ const ON_KEY_DOWN = [
     KEY_UNDEF2, KEY_PRESS,
     KEY_REPRESS, KEY_REPRESS
 ]
+
 /**
  * The use is, the current state gets a new state on key-up or key-down events
  * through accessing this array newState = ON_KEY_UP[currentState]
@@ -32,20 +33,26 @@ const ON_KEY_DOWN = [
 
 // const ON_KEY_DOWN = [KEY_PRESS,KEY_DOWN,KEY_PRESS,KEY_PRESS]
 
-//WORK SHOULD BE DONE TO MAKE THIS CONCURRENCY SAFE, LIKE A REAL ATOM
-
 let currentAtom = {}
 let nextAtom = {}
 let screenX = 0, screenY = 0, mapY = 0, mapX = 0
 
+// Check if a key/button is down 
 module.exports.checkDown = code => !!(currentAtom[code] & KEY_DOWN)
+// Check if a key/button is up 
 module.exports.checkUp = code => !(currentAtom[code] & KEY_DOWN)
+// Check if a key/button was released this frame
 module.exports.checkRelease = code => !!(currentAtom[code] & FLAG_RELEASE)
+// Check if a key/button was pressed this frame
 module.exports.checkPress = code => !!(currentAtom[code] & FLAG_PRESS)
+// Gets a copy of the current atom
 module.exports.derefAtom = _ => ({ ...currentAtom })
+// Checks the scroll wheel
 module.exports.checkWheel = _ => currentAtom["wheel"]
+// Gets the position of the cursor relevant to the map
+module.exports.mapPos = _ => [mapX, mapY]
 
-//Might be modified in the future to handle mouse position even when the mouse is outside the viewport.
+// Sets the cursor position relevant to the screen and map
 module.exports.cursorPos = (props, mapScale) => event => {
     screenX = event.clientX - Math.ceil(parseFloat(event.currentTarget.style.marginLeft))
     screenY = event.clientY - Math.ceil(parseFloat(event.currentTarget.style.marginTop))
@@ -57,25 +64,26 @@ module.exports.cursorPos = (props, mapScale) => event => {
     // all made to fit the screen resolution specified), but the viewportX and
     // viewportY of the different maps would have to be added for individual
     // maps.
-    // 
 }
 
-module.exports.mapPos = _ => [mapX, mapY]
-
+// Sets the wheel details on a wheel event
 module.exports.wheelScroll = event => {
     nextAtom["wheel"] = [event.deltaX, event.deltaY, event.deltaZ]
 }
 
+// When an input button is down
 module.exports.inputDown = (event) => {
     code = event.code || ("Mouse" + event.button)
     nextAtom[code] = ON_KEY_DOWN[nextAtom[code] || KEY_UP]
 }
 
+// When an input button is up
 module.exports.inputUp = (event) => {
     code = event.code || ("Mouse" + event.button)
     nextAtom[code] = ON_KEY_UP[nextAtom[code] || KEY_UP]
 }
 
+// Rotates the input from last frame into the current atom
 module.exports.nextInput = _ => {
     currentAtom = nextAtom
     nextAtom = fp.mapValues(v => (v & 1))(nextAtom)

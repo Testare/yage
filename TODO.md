@@ -50,9 +50,6 @@
         * Collision lists
 * Packaging
     * Package game as executable?
-* Misc
-    * If I haven't already done it, remove the update function from the ui
-    * If I haven't already done it, stop templated sprites from trying to name themselves in init/sprite
 
 # After 1.0
 * yage ide (name?) to help create the "assets" object for different games
