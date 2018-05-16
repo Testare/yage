@@ -1,3 +1,8 @@
+# yage 0.5
+* Behavior "create" method
+* Behavior creation utils
+* remove "utils" from behavior
+
 # Essential Features for yage-1.0
 * Git organization
     * Git branches (master, devo, feature branches)
@@ -17,17 +22,16 @@
       functional programming
 * Behavior updates
     * More util functions for Sprites
-    * Parameters for behavior (Customization for behaviors in Sprite JSON)
-    * Behavior creation utils
     * Behavior initialization
     * Behaviors that only need to run initially? (Possible "onstart" attribute
       separate from behaviors, or behaviors that remove themselves)
     * Self-terminating Temporary behaviors ("effects")
     * Behavior game-dev-level compilation
-    * Behcviors React-style JSX?
-    * Behaviors for Levels, Viewport, Game, etc.
-    * Sprite/Level/Viewport/Game user-defined state?
+    * Behaviors React-style JSX?
+    * Behaviors for Maps and Game
     * Sprite hasBehavior
+    * Behavior while paused
+    * behavior-utils chaining?
 * HTML Sprites
     * Sprites created using normal html rather than sprite json
 * Physics

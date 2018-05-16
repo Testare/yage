@@ -11,6 +11,7 @@ const template = (assets, templateName, rawState) => ({
 })
 
 const spriteInit = (assets) => ({fromTemplate,...rawState}) => (!fromTemplate)?{
+    data:{},
     zFrame:20,
     ...rawState,
     player:playerInit(assets)(rawState.player)
