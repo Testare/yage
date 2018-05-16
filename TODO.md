@@ -51,7 +51,6 @@
 * Packaging
     * Package game as executable?
 * Misc
-    * Error handling for load/save operation when file not found
     * If I haven't already done it, remove the update function from the ui
     * If I haven't already done it, stop templated sprites from trying to name themselves in init/sprite
 
