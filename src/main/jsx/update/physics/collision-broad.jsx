@@ -13,8 +13,8 @@ const runCollision = ({spriteList,...map}) => {
 
 const getSimplePhysics = ({physics,player}) => {
     const animation = player.actor[player.animation]
-    const newX = physics.posX + physics.velX
-    const newY = physics.posY + physics.velY
+    const newX = physics.posX + physics.velX 
+    const newY = physics.posY + physics.velY 
     return {
         newX:newX,
         newY:newY,

@@ -1,10 +1,22 @@
 const _ = require('lodash/fp')
 
-// ANIMATION
+let cloneCount = 0;
 
-const setAnimationFlipped = (spriteName, flipped, state) => _.update(`map.spriteList["${spriteName}"].player.flipped`,_=>flipped, state)
+const cloneMasterSprite = (spr, physics, state) => cloneMasterSpriteCallback(spr, physics, (m=>s=>s), state)
+const cloneMasterSpriteCallback = (spr, physics, callback, state) => (
+    name = `${spr}.${cloneCount++}つ`,
+    _.curry(callback)(name)(_.update(
+        'map.spriteList',
+        spriteList => ({...spriteList, [name]:({...state.map.masterSpriteList[spr], physics, name})}),
+        state
+    ))
+)
+
+// ANIMATION
 const setAnimation = (spriteName, animationName, state) => _.update(`map.spriteList["${spriteName}"].player`,p=>({...p,animation:animationName, currentFrame: 0, ticks: 0}), state)
 const getAnimation = (spriteName, state) => state.map.spriteList[spriteName].player.animation
+const isAnimationFlipped = (spriteName, state) => state.map.spriteList[spriteName].player.flipped
+const setAnimationFlipped = (spriteName, flipped, state) => _.update(`map.spriteList["${spriteName}"].player.flipped`,_=>flipped, state)
 // Implement this: module.exports.checkAnimationFinished = (state, spriteName) =>
 
 const updateSprite = (spriteName, spriteUpdate, state) => _.update(
@@ -12,16 +24,21 @@ const updateSprite = (spriteName, spriteUpdate, state) => _.update(
     (typeof spriteUpdate === 'function') ? spriteUpdate : (spr) => (Object.assign(spr, spriteUpdate)),
     state)
 
+const getPhysics = (spriteName, state) => state.map.spriteList[spriteName].physics
 const updatePhysics = (spriteName, physicsUpdate, state) => _.update(
     `map.spriteList['${spriteName}'].physics`, 
     (typeof physicsUpdate === 'function') ? physicsUpdate : (phys) => (Object.assign(phys, physicsUpdate)),
     state)
 
 const functions = {
-    setAnimationFlipped,
-    setAnimation,
+    cloneMasterSpriteCallback,
+    cloneMasterSprite,
     getAnimation,
+    setAnimation,
+    isAnimationFlipped,
+    setAnimationFlipped,
     updateSprite,
+    getPhysics,
     updatePhysics
 }
 

@@ -2,6 +2,8 @@
 * Behavior "create" method
 * Behavior creation utils
 * remove "utils" from behavior
+* Preloading master sprites
+* Initialize behaviors for cloned sprites
 
 # Essential Features for yage-1.0
 * Git organization
@@ -35,7 +37,9 @@
 * HTML Sprites
     * Sprites created using normal html rather than sprite json
 * Physics
-    * Actor XY-offset
+    * Collision checking behavior
+    * Sprite Groups
+    * Collision Lists
     * Sprites locked to viewport (ghost collision only)
     * Narrow collision engine
         * ignoreCollision
@@ -66,6 +70,8 @@
 * Bug with screepshot op and flipped images being clipped wrong near the
   edges. Try to get resolved with html2canvas first, but if not, do a 
   work around.
+* If I haven't already done it, remove the update function from the ui
+* If I haven't already done it, stop templated sprites from trying to name themselves in init/sprite
 
 # Possible extra features
 * Multiple maps on one screen?

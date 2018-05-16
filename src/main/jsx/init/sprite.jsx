@@ -1,3 +1,4 @@
+const _ = require('lodash/fp')
 const {init:playerInit} = require('./player')
 
 let templateCount = 0
@@ -7,14 +8,37 @@ const template = (assets, templateName, rawState) => ({
     name:`${templateName}-${(templateCount=1+templateCount)}つ`, //Default is templateName + (number) + つ (To prevent sprite name conflicts)
     ...({physics:rPhysics,player:rPlayer}=rawState),
     physics:{...tPhysics,...rPhysics},
-    player:{...((typeof tPlayer === 'string')?{actor:tPlayer}:tPlayer), ...((typeof rPlayer === 'string')?{actor:rPlayer}:rPlayer)}
+    player:{
+        ...((typeof tPlayer === 'string')?{actor:tPlayer}:tPlayer),
+        ...((typeof rPlayer === 'string')?{actor:rPlayer}:rPlayer)
+    }
 })
 
-const spriteInit = (assets) => ({fromTemplate,...rawState}) => (!fromTemplate)?{
-    data:{},
-    zFrame:20,
-    ...rawState,
-    player:playerInit(assets)(rawState.player)
-}:spriteInit(assets)(template(assets, fromTemplate, rawState))
+const applyOffset = sprite => _.isEmpty(sprite.physics)
+    ? sprite
+    : {...sprite, physics: {
+        ...sprite.physics,
+        posX:sprite.physics.posX - sprite.player.actor[sprite.player.animation].offsetX,
+        posY:sprite.physics.posY - sprite.player.actor[sprite.player.animation].offsetY,
+        candy:true
+    }}
+
+const spriteInit = (assets) => spr => {
+    if (_.isString(spr)) {
+        return spriteInit(assets)(template(assets, spr, {}))
+    }
+    else {
+        const {fromTemplate, ...rawState} = spr
+        return (!fromTemplate)
+        ? applyOffset({
+            data: {},
+            zFrame:20,
+            ...rawState,
+            player:playerInit(assets)(rawState.player)
+        }) : spriteInit(assets)(template(assets, fromTemplate, rawState))
+    }
+} 
+
+
 
 module.exports.init = spriteInit

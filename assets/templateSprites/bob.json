@@ -8,7 +8,8 @@
     "behaviors": [
         "wasd",
         ["burningSM", {"key":"KeyC"}],
-        "loadGeorgePlayerOnJ"
+        "loadGeorgePlayerOnJ",
+        "shootTom"
     ],
     "zFrame": 19
 }
