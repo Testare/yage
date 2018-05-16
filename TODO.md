@@ -51,8 +51,6 @@
     * Convention > Configuration: defaults 'n such
         * Animation image names: actor$animation.png or actor.png(animation ===
           'main'
-* Actor loading
-    * Preload background images so switching animations is smoother
 * Packaging
     * Package game as executable?
 * Ops system
