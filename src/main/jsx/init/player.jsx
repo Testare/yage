@@ -1,4 +1,7 @@
-const actorInit = actor => actor
+const _ = require('lodash')
+const actorInit = actor => _.mapValues(actor, (animation, animName) => ({
+    src: (animName === 'main') ? `${actor.name}.png` : `${actor.name}.${animName}.png`, ...animation
+}))
 
 module.exports.init = assets => actor => {
     const {actor:actorName, ...player} = (typeof actor === 'string') ? {actor:actor} : actor

@@ -45,12 +45,6 @@
         * Optional draw collision
         * Collision information for the map
         * Collision lists
-* Asset loading
-    * When assets not found, throw better errors
-    * Load asset folders without needing the specified "index.js" files
-    * Convention > Configuration: defaults 'n such
-        * Animation image names: actor$animation.png or actor.png(animation ===
-          'main'
 * Packaging
     * Package game as executable?
 * Ops system
