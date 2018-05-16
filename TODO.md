@@ -1,9 +1,4 @@
-# yage 0.5
-* Behavior "create" method
-* Behavior creation utils
-* remove "utils" from behavior
-* Preloading master sprites
-* Initialize behaviors for cloned sprites
+# yage 0.6
 
 # Essential Features for yage-1.0
 * Git organization
@@ -23,6 +18,10 @@
     * Additional tips for friends not used to using node, ES6, React, or
       functional programming
 * Behavior updates
+    * Initialize behaviors for cloned sprites
+    * Behavior "create" method
+    * Behavior creation utils
+    * remove "utils" from behavior
     * More util functions for Sprites
     * Behavior initialization
     * Behaviors that only need to run initially? (Possible "onstart" attribute
@@ -51,8 +50,11 @@
         * Collision lists
 * Packaging
     * Package game as executable?
-* Ops
+* Misc
+    * Preloading master sprites
     * Error handling for load/save operation when file not found
+    * If I haven't already done it, remove the update function from the ui
+    * If I haven't already done it, stop templated sprites from trying to name themselves in init/sprite
 
 # After 1.0
 * yage ide (name?) to help create the "assets" object for different games
@@ -70,8 +72,6 @@
 * Bug with screepshot op and flipped images being clipped wrong near the
   edges. Try to get resolved with html2canvas first, but if not, do a 
   work around.
-* If I haven't already done it, remove the update function from the ui
-* If I haven't already done it, stop templated sprites from trying to name themselves in init/sprite
 
 # Possible extra features
 * Multiple maps on one screen?
