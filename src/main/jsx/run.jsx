@@ -3,9 +3,10 @@ const {ipcRenderer: ipc } = electron;
 
 // const assets = (process.argv.length > 2) ? require(path.join(__dirname, "../", process.argv[2])) : require('../assets');
 const init = require("./init")
-const ui = require("./ui")
 const loader = require("./loader")
+const ui = require("./ui")
 const update = require('./update')
+const ops = require('./ops')
 
 const assets = loader.loadAssetsFromPath(ipc.sendSync('get-assets','ping'))
 
@@ -25,6 +26,9 @@ onmouseup = ui.inputUp
 const onLoop = runAtom => _ => {
     runAtom.gameState.input = ui.nextInput()
     runAtom.gameState = update(assets)(runAtom.gameState)
+    if (runAtom.gameState.ops.length != 0) {
+        runAtom.gameState = ops.runOps(runAtom.gameState, {document, assets, runAtom})
+    }
     if (runAtom.tick % cleanupInterval == 0) { 
         // Every so often, remove finished sounds from ui
         runAtom.gameState = ui.cleanupSound(runAtom.gameState)
@@ -34,7 +38,9 @@ const onLoop = runAtom => _ => {
     }
     // console.log(ui.derefInputAtom())
     if (!runAtom.running || runAtom.tick == lastTick) {
-        clearInterval(runAtom.currentLoop)
+        // clearInterval(runAtom.currentLoop)
+        stopRun(runAtom);
+
     } else if(!runAtom.tick) {
         ui.renderMap(runAtom.gameState,_=>ipc.send('rendered',true))
     } else {
@@ -56,7 +62,9 @@ const startRun = gameState => {
 
 const stopRun = runAtom => {
     clearInterval(runAtom.currentLoop)
-    runAtom[running] = false
+    runAtom.running = false
+    console.log("daby")
+    ipc.send('game-finished')
 }
 
 let globalRunAtom;

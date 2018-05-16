@@ -21,8 +21,11 @@
                 "currentFrame":4
             },
             "behaviors":[
-                "toggle"
-
+                "toggle",
+                "saveOnP",
+                "saveMeOnO",
+                "loadOnL",
+                "loadMeOnK"
             ],
             "physics": {
                 "ignoreCollisions": true,

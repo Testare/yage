@@ -7,7 +7,8 @@
     },
     "behaviors": [
         "wasd",
-        ["burningSM", {"key":"KeyC"}]
+        ["burningSM", {"key":"KeyC"}],
+        "loadGeorgePlayerOnJ"
     ],
     "zFrame": 19
 }

@@ -42,6 +42,10 @@ const launchGame = assets => {
     window.on("close", _ => {
         stopGame()
     })
+    ipc.once('game-finished', _=> {
+        window.destroy()
+        stopGame()
+    })
     return window
 }
 

@@ -47,14 +47,8 @@
         * Collision lists
 * Packaging
     * Package game as executable?
-* Ops system
-    * Single-use commands that don't directly affect or can't be well
-      represented in the game state object, or affect game state in a way that
-      doesn't work well mid-update
-    * Pause game
-    * Save game state
-    * Loading new level
-    * Loading game state
+* Ops
+    * Error handling for load/save operation when file not found
 
 # After 1.0
 * yage ide (name?) to help create the "assets" object for different games
@@ -65,9 +59,13 @@
     * Box - Vector
     * Circle - Vector
     * Vector - Vector
+* Creating sprite from screenshot
 
 # Bugs/Code Improvements
 * Figure out that weird "scale" function and how it should be placed.
+* Bug with screepshot op and flipped images being clipped wrong near the
+  edges. Try to get resolved with html2canvas first, but if not, do a 
+  work around.
 
 # Possible extra features
 * Multiple maps on one screen?
