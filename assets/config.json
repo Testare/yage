@@ -1,7 +1,7 @@
 {
     "name":"Basic Platformer!",
     "resolution":[640,400],
-    "map":"dungeon.json",
+    "map":"dungeon",
     "debug":{
         "drawCollision":false
     },

@@ -16,6 +16,7 @@
         "map"
     ],
     "collidesWith": [
+        "enemies",
         "map"
     ],
     "zFrame": 19

@@ -1,21 +1,24 @@
+const groups = require('./groups')
 const fp = require("lodash/fp")
 const {checkCollision} = require('./collision-narrow');
 //Should be renamed, since this has to move the sprites as well
-const runCollision = ({spriteList,...map}) => {
-    //later I can work in init on creating the collision arary
+const runCollision = ({spriteList, ...map}) => {
+    // This works bug free, but to best optimize it this only needs to be 
+    // called when sprites are added or removed from the sprite list, or
+    // if a sprite changes sprite groups or collision groups.
+    // spriteList passed as a parameter, but current it is not used.
+    groups.invalidateCache()
     return {
         ...map,
-        spriteList:fp.reduce(runCollisionInstance,spriteList,getMovingSprites(spriteList))
+        spriteList:fp.reduce(runCollisionInstance, spriteList, getMovingSprites(spriteList))
     }
-
-    // return {...map,spriteList:spriteList}
 }
 
-const getSimplePhysics = ({physics,player}) => {
-    const animation = player.actor[player.animation]
-    const newX = physics.posX + physics.velX 
-    const newY = physics.posY + physics.velY 
-    return {
+const getSimplePhysics = ({physics, player}) => (
+    animation = player.actor[player.animation],
+    newX = physics.posX + physics.velX,
+    newY = physics.posY + physics.velY,
+    {
         newX:newX,
         newY:newY,
         newX_W:newX + animation.width,
@@ -25,9 +28,11 @@ const getSimplePhysics = ({physics,player}) => {
         velX:physics.velX,
         velY:physics.velY
     }
-}
+)
+
 const runCollisionInstance = (spriteList, instanceSprite) => {
     const mePhys = getSimplePhysics(instanceSprite)
+    const spritesInGroup = groups.getSpritesForGroup(instanceSprite.collidesWith, spriteList)
     const overlaps = fp.filter(
         other => {
             if (other.name === instanceSprite.name) {
@@ -40,7 +45,7 @@ const runCollisionInstance = (spriteList, instanceSprite) => {
                 && otherPhys.newY <= mePhys.newY_H
                 && mePhys.newY <= otherPhys.newY_H
             )
-        }, spriteList
+        }, spritesInGroup
     )
     if (overlaps.length != 0) {
         // NARROW PHASE COLLISION
@@ -67,9 +72,6 @@ const runCollisionInstance = (spriteList, instanceSprite) => {
         }
     }
 }
-
-
-
 
 const getMovingSprites = fp.filter(sprite=>{
     const {velX,velY} = sprite.physics

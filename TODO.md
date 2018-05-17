@@ -1,5 +1,7 @@
 # yage 0.6
 * rename config.json to game.json?
+* Default map "src" attribute
+* Clean up init module?
 
 # Essential Features for yage-1.0
 * Git organization
@@ -38,7 +40,6 @@
     * Sprites created using normal html rather than sprite json
 * Physics
     * Collision checking behavior
-    * Collision Lists
     * Sprites locked to viewport (ghost collision only)
     * Narrow collision engine
         * ignoreCollision
