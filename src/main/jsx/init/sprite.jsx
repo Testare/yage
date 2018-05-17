@@ -23,9 +23,16 @@ const applyOffset = sprite => _.isEmpty(sprite.physics)
         candy:true
     }}
 
-const spriteInit = (assets) => spr => {
+// This function might need to be refactored to another location
+const spriteGroupsToFlag = (spriteGroupMap, spriteGroups) => _.reduce(
+    (acm, sg) => spriteGroupMap[sg] | acm,
+    0,
+    spriteGroups
+)
+
+const spriteInit = assets => (spr, spriteGroups) => {
     if (_.isString(spr)) {
-        return spriteInit(assets)(template(assets, spr, {}))
+        return spriteInit(assets)(template(assets, spr, {}), spriteGroups)
     }
     else {
         const {fromTemplate, ...rawState} = spr
@@ -34,8 +41,10 @@ const spriteInit = (assets) => spr => {
             data: {},
             zFrame:20,
             ...rawState,
+            collidesWith:spriteGroupsToFlag(spriteGroups, rawState.collidesWith || ["map"]), // Should default be none or map?
+            groups:spriteGroupsToFlag(spriteGroups, rawState.groups || []),
             player:playerInit(assets)(rawState.player)
-        }) : spriteInit(assets)(template(assets, fromTemplate, rawState))
+        }) : spriteInit(assets)(template(assets, fromTemplate, rawState), spriteGroups)
     }
 } 
 

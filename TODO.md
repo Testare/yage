@@ -1,4 +1,5 @@
 # yage 0.6
+* rename config.json to game.json?
 
 # Essential Features for yage-1.0
 * Git organization
@@ -37,7 +38,6 @@
     * Sprites created using normal html rather than sprite json
 * Physics
     * Collision checking behavior
-    * Sprite Groups
     * Collision Lists
     * Sprites locked to viewport (ghost collision only)
     * Narrow collision engine
@@ -48,6 +48,7 @@
         * Optional draw collision
         * Collision information for the map
         * Collision lists
+    * Test/[reimplement] loadmap op
 * Packaging
     * Package game as executable?
 * Misc

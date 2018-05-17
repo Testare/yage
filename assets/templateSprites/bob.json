@@ -11,5 +11,12 @@
         "loadGeorgePlayerOnJ",
         "shootTom"
     ],
+    "groups": [
+        "player",
+        "map"
+    ],
+    "collidesWith": [
+        "map"
+    ],
     "zFrame": 19
 }

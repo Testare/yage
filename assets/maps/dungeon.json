@@ -6,17 +6,20 @@
     "viewportY":50,
     "audio": {
         "fadeRate":3.5,
-        "tracks":{
+        "tracks": {
             "main":["ticker.mp3", 0.05]
         }, 
-        "sounds":{
+        "sounds": {
             "sound1":"ping.mp3"
         }
     },
     "spriteList": {
         "tom": {
             "player": "tom",
-            "zFrame": 18
+            "zFrame": 18,
+            "collidesWith": [
+                "enemies"
+            ]
         },
         "george": {
             "player": {
@@ -24,7 +27,7 @@
                 "animation":"waiting",
                 "currentFrame":4
             },
-            "behaviors":[
+            "behaviors": [
                 "toggle",
                 "saveOnP",
                 "saveMeOnO",
@@ -38,6 +41,9 @@
                 "velX":0,
                 "velY":0
             },
+            "groups": [
+                "enemies"
+            ],
             "zFrame":21
         },
         "bob": {

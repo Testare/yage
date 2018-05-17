@@ -4,5 +4,9 @@
     "map":"dungeon.json",
     "debug":{
         "drawCollision":false
-    }
+    },
+    "spriteGroups":[
+        "player",
+        "enemies"
+    ]
 }
