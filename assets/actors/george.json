@@ -9,6 +9,7 @@
                 "collisionData": [
                     {
                         "type":"body",
+                        "physical":true,
                         "shape":"circle",
                         "coords":"17,17,17"
                     }
@@ -19,6 +20,7 @@
                 "collisionData": [
                     {
                         "type":"body",
+                        "physical":true,
                         "shape":"circle",
                         "coords":"17,17,17"
                     }
@@ -29,6 +31,7 @@
                 "collisionData": [
                     {
                         "type":"body",
+                        "physical":true,
                         "shape":"circle",
                         "coords":"17,17,17"
                     }
@@ -39,6 +42,7 @@
                 "collisionData": [
                     {
                         "type":"body",
+                        "physical":true,
                         "shape":"circle",
                         "coords":"17,17,17"
                     }
@@ -49,6 +53,7 @@
                 "collisionData": [
                     {
                         "type":"body",
+                        "physical":true,
                         "shape":"circle",
                         "coords":"17,17,17"
                     }

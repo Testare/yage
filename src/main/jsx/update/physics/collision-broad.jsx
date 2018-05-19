@@ -19,14 +19,11 @@ const getSimplePhysics = ({physics, player}) => (
     newX = physics.posX + physics.velX,
     newY = physics.posY + physics.velY,
     {
-        newX:newX,
-        newY:newY,
+        ...physics,
+        newX,
+        newY,
         newX_W:newX + animation.width,
-        newY_H:newY + animation.height,
-        posX:physics.posX,
-        posY:physics.posY,
-        velX:physics.velX,
-        velY:physics.velY
+        newY_H:newY + animation.height
     }
 )
 
@@ -50,26 +47,21 @@ const runCollisionInstance = (spriteList, instanceSprite) => {
     if (overlaps.length != 0) {
         // NARROW PHASE COLLISION
         // COLLISION HANDLING
-        const collisionResults = overlaps.map(overlap=>checkCollision(spriteList, instanceSprite, overlap))
+        const collisionResults = overlaps.map(overlap=>checkCollision(spriteList, instanceSprite, overlap, true))
+        const hits = fp.filter(collision=>collision.hit, collisionResults)
         // Determine if a collision has occured
         // Determine if the collision should affect movement
         // Determine how much the collision should affect movement
         // ... Currently just says "Just cancel the movement"
-        return spriteList
+        if (fp.isEmpty(hits)) {
+            return fp.update([instanceSprite.name, "physics"], phys=>({...phys,posX:mePhys.newX, posY:mePhys.newY}), spriteList)
+        } else {
+            return spriteList
+        }
     } else {
         // MOVEMENT LOGIC
         // THIS NEEDS TO BE REFACTORED TO SOMETHING
-        return {
-            ...spriteList,
-            [instanceSprite.name]:{
-                ...instanceSprite,
-                physics:{
-                    ...instanceSprite.physics,
-                    posX:mePhys.newX,
-                    posY:mePhys.newY
-                }
-            }
-        }
+        return fp.update([instanceSprite.name, "physics"], phys=>({...phys,posX:mePhys.newX, posY:mePhys.newY}), spriteList)
     }
 }
 

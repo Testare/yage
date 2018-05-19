@@ -9,6 +9,7 @@
                 "collisionData": [
                     {
                         "type":"body",
+                        "physical":true,
                         "shape":"circle",
                         "coords":"17,17,17"
                     }
@@ -19,16 +20,11 @@
                 "collisionData": [
                     {
                         "type":"body",
+                        "physical":true,
                         "shape":"circle",
                         "coords":"17,17,10"
-                    },
-                    {
-                        "type":"ghost",
-                        "shape":"vector",
-                        "coords":"7,0,27,34"
                     }
                 ]
-
             },
             {
                 "ticks":10,
@@ -36,6 +32,7 @@
                     {
                         "type":"body",
                         "shape":"circle",
+                        "physical":true,
                         "coords":"17,17,17"
                     }
                 ]
