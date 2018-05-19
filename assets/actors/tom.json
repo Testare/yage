@@ -8,6 +8,7 @@
                 "ticks":8,
                 "collisionData": [
                     {
+                        "physical":true,
                         "type":"ghost",
                         "shape":"circle",
                         "coords":"17,17,17"
@@ -18,6 +19,7 @@
                 "ticks":4,
                 "collisionData": [
                     {
+                        "physical":true,
                         "type":"ghost",
                         "shape":"circle",
                         "coords":"17,17,17"
@@ -29,6 +31,7 @@
                 "ticks":4,
                 "collisionData": [
                     {
+                        "physical":true,
                         "type":"ghost",
                         "shape":"circle",
                         "coords":"17,17,17"

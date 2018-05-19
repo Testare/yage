@@ -75,7 +75,8 @@
             },
             "player": {
                 "currentFrame": 1
-            }
+            },
+            "groups": ["enemies"]
         },
         "bullet3": {
             "fromTemplate": "bullet",
@@ -88,7 +89,8 @@
             "player": {
                 "animation":"hit",
                 "currentFrame": 2
-            }
+            },
+            "groups": ["enemies"]
         }
     }
 }

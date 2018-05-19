@@ -47,7 +47,7 @@ const runCollisionInstance = (spriteList, instanceSprite) => {
     if (overlaps.length != 0) {
         // NARROW PHASE COLLISION
         // COLLISION HANDLING
-        const collisionResults = overlaps.map(overlap=>checkCollision(spriteList, instanceSprite, overlap, true))
+        const collisionResults = fp.flatMap(overlap=>checkCollision(spriteList, instanceSprite, overlap, true), overlaps)
         const hits = fp.filter(collision=>collision.hit, collisionResults)
         // Determine if a collision has occured
         // Determine if the collision should affect movement
@@ -56,7 +56,22 @@ const runCollisionInstance = (spriteList, instanceSprite) => {
         if (fp.isEmpty(hits)) {
             return fp.update([instanceSprite.name, "physics"], phys=>({...phys,posX:mePhys.newX, posY:mePhys.newY}), spriteList)
         } else {
-            return spriteList
+            const firstHit = fp.head(fp.sortBy(col=>(col.deltaX + col.deltaY), hits))
+            const [velX, velY] = firstHit.slideVector()
+            console.log(velX, velY)
+            if(velX != 0 || velY != 0) {
+                const updatedSprList = fp.update([instanceSprite.name, "physics"], phys=>({...phys, posX:phys.posX+firstHit.deltaX, posY:phys.posY+firstHit.deltaY, velX, velY}), spriteList)
+                const completingVelocity = runCollisionInstance (updatedSprList, updatedSprList[instanceSprite.name])
+                // There should be a setting for what type of thing happens here
+                // Should I set the velocity vectors back after? Currently I do.
+                const finalSprList = fp.update([instanceSprite.name, "physics"], phys=>({...phys, velX:mePhys.velX, velY:mePhys.velY}), completingVelocity)
+                return finalSprList
+            } else {
+                const updatedSprList = fp.update([instanceSprite.name, "physics"], phys=>({...phys, posX:phys.posX+firstHit.deltaX, posY:phys.posY+firstHit.deltaY, velX, velY}), spriteList)
+                return updatedSprList
+
+            }
+            // return updatedSprList
         }
     } else {
         // MOVEMENT LOGIC
