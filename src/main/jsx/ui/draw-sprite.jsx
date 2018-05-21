@@ -24,15 +24,28 @@ const DrawCollisionFrame = ({player}) => (
         {
             pAnimation(player).frames[player.currentFrame].collisionData.map(
                 (collisionFrame, i) => {
-                    coords = collisionFrame.coords.split(",")
+                    coords = collisionFrame.coords.split(",") // When I change coords this needs to be changed
                     switch(collisionFrame.shape) {
+                        case "rect":
+                        case "box": 
+                            return <rect
+                                key={i}
+                                x={coords[0]}
+                                y={coords[1]}
+                                width={coords[2]}
+                                height={coords[3]}
+                                stroke="pink"
+                                strokeDasharray="5,5"
+                                fill="none"
+                            />
                         case "circle":
                             return <circle
                                 key={i}
                                 cx={coords[0]}
                                 cy={coords[1]}
                                 r={coords[2]}
-                                stroke="blue"
+                                stroke="pink"
+                                strokeDasharray="5,5"
                                 fill="none"
                             />
                         case "vector":
@@ -42,7 +55,8 @@ const DrawCollisionFrame = ({player}) => (
                                 y1={coords[1]}
                                 x2={coords[2]}
                                 y2={coords[3]}
-                                stroke="blue"
+                                stroke="pink"
+                                strokeDasharray="5,5"
                                 fill="none"
                             />
                         default:

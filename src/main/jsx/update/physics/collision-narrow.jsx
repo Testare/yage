@@ -1,5 +1,7 @@
 const _ = require('lodash/fp')
 /**
+ * This is currently invalid
+ * 
  * Contains information about a collision.
  * @typedef {Object} Collision
  * @property {!boolean} collisionOccured - Indicates whether or not a narrow collision actually happened.
@@ -56,6 +58,7 @@ const pointVectorCircleCollision = ([sx,sy],[vx,vy],[tx, ty, radius]) => {
     }
     const [qx,qy] = [uvx*dist, uvy*dist]
     return {
+        hit: true,
         deltaX:qx,
         deltaY:qy,
         slideVector:(_=> {
@@ -65,26 +68,86 @@ const pointVectorCircleCollision = ([sx,sy],[vx,vy],[tx, ty, radius]) => {
             const projDist = remainingVel*(uvx*normalX+uvy*normalY)
             const slideVec = [normalX*projDist, normalY*projDist]
             return slideVec
-        }), // It's a function for lazy eval, but I'm evaluating it now for debug
-        hit: true
+        })
     }
 
+}
+
+
+const overlapAxisWindow = (sx, sw, tx, tw, vel) => {
+    // X is the point on the axis, w is the width on the axis
+    if (vel == 0) {
+        return (tx < sx + sw && sx < tx + tw)
+            ? [Number.MIN_SAFE_INTEGER, 1] // Full interval
+            : [2, -1] // Invalid values
+    } else {
+        const deltaX = tx - sx
+        const a = (deltaX + tw)/vel
+        const b = (deltaX - sw)/vel
+        return (vel < 0)
+            ? [a, b]
+            : [b, a]
+    }
 }
 
 const checkCD = (sourceSprite, sourceCD, targetSprite, targetCD) => 
     collisionCheckForShapes[sourceCD.shape][targetCD.shape]
         (sourceSprite, sourceCD.coords, targetSprite, targetCD.coords)
 
-const twoCircles = ({physics:sourcePhysics}, [sx,sy, sradius], {physics:targetPhysics}, [tx,ty,tradius]) => 
+const twoCircles = ({physics:sourcePhysics}, [sx, sy, sradius], {physics:targetPhysics}, [tx,ty,tradius]) => 
     pointVectorCircleCollision(
         [sourcePhysics.posX + sx, sourcePhysics.posY + sy],
         [sourcePhysics.velX,sourcePhysics.velY],
         [tx + targetPhysics.posX,ty + targetPhysics.posY, sradius + tradius]
     )
 
-const circleAndBox = s=>s
-const boxAndCircle = s=>s
-const twoBoxes = s=>s
+const circleAndBox = _=>NO_COLLISION
+const boxAndCircle = _=>NO_COLLISION
+
+const twoBoxes = ({physics:sp}, [sx,sy,sw,sh], {physics:tp}, [tx,ty,tw,th]) => {
+    // The windows are in units of "frames", just as the velocities are in units of "pixels/frame"
+    const [xMin, xMax] = overlapAxisWindow(sp.posX + sx, sw, tp.posX + tx, tw, sp.velX)
+    if (xMax < 0 || xMin > 1) { 
+        return NO_COLLISION
+    }
+    const [yMin, yMax] = overlapAxisWindow(sp.posY + sy, sh, tp.posY + ty, th, sp.velY)
+    if (yMax < 0 || yMin > 1) {
+        return NO_COLLISION
+    }
+    // The collision occurs when the windows overlap, which happens
+    // at the greater of the two windows's minimums.
+    // But only if this is greater than the other window's maximum
+    // Otherwise, no collision
+    // The window that was entered last is the axis that is stopped
+    // by the collision
+    if (yMin < xMin) {
+        //hitTime is xMin, missTime is yMax
+        if (yMax < xMin) {
+            return NO_COLLISION;
+        } else {
+            // Collision occured at xMin
+            return {
+                hit: true, 
+                deltaX:xMin * sp.velX,
+                deltaY:xMin * sp.velY,
+                slideVector:_=>[0,sp.velY]
+            }
+        }
+    } else {
+        //hitTime is yMin, missTime is xMax
+        if (xMax < yMin) {
+            return NO_COLLISION;
+        } else {
+            // Collision occured at yMin
+            return {
+                hit: true, 
+                deltaX:yMin * sp.velX,
+                deltaY:yMin * sp.velY,
+                slideVector:_=> [sp.velX,0]
+            }
+        }
+    }
+}
 
 const collisionCheckForShapes = {
     "circle": {
@@ -117,14 +180,14 @@ const flipCD = animation => _.map(
             [x,y,w,h] = parseCD(cd).coords,
             {
                 ...cd,
-                coords:[animation.width - x, animation.height - y, w, h]
+                coords:[animation.width - (x + w), animation.height - (y + h), w, h]
             }
         )],
         [ _.stubTrue, ({shape})=>{throw Erroh(`Invalid collision shape "${shape}"`)}]
     ])
 )
 
-// This really should happen in the init module
+// TODO Refactor this, it really should happen in the init module
 const parseCD = _.cond([
     [({coords}) => _.isString(coords), ({coords, ...cd}) => ({...cd, coords:_.map(_.toNumber,coords.split(','))})],
     [({coords}) => _.isArray(coords), _.map(_.toNumber)],
@@ -142,6 +205,8 @@ const getCollisionData = ({player}, physicalOnly) => (
 
 
 /**
+ * This is currently invalid.
+ * 
  * Returns collision objects that describe if a collision occured, and what type, etc.
  *   
  * @param {Object} spriteList 
@@ -157,13 +222,6 @@ const checkCollision = (spriteList, sourceSprite, targetSprite, physicalOnly=fal
         sourceCD
     )
     const hit = _.any(k=>k.hit,results)
-    console.log(results)
-    /*return {
-        collisionOccured: true,
-        collisionType:"fatal",
-        hit,
-        results
-    }*/
     return results
 
 }

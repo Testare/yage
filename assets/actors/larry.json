@@ -1,0 +1,30 @@
+{
+    "main": {
+        "width": 31,
+        "height": 31,
+        "frames": [
+            {
+                "ticks":4,
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "physical":true,
+                        "shape":"rect",
+                        "coords":"0,0,31,31"
+                    }
+                ]
+            },
+            {
+                "ticks":2,
+                "collisionData": [
+                    {
+                        "type":"body",
+                        "physical":true,
+                        "shape":"rect",
+                        "coords":"0,0,31,31"
+                    }
+                ]
+            }
+        ]
+    }
+}

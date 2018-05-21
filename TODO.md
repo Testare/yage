@@ -39,8 +39,12 @@
 * HTML Sprites
     * Sprites created using normal html rather than sprite json
 * Physics
+    * DrawCollision for rect/box
     * Collision checking behavior
     * Sprites locked to viewport (ghost collision only)
+    * Defaults for physics (velX, velY)
+    * Physics "candy" and "ignoreCollision" cleanup
+    * Physics collision action: (Bounce, slide-retain-velocity, slide-change-velocity)
     * Narrow collision engine
         * ignoreCollision
         * Box - Box

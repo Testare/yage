@@ -21,6 +21,36 @@
                 "enemies"
             ]
         },
+        "larry2": {
+            "player": {
+                "actor": "larry",
+                "flipped": true
+            },
+            "zFrame":20,
+            "physics": {
+                "posX":690,
+                "posY":396,
+                "velX":0,
+                "velY":0
+            },
+            "groups":["enemies"]
+        },
+        "larry": {
+            "player": "larry",
+            "zFrame":20,
+            "physics": {
+                "posX":650,
+                "posY":396,
+                "velX":0,
+                "velY":0
+            },
+            "behaviors": [
+                "wasd"
+            ],
+            "collidesWith":[
+                "enemies"
+            ]
+        },
         "george": {
             "player": {
                 "actor":"george",
