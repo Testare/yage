@@ -39,20 +39,16 @@
 * HTML Sprites
     * Sprites created using normal html rather than sprite json
 * Physics
-    * DrawCollision for rect/box
     * Collision checking behavior
     * Sprites locked to viewport (ghost collision only)
     * Defaults for physics (velX, velY)
     * Physics "candy" and "ignoreCollision" cleanup
+    * Collision data initialization
     * Physics collision action: (Bounce, slide-retain-velocity, slide-change-velocity)
     * Narrow collision engine
-        * ignoreCollision
-        * Box - Box
-        * Circle - Box
-        * Circle - Circle
-        * Optional draw collision
+        * Refactor to more files?
+        * Collision sensitivity modification
         * Collision information for the map
-        * Collision lists
     * Test/[reimplement] loadmap op
 * Packaging
     * Package game as executable?
@@ -67,10 +63,13 @@
 * example game that runs on yage
 
 # Later features
-* Narrow collision engine: vectors
-    * Box - Vector
-    * Circle - Vector
-    * Vector - Vector
+* At least one of these
+    * Narrow collision engine: vectors (?)
+        * Box - Vector
+        * Circle - Vector
+        * Vector - Vector
+        * (Poly - Vector) ?
+    * Narrow collision engine: poly/convex (Seperating Axis Theorem?)
 * Creating sprite from screenshot
 
 # Bugs/Code Improvements
@@ -78,6 +77,7 @@
 * Bug with screepshot op and flipped images being clipped wrong near the
   edges. Try to get resolved with html2canvas first, but if not, do a 
   work around.
+* Keep track of what sprites are moving and which aren't, rather than checking each one every frame?
 
 # Possible extra features
 * Multiple maps on one screen?

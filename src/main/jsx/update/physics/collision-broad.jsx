@@ -1,6 +1,10 @@
 const groups = require('./groups')
 const fp = require("lodash/fp")
 const {checkCollision} = require('./collision-narrow');
+
+// Should probably have a config value
+const COLLISION_SENSITIVITY = 0.05
+
 //Should be renamed, since this has to move the sprites as well
 const runCollision = ({spriteList, ...map}) => {
     // This works bug free, but to best optimize it this only needs to be 
@@ -58,8 +62,8 @@ const runCollisionInstance = (spriteList, instanceSprite) => {
         } else {
             const firstHit = fp.head(fp.sortBy(col=>(col.deltaX + col.deltaY), hits))
             const [velX, velY] = firstHit.slideVector()
-            console.log(velX, velY)
-            if(velX != 0 || velY != 0) {
+            /* If the difference is two small, we don't care about it.*/
+            if  (Math.abs(velX) > COLLISION_SENSITIVITY || Math.abs(velY) > COLLISION_SENSITIVITY) {
                 const updatedSprList = fp.update([instanceSprite.name, "physics"], phys=>({...phys, posX:phys.posX+firstHit.deltaX, posY:phys.posY+firstHit.deltaY, velX, velY}), spriteList)
                 const completingVelocity = runCollisionInstance (updatedSprList, updatedSprList[instanceSprite.name])
                 // There should be a setting for what type of thing happens here
@@ -69,9 +73,7 @@ const runCollisionInstance = (spriteList, instanceSprite) => {
             } else {
                 const updatedSprList = fp.update([instanceSprite.name, "physics"], phys=>({...phys, posX:phys.posX+firstHit.deltaX, posY:phys.posY+firstHit.deltaY, velX, velY}), spriteList)
                 return updatedSprList
-
             }
-            // return updatedSprList
         }
     } else {
         // MOVEMENT LOGIC

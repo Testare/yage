@@ -11,7 +11,7 @@ const _ = require('lodash/fp')
 
 const NO_COLLISION = {collisionOccured:false, hit: false, slideVector:_=>[0,0]}
 
-const pointVectorCircleCollision = ([sx,sy],[vx,vy],[tx, ty, radius]) => {
+const pointCircleCollision = ([sx,sy], [tx, ty, radius], [vx,vy]) => {
     const velocityMagnitude = Math.hypot(vx,vy)
     // Difference vector
     const [ax,ay] = [tx-sx, ty-sy]
@@ -61,6 +61,7 @@ const pointVectorCircleCollision = ([sx,sy],[vx,vy],[tx, ty, radius]) => {
         hit: true,
         deltaX:qx,
         deltaY:qy,
+        hitTime:dist/velocityMagnitude, // Not sure about this
         slideVector:(_=> {
             // Can probably optimize this later using c and b or something
             const [normalX,normalY] = [(sy+qy-ty)/radius,-(sx+qx-tx)/radius]
@@ -70,9 +71,7 @@ const pointVectorCircleCollision = ([sx,sy],[vx,vy],[tx, ty, radius]) => {
             return slideVec
         })
     }
-
 }
-
 
 const overlapAxisWindow = (sx, sw, tx, tw, vel) => {
     // X is the point on the axis, w is the width on the axis
@@ -90,27 +89,13 @@ const overlapAxisWindow = (sx, sw, tx, tw, vel) => {
     }
 }
 
-const checkCD = (sourceSprite, sourceCD, targetSprite, targetCD) => 
-    collisionCheckForShapes[sourceCD.shape][targetCD.shape]
-        (sourceSprite, sourceCD.coords, targetSprite, targetCD.coords)
-
-const twoCircles = ({physics:sourcePhysics}, [sx, sy, sradius], {physics:targetPhysics}, [tx,ty,tradius]) => 
-    pointVectorCircleCollision(
-        [sourcePhysics.posX + sx, sourcePhysics.posY + sy],
-        [sourcePhysics.velX,sourcePhysics.velY],
-        [tx + targetPhysics.posX,ty + targetPhysics.posY, sradius + tradius]
-    )
-
-const circleAndBox = _=>NO_COLLISION
-const boxAndCircle = _=>NO_COLLISION
-
-const twoBoxes = ({physics:sp}, [sx,sy,sw,sh], {physics:tp}, [tx,ty,tw,th]) => {
+const boxBoxCollision = ([sx,sy,sw,sh], [tx,ty,tw,th], [velX, velY]) => {
     // The windows are in units of "frames", just as the velocities are in units of "pixels/frame"
-    const [xMin, xMax] = overlapAxisWindow(sp.posX + sx, sw, tp.posX + tx, tw, sp.velX)
+    const [xMin, xMax] = overlapAxisWindow(sx, sw, tx, tw, velX)
     if (xMax < 0 || xMin > 1) { 
         return NO_COLLISION
     }
-    const [yMin, yMax] = overlapAxisWindow(sp.posY + sy, sh, tp.posY + ty, th, sp.velY)
+    const [yMin, yMax] = overlapAxisWindow(sy, sh, ty, th, velY)
     if (yMax < 0 || yMin > 1) {
         return NO_COLLISION
     }
@@ -121,32 +106,161 @@ const twoBoxes = ({physics:sp}, [sx,sy,sw,sh], {physics:tp}, [tx,ty,tw,th]) => {
     // The window that was entered last is the axis that is stopped
     // by the collision
     if (yMin < xMin) {
-        //hitTime is xMin, missTime is yMax
+        // hit time is xMin, missTime is yMax
         if (yMax < xMin) {
             return NO_COLLISION;
         } else {
             // Collision occured at xMin
             return {
                 hit: true, 
-                deltaX:xMin * sp.velX,
-                deltaY:xMin * sp.velY,
-                slideVector:_=>[0,sp.velY]
+                deltaX:xMin * velX,
+                deltaY:xMin * velY,
+                slideVector:_=>[0,velY]
             }
         }
     } else {
-        //hitTime is yMin, missTime is xMax
+        // hit time is yMin, missTime is xMax
         if (xMax < yMin) {
             return NO_COLLISION;
         } else {
             // Collision occured at yMin
             return {
                 hit: true, 
-                deltaX:yMin * sp.velX,
-                deltaY:yMin * sp.velY,
-                slideVector:_=> [sp.velX,0]
+                deltaX:yMin * velX,
+                deltaY:yMin * velY,
+                slideVector:_=> [velX,0]
             }
         }
     }
+}
+
+const checkCD = (sourceSprite, sourceCD, targetSprite, targetCD) => 
+    collisionCheckForShapes[sourceCD.shape][targetCD.shape]
+        (sourceSprite, sourceCD.coords, targetSprite, targetCD.coords)
+
+const twoCircles = ({physics:sourcePhysics}, [sx, sy, sradius], {physics:targetPhysics}, [tx,ty,tradius]) => 
+    pointCircleCollision(
+        [sourcePhysics.posX + sx, sourcePhysics.posY + sy],
+        [tx + targetPhysics.posX,ty + targetPhysics.posY, sradius + tradius],
+        [sourcePhysics.velX,sourcePhysics.velY]
+    )
+
+const twoBoxes = ({physics:sp}, [sx,sy,sw,sh], {physics:tp}, [tx,ty,tw,th]) =>
+    boxBoxCollision(
+        [sx+sp.posX, sy+sp.posY, sw, sh],
+        [tp.posX + tx, tp.posY + ty, tw, th],
+        [sp.velX, sp.velY]
+    )
+
+const circleAndBox = ({physics:sp}, [sx,sy,sradius], {physics:tp}, [tx,ty,tw,th])=>{
+    const trueSX = sp.posX + sx
+    const trueSY = sp.posY + sy
+    const trueTX = tp.posX + tx
+    const trueTY = tp.posY + ty
+    const doubleRadius = sradius * 2
+    const boxCollision = boxBoxCollision(
+        [trueSX - sradius, trueSY - sradius,  doubleRadius, doubleRadius], 
+        [trueTX, trueTY, tw, th], 
+        [sp.velX, sp.velY]
+    )
+    // If it doesn't hit the box, it can't hit the corners
+    if (!boxCollision.hit) {
+        return boxCollision // or NO_COLLISION
+    }
+    // If it hit a corner, do a point-circle collision.
+    // Otherwise, hit box like source was also a box
+    const newX = trueSX + boxCollision.deltaX - trueTX
+    const newY = trueSY + boxCollision.deltaY - trueTY
+    if (newX < 0) {
+        if (newY < 0) {
+            // Top left corner
+            return pointCircleCollision(
+                [trueSX, trueSY],
+                [trueTX, trueTY, sradius],
+                [sp.velX, sp.velY]
+            )
+        } else if (newY > th) {
+            // Bottom left corner
+            return pointCircleCollision(
+                [trueSX, trueSY],
+                [trueTX, trueTY + th, sradius],
+                [sp.velX, sp.velY]
+            )
+        }
+    } else if (newX > tw) {
+        if (newY < 0) {
+            // Top right corner
+            return pointCircleCollision(
+                [trueSX, trueSY],
+                [trueTX + tw, trueTY, sradius],
+                [sp.velX, sp.velY]
+            )
+        } else if (newY > th) {
+            // Bottom right corner
+            return pointCircleCollision(
+                [trueSX, trueSY],
+                [trueTX + tw, trueTY + th, sradius],
+                [sp.velX, sp.velY]
+            )
+        }
+    }
+    // If none of the conditions check out
+    // If hit, check if center is correct. If so, return boxCollision. Else, return pointCircle
+    return boxCollision
+}
+
+const boxAndCircle = ({physics:sp}, [sx,sy,sw,sh], {physics:tp}, [tx,ty,tradius])=>{
+    const trueSX = sp.posX + sx
+    const trueSY = sp.posY + sy
+    const trueTX = tp.posX + tx
+    const trueTY = tp.posY + ty
+    const doubleRadius = tradius * 2 
+    const boxCollision = boxBoxCollision(
+        [trueSX, trueSY, sw, sh], 
+        [trueTX - tradius, trueTY - tradius, doubleRadius, doubleRadius], 
+        [sp.velX, sp.velY]
+    )
+    if (!boxCollision.hit) {
+        return boxCollision // or NO_COLLISION
+    }
+    // If it hit a corner, do a point-circle collision.
+    // Otherwise, hit circle like target was also a box
+    const newX = trueSX + boxCollision.deltaX - trueTX
+    const newY = trueSY + boxCollision.deltaY - trueTY
+    if (newX > 0) {
+        if (newY > 0) {
+            // Top left corner
+            return pointCircleCollision(
+                [trueSX, trueSY],
+                [trueTX, trueTY, tradius],
+                [sp.velX, sp.velY]
+            )
+        } else if (newY < -sh) {
+            // Bottom left corner
+            return pointCircleCollision(
+                [trueSX, trueSY + sh],
+                [trueTX, trueTY, tradius],
+                [sp.velX, sp.velY]
+            )
+        }
+    } else if (newX < -sw) {
+        if (newY > 0) {
+            // Top right corner
+            return pointCircleCollision(
+                [trueSX + sw, trueSY],
+                [trueTX, trueTY, tradius],
+                [sp.velX, sp.velY]
+            )
+        } else if (newY < -sh) {
+            // Bottom right corner
+            return pointCircleCollision(
+                [trueSX + sw, trueSY + sh],
+                [trueTX, trueTY, tradius],
+                [sp.velX, sp.velY]
+            )
+        }
+    }
+    return boxCollision
 }
 
 const collisionCheckForShapes = {
