@@ -17,10 +17,11 @@ const template = (assets, templateName, rawState) => ({
 const applyOffset = sprite => _.isEmpty(sprite.physics)
     ? sprite
     : {...sprite, physics: {
+        velX:0,
+        velY:0,
         ...sprite.physics,
         posX:sprite.physics.posX - sprite.player.actor[sprite.player.animation].offsetX,
-        posY:sprite.physics.posY - sprite.player.actor[sprite.player.animation].offsetY,
-        candy:true
+        posY:sprite.physics.posY - sprite.player.actor[sprite.player.animation].offsetY
     }}
 
 // This function might need to be refactored to another location

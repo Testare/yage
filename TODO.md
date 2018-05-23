@@ -41,14 +41,11 @@
 * Physics
     * Collision checking behavior
     * Sprites locked to viewport (ghost collision only)
-    * Defaults for physics (velX, velY)
-    * Physics "candy" and "ignoreCollision" cleanup
-    * Collision data initialization
     * Physics collision action: (Bounce, slide-retain-velocity, slide-change-velocity)
     * Narrow collision engine
         * Refactor to more files?
         * Collision sensitivity modification
-        * Collision information for the map
+    * Collision information for the map
     * Test/[reimplement] loadmap op
 * Packaging
     * Package game as executable?
@@ -71,6 +68,8 @@
         * (Poly - Vector) ?
     * Narrow collision engine: poly/convex (Seperating Axis Theorem?)
 * Creating sprite from screenshot
+* Network features?
+* Creator-created/imported modules for behaviors
 
 # Bugs/Code Improvements
 * Figure out that weird "scale" function and how it should be placed.

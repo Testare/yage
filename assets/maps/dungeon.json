@@ -29,9 +29,7 @@
             "zFrame":20,
             "physics": {
                 "posX":690,
-                "posY":396,
-                "velX":0,
-                "velY":0
+                "posY":396
             },
             "groups":["enemies"]
         },
@@ -65,7 +63,6 @@
                 "loadMeOnK"
             ],
             "physics": {
-                "ignoreCollisions": true,
                 "posX":750,
                 "posY":393,
                 "velX":0,

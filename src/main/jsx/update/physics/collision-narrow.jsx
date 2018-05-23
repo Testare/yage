@@ -284,14 +284,14 @@ const collisionCheckForShapes = {
 const flipCD = animation => _.map(
     _.cond([
         [ ({shape})=>['circle'].indexOf(shape) != -1, cd => (
-            [x,y,r] = parseCD(cd).coords,
+            [x,y,r] = cd.coords,
             {
                 ...cd,
                 coords:[animation.width - x, animation.height - y, r]
             }
         )],
-        [ ({shape})=>['box','rect'].indexOf(shape) != -1, cd => (
-            [x,y,w,h] = parseCD(cd).coords,
+        [ ({shape})=>['box', 'rect'].indexOf(shape) != -1, cd => (
+            [x,y,w,h] = cd.coords,
             {
                 ...cd,
                 coords:[animation.width - (x + w), animation.height - (y + h), w, h]
@@ -301,17 +301,10 @@ const flipCD = animation => _.map(
     ])
 )
 
-// TODO Refactor this, it really should happen in the init module
-const parseCD = _.cond([
-    [({coords}) => _.isString(coords), ({coords, ...cd}) => ({...cd, coords:_.map(_.toNumber,coords.split(','))})],
-    [({coords}) => _.isArray(coords), _.map(_.toNumber)],
-    [_.stubTrue, ({coords, ...obj}) => {throw Error(`Can't recognize coord format "${coords}" in ${obj}!`)}]
-])
-
 const getCollisionData = ({player}, physicalOnly) => (
     player.flipped 
         ? flipCD(player.actor[player.animation]) 
-        : _.map(parseCD)
+        : _.identity
     )((physicalOnly
         ? _.filter(cd=>cd.physical)
         : _.identity
