@@ -68,7 +68,6 @@
         * (Poly - Vector) ?
     * Narrow collision engine: poly/convex (Seperating Axis Theorem?)
 * Creating sprite from screenshot
-* Network features?
 * Creator-created/imported modules for behaviors
 
 # Bugs/Code Improvements
@@ -80,6 +79,8 @@
 
 # Possible extra features
 * Multiple maps on one screen?
+* Parralax?
+* Network features?
 * JSDocs?
 * ClojureScript?
 * Other languages for behaviors?
