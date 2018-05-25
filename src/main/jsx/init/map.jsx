@@ -2,8 +2,9 @@ const _ = require('lodash')
 const _fp = require('lodash/fp')
 const sprite = require("./sprite")
 
-const spriteRemap = (assets, sprList) => Object.keys(sprList).reduce(
-    ([spAcm, mspAcm], key) => (spr = {...sprite.init(assets)(sprList[key]), name:key},
+// TODO This can probably be updated with some lodash functions and mapping the values
+const spriteRemap = (assets, sprList, spriteGroupMap) => Object.keys(sprList).reduce(
+    ([spAcm, mspAcm], key) => (spr = {...sprite.init(assets)(sprList[key], spriteGroupMap), name:key},
         _.isEmpty(spr.physics)
         ? [spAcm, {
             ...mspAcm,
@@ -29,12 +30,11 @@ const audioInit = ({tracks={},soundBoards=["all"], ...audio}) => ({
 const getAnimations = _fp.compose(
     _fp.uniq,
     _fp.filter(_fp.identity),
-    _fp.flatMap(sprite => _fp.map(anim => anim.src, sprite.player.actor)),
-    k=>(console.log(k),k)
+    _fp.flatMap(sprite => _fp.map(anim => anim.src, sprite.player.actor))
 )
 
-module.exports.init = assets => ({audio, spriteList:sprites,...initState}) => (
-    [spriteList, masterSpriteList] = spriteRemap(assets, sprites),
+const init = assets => ({audio, spriteList:sprites,...initState}, spriteGroups) => (
+    [spriteList, masterSpriteList] = spriteRemap(assets, sprites, spriteGroups),
     {
         viewportX:0,
         viewportY:0,
@@ -46,3 +46,6 @@ module.exports.init = assets => ({audio, spriteList:sprites,...initState}) => (
     }
 )
 
+const loadMap = assets => mapName => state => ({...state, map:init(assets)(assets.maps[mapName], state.spriteGroups)})
+
+module.exports = {init, loadMap}

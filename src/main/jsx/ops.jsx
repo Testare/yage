@@ -30,10 +30,7 @@ const log = (state, {message, displayState}) => {
 // only property, but it is a necessary property with no default
 // value.
 // * mapName: Name of the map to load. ".json" not necessary.
-const loadMap = (state, {mapName}, {assets}) => ({
-    ...state,
-    map:init.map(assets)(assets.maps[mapName])
-})
+const loadMap = (state, {mapName}, {assets}) => init.map(assets)(mapName)(state)
 
 // Most of these parameters can be figured out from the saveState function.
 // * segment: If not specified, the segment will be used from the save file. If

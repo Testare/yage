@@ -8,6 +8,7 @@
                 "collisionData": [
                     {
                         "type":"ghost",
+                        "physical":true,
                         "shape":"circle",
                         "coords":"12.5,12.5,12.5"
                     }
@@ -17,6 +18,7 @@
                 "ticks":10,
                 "collisionData": [
                     {
+                        "physical":true,
                         "type":"ghost",
                         "shape":"circle",
                         "coords":"12.5,12.5,12.5"
@@ -27,6 +29,7 @@
                 "ticks":10,
                 "collisionData": [
                     {
+                        "physical":true,
                         "type":"ghost",
                         "shape":"circle",
                         "coords":"12.5,12.5,12.5"
@@ -46,6 +49,7 @@
                 "ticks":10,
                 "collisionData": [
                     {
+                        "physical":true,
                         "type":"ghost",
                         "shape":"circle",
                         "coords":"25,25,25"
@@ -56,6 +60,7 @@
                 "ticks":10,
                 "collisionData": [
                     {
+                        "physical":true,
                         "type":"ghost",
                         "shape":"circle",
                         "coords":"25,25,25"
@@ -66,6 +71,7 @@
                 "ticks":10,
                 "collisionData": [
                     {
+                        "physical":true,
                         "type":"ghost",
                         "shape":"circle",
                         "coords":"25,25,25"

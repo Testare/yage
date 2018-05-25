@@ -1,4 +1,4 @@
-# yage 0.6
+# yage 0.7
 
 # Essential Features for yage-1.0
 * Git organization
@@ -37,39 +37,46 @@
     * Sprites created using normal html rather than sprite json
 * Physics
     * Collision checking behavior
-    * Sprite Groups
-    * Collision Lists
     * Sprites locked to viewport (ghost collision only)
+    * Physics collision action: (Bounce, slide-retain-velocity, slide-change-velocity)
     * Narrow collision engine
-        * ignoreCollision
-        * Box - Box
-        * Circle - Box
-        * Circle - Circle
-        * Optional draw collision
-        * Collision information for the map
-        * Collision lists
+        * Refactor to more files?
+        * Collision sensitivity modification
+    * Collision information for the map
+    * Test/[reimplement] loadmap op
 * Packaging
     * Package game as executable?
+* Misc
+    * rename config.json to game.json?
+    * Default map "src" attribute
+    * Clean up init module?
 
 # After 1.0
 * yage ide (name?) to help create the "assets" object for different games
 * example game that runs on yage
 
 # Later features
-* Narrow collision engine: vectors
-    * Box - Vector
-    * Circle - Vector
-    * Vector - Vector
+* At least one of these
+    * Narrow collision engine: vectors (?)
+        * Box - Vector
+        * Circle - Vector
+        * Vector - Vector
+        * (Poly - Vector) ?
+    * Narrow collision engine: poly/convex (Seperating Axis Theorem?)
 * Creating sprite from screenshot
+* Creator-created/imported modules for behaviors
 
 # Bugs/Code Improvements
 * Figure out that weird "scale" function and how it should be placed.
 * Bug with screepshot op and flipped images being clipped wrong near the
   edges. Try to get resolved with html2canvas first, but if not, do a 
   work around.
+* Keep track of what sprites are moving and which aren't, rather than checking each one every frame?
 
 # Possible extra features
 * Multiple maps on one screen?
+* Parralax?
+* Network features?
 * JSDocs?
 * ClojureScript?
 * Other languages for behaviors?
