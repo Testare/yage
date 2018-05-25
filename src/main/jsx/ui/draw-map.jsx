@@ -5,12 +5,12 @@ const AudioPlayer = require('./ui-audio')
 const _ = require('lodash')
 const path = require('path')
 
-
 // TODO Is this the best place for this?
 const calcScale = ({resolution:[width,height]}) => Math.min(
     ((window.innerWidth - 6)/width),
     ((window.innerHeight - 6)/height)
 )
+
 const renderscreenStyle = (state) => {
     const scale = calcScale(state)
     const [width,height] = state.resolution
@@ -31,10 +31,9 @@ const viewportStyle = (state) => {
         transform: `scale(${scale}`,
         marginLeft:0,
         marginRight:0
-    } // TODO Possibility of stretch-rendering?
+    } 
 }
 
-// TODO This assets folder line should not be hard-coded
 const mapStyle = (assetPath, state) => ({
     backgroundImage: `url('${path.join(assetPath,'maps/images/',state.src)}')`,
     width: state.width,
@@ -42,9 +41,8 @@ const mapStyle = (assetPath, state) => ({
     left: -state.viewportX,
     top: -state.viewportY
 })
-// TODO clean all this up, remove update from this and draw.jsx
-//For some reason, onMouseMove isn't getting called anymore?
-const DrawMap = (props) => (
+
+const DrawMap = props => (
     <div 
         id="render-screen"
         style={renderscreenStyle(props)}
@@ -53,14 +51,14 @@ const DrawMap = (props) => (
         <div
             id="draw-viewport"
             style={viewportStyle(props)}
-            onMouseMove={input.cursorPos(props, calcScale(props))} // NOTE If we ever make a game have multiple maps, this will need to move
+            onMouseMove={input.cursorPos(props, calcScale(props))}
             onWheel={input.wheelScroll}
         >
             <div
                 className="drawmap"
                 style={mapStyle(props.assetPath, props.map)}
             >
-                <SpriteList update={update} {..._.pick(props,['assetPath','debug'])} {...props.map.spriteList} />
+                <SpriteList {..._.pick(props,['assetPath','debug'])} {...props.map.spriteList} />
                 <AudioPlayer {...props.map.audio} {..._.pick(props,['assetPath','debug'])} />
             </div>
         </div>
@@ -73,13 +71,12 @@ const PreloadAnimations = ({assetPath, animations}) => (
     </div>
 )
 
-const SpriteList = ({update, assetPath, debug, ...props}) => (
+const SpriteList = ({assetPath, debug, ...props}) => (
     <div>{
         Object.keys(props).map(sprKey => 
             props[sprKey].physics 
             ? (
             <DrawSprite
-                update={update}
                 debug={debug}
                 assetPath={assetPath}
                 key={sprKey}

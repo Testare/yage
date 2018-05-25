@@ -51,13 +51,29 @@ const loadMap = (state, {mapName}, {assets}) => ({
 //   Technically speaking, you can use this loadHandler to specify any
 //   changes in state you want to perform from the "op" timeslot, instead of
 //   the normal update cycle timeslot.
+// * errHandler: Similar to the errHandler in save state, but the object
+//   passed to it these properties
+//   * error, state, saveLocation: Same as in saveState
+//   * segment: The segment specified to load into.
+//   It does not have the saveFrame object. Default behavior logs this
+//   object as an error and continues as normal.
 
-const loadState = (state, {fileLocation, segment, saveName="sav.json", loadHandler=_fp.identity}) => {
+const loadState = (state, {
+        fileLocation,
+        segment,
+        saveName="sav.json",
+        loadHandler=_fp.identity,
+        errHandler=(errObj=>(console.error(errObj), errObj.state))
+}) => {
     const saveLocation = fileLocation || path.resolve(state.assetPath, '../', state.defaultSaveLocation, saveName)
-    const loadFrame = loadHandler(JSON.parse(fs.readFileSync(saveLocation,'utf8')))
-    const trueSegment = segment || loadFrame.segment
-    const loadedState = trueSegment ? _fp.update(trueSegment, _=>loadFrame.saveObject, state) : loadFrame.saveObject
-    return loadedState
+    try {
+        const loadFrame = loadHandler(JSON.parse(fs.readFileSync(saveLocation,'utf8')))
+        const trueSegment = segment || loadFrame.segment
+        const loadedState = trueSegment ? _fp.update(trueSegment, _=>loadFrame.saveObject, state) : loadFrame.saveObject
+        return loadedState
+    } catch (error) {
+        return errHandler({error, saveLocation, segment, state})
+    }
 }
 
 // Pauses the game
@@ -80,10 +96,28 @@ const pause = (state, {pause}) => {
 // * saveHandler: Can be used to change what is saved. If specified, it will 
 //   get passed the object specified by segment. The returned object will be 
 //   saved.
+// * errHandler: Handles errors when trying to read a save from a file. This
+//   function returns a new state object, and is passed an object with the
+//   following attributes
+//    * error: The error object thrown.
+//    * saveLocation: The location we're trying to save to
+//    * saveFrame: The object that would be written to a save file
+//    * state: the state before this op.
+//   By default, a failed save will just console.error log this object and 
+//   perform no changes on the state. Very rarely should failure to save
+//   affect state directly, other than to indicate on the HUD that the save
+//   failed.
 //
 // The savefile format is a json object with {segment, version, saveObject}.
 // The other two are the values specified in the parameters
-const saveState = (state, {fileLocation, segment, saveName="sav.json", version="0", saveHandler=_fp.identity}) => {
+const saveState = (state, {
+        fileLocation,
+        segment,
+        saveName="sav.json",
+        version="0",
+        saveHandler=_fp.identity, 
+        errHandler=(obj=>(console.error(obj), state))
+}) => {
     const saveLocation = fileLocation || path.resolve(state.assetPath, '../', state.defaultSaveLocation, saveName)
     const saveObject = saveHandler(segment ? _fp.prop(segment, state) : state)
     const saveFrame = {
@@ -91,7 +125,11 @@ const saveState = (state, {fileLocation, segment, saveName="sav.json", version="
         segment,
         saveObject
     }
-    fs.writeFileSync(saveLocation, JSON.stringify(saveFrame,'utf8'));
+    try {
+        fs.writeFileSync(saveLocation, JSON.stringify(saveFrame,'utf8'));
+    } catch (error) {
+        return errHandler({error, saveLocation, saveFrame, state})
+    }
     return state;
 }
 

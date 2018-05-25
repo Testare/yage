@@ -5,7 +5,6 @@ let templateCount = 0
 
 const template = (assets, templateName, rawState) => ({
     ...({physics:tPhysics,player:tPlayer}=assets.templateSprites[templateName]),
-    name:`${templateName}-${(templateCount=1+templateCount)}つ`, //Default is templateName + (number) + つ (To prevent sprite name conflicts)
     ...({physics:rPhysics,player:rPlayer}=rawState),
     physics:{...tPhysics,...rPhysics},
     player:{
@@ -19,8 +18,7 @@ const applyOffset = sprite => _.isEmpty(sprite.physics)
     : {...sprite, physics: {
         ...sprite.physics,
         posX:sprite.physics.posX - sprite.player.actor[sprite.player.animation].offsetX,
-        posY:sprite.physics.posY - sprite.player.actor[sprite.player.animation].offsetY,
-        candy:true
+        posY:sprite.physics.posY - sprite.player.actor[sprite.player.animation].offsetY
     }}
 
 const spriteInit = (assets) => spr => {
