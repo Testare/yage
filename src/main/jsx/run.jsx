@@ -8,7 +8,6 @@ const ui = require("./ui")
 const update = require('./update')
 const ops = require('./ops')
 
-const assets = loader.loadAssetsFromPath(ipc.sendSync('get-assets','ping'))
 
 const lastTick = -1 // Game stops when tick === lastTick. Just set it to -1 when ready to use for real
 const interval = 17 // How many milliseconds to wait between frames
@@ -25,9 +24,9 @@ onmouseup = ui.inputUp
 
 const onLoop = runAtom => _ => {
     runAtom.gameState.input = ui.nextInput()
-    runAtom.gameState = update(assets)(runAtom.gameState)
+    runAtom.gameState = update(runAtom.assets)(runAtom.gameState)
     if (runAtom.gameState.ops.length != 0) {
-        runAtom.gameState = ops.runOps(runAtom.gameState, {document, assets, runAtom})
+        runAtom.gameState = ops.runOps(runAtom.gameState, {document, assets:runAtom.assets, runAtom})
     }
     if (runAtom.tick % cleanupInterval == 0) { 
         // Every so often, remove finished sounds from ui
@@ -49,10 +48,14 @@ const onLoop = runAtom => _ => {
     runAtom.tick++
 }
 
-const startRun = gameState => {
+const startRun = assets => {
     //Closure to store the mutating state
+    const gameState = init.game(assets)
+    const behaviors = init.behaviors(assets)
     let runAtom = {
-        gameState: gameState,
+        assets,
+        behaviors,
+        gameState,
         tick: 0,
         running: true
     }
@@ -63,12 +66,13 @@ const startRun = gameState => {
 const stopRun = runAtom => {
     clearInterval(runAtom.currentLoop)
     runAtom.running = false
-    console.log("daby")
     ipc.send('game-finished')
 }
 
+const assets = loader.loadAssetsFromPath(ipc.sendSync('get-assets','ping'))
+
 let globalRunAtom;
 
-globalRunAtom = startRun(init.game(assets));
+globalRunAtom = startRun(assets);
 
 ipc.on('stop-game', _ => stopRun(globalRunAtom))

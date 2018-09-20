@@ -1,13 +1,6 @@
 # yage 0.7
-* Behavior "create" method
-* Behavior creation utils
-* remove "utils" from behavior
-* Move behavior-utils out of the update folder, and rename it
 
 # Essential Features for yage-1.0
-* Git organization
-    * Git branches (master, devo, feature branches)
-    * Github issue tracking
 * Better documentation
     * Code
         * Commented code added for clarity
@@ -68,6 +61,7 @@
     * Narrow collision engine: poly/convex (Seperating Axis Theorem?)
 * Creating sprite from screenshot
 * Creator-created/imported modules for behaviors
+* Sprite rotation? (Only when I have poly and rotated rectangles)
 
 # Bugs/Code Improvements
 * Figure out that weird "scale" function and how it should be placed.
