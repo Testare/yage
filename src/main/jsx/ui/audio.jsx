@@ -9,8 +9,8 @@ module.exports.toStandardAudio = track => (typeof track === 'string') ? [track, 
 module.exports.markForCleanup = name => soundsToCleanup.push(name)
 
 // This is the only audio function exported outside the ui module, for cleanup purposes
-module.exports.cleanupSound = state => (
-    sounds = soundsToCleanup,
-    soundsToCleanup = [],
-    fp.update('map.audio.sounds', fp.omitAll(sounds), state)
-)
+module.exports.cleanupSound = state => {
+    const sounds = soundsToCleanup
+    soundsToCleanup = []
+    return fp.update('map.audio.sounds', fp.omitAll(sounds), state)
+}

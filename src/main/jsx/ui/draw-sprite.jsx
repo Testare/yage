@@ -24,7 +24,7 @@ const DrawCollisionFrame = ({player}) => (
         {
             pAnimation(player).frames[player.currentFrame].collisionData.map(
                 (collisionFrame, i) => {
-                    coords = collisionFrame.coords//.split(",") // When I change coords this needs to be changed
+                    const coords = collisionFrame.coords//.split(",") // When I change coords this needs to be changed
                     switch(collisionFrame.shape) {
                         case "rect":
                         case "box": 

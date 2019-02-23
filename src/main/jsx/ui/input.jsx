@@ -73,13 +73,13 @@ module.exports.wheelScroll = event => {
 
 // When an input button is down
 module.exports.inputDown = (event) => {
-    code = event.code || ("Mouse" + event.button)
+    const code = event.code || ("Mouse" + event.button)
     nextAtom[code] = ON_KEY_DOWN[nextAtom[code] || KEY_UP]
 }
 
 // When an input button is up
 module.exports.inputUp = (event) => {
-    code = event.code || ("Mouse" + event.button)
+    const code = event.code || ("Mouse" + event.button)
     nextAtom[code] = ON_KEY_UP[nextAtom[code] || KEY_UP]
 }
 

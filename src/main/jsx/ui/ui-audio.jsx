@@ -2,6 +2,7 @@ const React = require('react')
 const path = require('path')
 const audio = require('./audio')
 const fs = require('fs')
+import ReactAudioPlayer from 'react-audio-player'
 
 class Song extends React.Component {
     constructor(props) {
