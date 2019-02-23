@@ -9,6 +9,6 @@ module.exports.update =
                 return _.pipe(
                     setAnimation(me, toggledAnimation),
                     playSound("switch.mp3"),
-                    setTrack("main",["ticker.mp3",.3])
+                    setTrack("main",["ticker.mp3",0.3])
                 )(state)
             }

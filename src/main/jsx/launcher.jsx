@@ -24,6 +24,9 @@ const createWindow = ({ resolution: [resWidth, resHeight] }) => new BrowserWindo
     useContentSize: true,
     height: resHeight + 6,
     width: resWidth + 6,
+    webPreferences: {
+        nodeIntegration: true
+    },
     show: false
 })
 

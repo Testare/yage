@@ -283,20 +283,20 @@ const collisionCheckForShapes = {
 
 const flipCD = animation => _.map(
     _.cond([
-        [ ({shape})=>['circle'].indexOf(shape) != -1, cd => (
-            [x,y,r] = cd.coords,
-            {
+        [ ({shape})=>['circle'].indexOf(shape) != -1, cd => {
+            const [x,y,r] = cd.coords
+            return {
                 ...cd,
                 coords:[animation.width - x, animation.height - y, r]
             }
-        )],
-        [ ({shape})=>['box', 'rect'].indexOf(shape) != -1, cd => (
-            [x,y,w,h] = cd.coords,
-            {
+        }],
+        [ ({shape})=>['box', 'rect'].indexOf(shape) != -1, cd => {
+            const [x,y,w,h] = cd.coords
+            return {
                 ...cd,
                 coords:[animation.width - (x + w), animation.height - (y + h), w, h]
             }
-        )],
+        }],
         [ _.stubTrue, ({shape})=>{throw Erroh(`Invalid collision shape "${shape}"`)}]
     ])
 )

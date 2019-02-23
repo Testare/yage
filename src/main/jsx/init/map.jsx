@@ -3,18 +3,21 @@ const _fp = require('lodash/fp')
 const sprite = require("./sprite")
 
 // TODO This can probably be updated with some lodash functions and mapping the values
+// CLEANUP
 const spriteRemap = (assets, sprList, spriteGroupMap) => Object.keys(sprList).reduce(
-    ([spAcm, mspAcm], key) => (spr = {...sprite.init(assets)(sprList[key], spriteGroupMap), name:key},
-        _.isEmpty(spr.physics)
-        ? [spAcm, {
-            ...mspAcm,
-            [key]:spr
-        }]
-        : [{
-            ...spAcm,
-            [key]:spr
-        }, mspAcm]
-    ), 
+    ([spAcm, mspAcm], key) => {
+        const spr = {...sprite.init(assets)(sprList[key], spriteGroupMap), name:key}
+        return (_.isEmpty(spr.physics) 
+            ? [spAcm, {
+                ...mspAcm,
+                [key]:spr
+            }]
+            : [{
+                ...spAcm,
+                [key]:spr
+            }, mspAcm]
+        )
+    }, 
     [{},{}]
 )
 
@@ -33,9 +36,9 @@ const getAnimations = _fp.compose(
     _fp.flatMap(sprite => _fp.map(anim => anim.src, sprite.player.actor))
 )
 
-const init = assets => ({audio, spriteList:sprites,...initState}, spriteGroups) => (
-    [spriteList, masterSpriteList] = spriteRemap(assets, sprites, spriteGroups),
-    {
+const init = assets => ({audio, spriteList:sprites,...initState}, spriteGroups) => {
+    const [spriteList, masterSpriteList] = spriteRemap(assets, sprites, spriteGroups)
+    return {
         viewportX:0,
         viewportY:0,
         audio: audioInit(audio),
@@ -44,7 +47,7 @@ const init = assets => ({audio, spriteList:sprites,...initState}, spriteGroups) 
         masterSpriteList,
         animations:getAnimations({...spriteList, ...masterSpriteList})
     }
-)
+}
 
 const loadMap = assets => mapName => state => ({...state, map:init(assets)(assets.maps[mapName], state.spriteGroups)})
 

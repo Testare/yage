@@ -8,7 +8,8 @@
   "description": "Yet Another Game Engine. A basic platformer game engine with Electron and some other technologies.",
   "main": "yage/launcher.js",
   "scripts": {
-    "test": "electron . 'stessa'",
+    "testart": "electron . 'stessa'",
+    "test": "jest",
     "start": "electron . 'assets'",
     "makedo": "npm run build && npm start",
     "build": "npm run build:jsx -s && npm run build:docs -s",
@@ -24,16 +25,18 @@
   "author": "Logan Woodbury <Testare.i9z@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "electron": "^1.6.8",
+    "electron": "^4.0.5",
     "html2canvas": "^1.0.0-alpha.12",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.11",
+    "npm": "^6.8.0",
     "react": "^15.5.4",
+    "react-audio-player": "^0.11.0",
     "react-dom": "^15.5.4"
   },
   "babel": {
     "presets": [
       "react",
-      "es2017"
+      "env"
     ],
     "plugins": [
       "macros",
@@ -42,13 +45,15 @@
     ]
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.24.1",
+    "@babel/core": "^7.3.3",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
     "babel-plugin-macros": "^2.2.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-es2017": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "electron-react-devtools": "^0.4.0"
+    "electron-react-devtools": "^0.4.0",
+    "jest": "^24.1.0"
   }
 }

@@ -3,15 +3,21 @@ const {init:playerInit} = require('./player')
 
 let templateCount = 0
 
-const template = (assets, templateName, rawState) => ({
-    ...({physics:tPhysics,player:tPlayer}=assets.templateSprites[templateName]),
-    ...({physics:rPhysics,player:rPlayer}=rawState),
-    physics:{...tPhysics,...rPhysics},
-    player:{
-        ...((typeof tPlayer === 'string')?{actor:tPlayer}:tPlayer),
-        ...((typeof rPlayer === 'string')?{actor:rPlayer}:rPlayer)
+// Verify behavior
+const template = (assets, templateName, rawState) => {{
+    const template = assets.templateSprites[templateName];
+    const physics = {...template.physics, ...rawState.physics};
+    const player = {
+        ...((typeof template.player === 'string')?{actor:template.player}:template.player),
+        ...((typeof rawState.player === 'string')?{actor:rawState.player}:rawState.player)
     }
-})
+    return {
+        ...template,
+        ...rawState,
+        physics,
+        player
+    }
+}}
 
 const applyOffset = sprite => _.isEmpty(sprite.physics)
     ? sprite

@@ -18,18 +18,18 @@ const runCollision = ({spriteList, ...map}) => {
     }
 }
 
-const getSimplePhysics = ({physics, player}) => (
-    animation = player.actor[player.animation],
-    newX = physics.posX + physics.velX,
-    newY = physics.posY + physics.velY,
-    {
+const getSimplePhysics = ({physics, player}) => {
+    const animation = player.actor[player.animation]
+    const newX = physics.posX + physics.velX
+    const newY = physics.posY + physics.velY
+    return {
         ...physics,
         newX,
         newY,
         newX_W:newX + animation.width,
         newY_H:newY + animation.height
     }
-)
+}
 
 const runCollisionInstance = (spriteList, instanceSprite) => {
     const mePhys = getSimplePhysics(instanceSprite)
@@ -39,7 +39,7 @@ const runCollisionInstance = (spriteList, instanceSprite) => {
             if (other.name === instanceSprite.name) {
                 return false
             }
-            otherPhys = getSimplePhysics(other)
+            const otherPhys = getSimplePhysics(other)
             return (
                 otherPhys.newX <= mePhys.newX_W
                 && mePhys.newX <= otherPhys.newX_W

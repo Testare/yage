@@ -11,18 +11,20 @@ const initSpriteGroups = _.compose(
     ),
 )
 
-const gameInit = assets => (spriteGroups = initSpriteGroups(assets.config.spriteGroups || []), 
-    {
-    gameBehavior:[],
-    data:{},
-    ops:[],
-    paused:false,
-    defaultSaveLocation:"assets/saves",
-    ...assets.config,
-    spriteGroups,
-    map: map.init(assets)(assets.maps[assets.config.map], spriteGroups),
-    assetPath:assets.assetPath
-    //Load assets and config and initialize from there
-})
+const gameInit = assets => {
+    const spriteGroups = initSpriteGroups(assets.config.spriteGroups || []) 
+    return {
+        gameBehavior:[],
+        data:{},
+        ops:[],
+        paused:false,
+        defaultSaveLocation:"assets/saves",
+        ...assets.config,
+        spriteGroups,
+        map: map.init(assets)(assets.maps[assets.config.map], spriteGroups),
+        assetPath:assets.assetPath
+        //Load assets and config and initialize from there
+    }
+}
 
 module.exports.init = gameInit

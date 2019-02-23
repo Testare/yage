@@ -3,36 +3,36 @@ const {optags} = require('../../ops')
 // Later this might need to be required from another module
 
 // This probably should not be exported
-registerOp = newOp => _fp.update('ops',x=>_fp.concat(x,[newOp]))
-registerOpParams = tag => params => registerOp([tag, params])
+const registerOp = newOp => _fp.update('ops',x=>_fp.concat(x,[newOp]))
+const registerOpParams = tag => params => registerOp([tag, params])
 
 // Parameter-accepting functions
-loadGameStateParams = registerOpParams(optags.loadState) 
-loadMapParams = registerOpParams(optags.loadMap) 
-logParams = registerOpParams(optags.log) 
-pauseParams = registerOpParams(optags.pause)
-saveGameStateParams = registerOpParams(optags.saveState) 
-screenshotMapParams = registerOpParams(optags.screenshot)
+const loadGameStateParams = registerOpParams(optags.loadState) 
+const loadMapParams = registerOpParams(optags.loadMap) 
+const logParams = registerOpParams(optags.log) 
+const pauseParams = registerOpParams(optags.pause)
+const saveGameStateParams = registerOpParams(optags.saveState) 
+const screenshotMapParams = registerOpParams(optags.screenshot)
 
 // Pausing functions
-pauseGame = () => pauseParams({pause:true}) 
-unpauseGame = () => pauseParams({pause:false}) 
-togglePauseGame = () => pauseParams({pause:p=>!p}) 
+const pauseGame = () => pauseParams({pause:true}) 
+const unpauseGame = () => pauseParams({pause:false}) 
+const togglePauseGame = () => pauseParams({pause:p=>!p}) 
 
 // Basic use functions
-saveGameStateNamed = saveName => saveGameStateParams({saveName})
-saveGameStateTo = fileLocation => saveGameStateParams({fileLocation})
-loadGameStateNamed = saveName => loadGameStateParams({saveName})
-loadGameStateFrom = fileLocation => loadGameStateParams({fileLocation})
-loadMap = mapName => loadMapParams({mapName})
+const saveGameStateNamed = saveName => saveGameStateParams({saveName})
+const saveGameStateTo = fileLocation => saveGameStateParams({fileLocation})
+const loadGameStateNamed = saveName => loadGameStateParams({saveName})
+const loadGameStateFrom = fileLocation => loadGameStateParams({fileLocation})
+const loadMap = mapName => loadMapParams({mapName})
 
-log = message => logParams({message})
-logState = message => logParams({message, displayState:true})
+const log = message => logParams({message})
+const logState = message => logParams({message, displayState:true})
 
-screenshotMap = () => screenshotMapParams({})
-screenshotMapToFile = fileLocation => screenshotMapParams({fileLocation})
+const screenshotMap = () => screenshotMapParams({})
+const screenshotMapToFile = fileLocation => screenshotMapParams({fileLocation})
 
-quitGame = () => registerOp([optags.quitGame, ({})])
+const quitGame = () => registerOp([optags.quitGame, ({})])
 
 module.exports = {
     loadGameStateParams,

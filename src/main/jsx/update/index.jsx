@@ -34,12 +34,13 @@ const getBehaviorNameAndParams = (behavior) => fp.isString(behavior)
 
 const updateSpriteBehavior = behaviors => state => fp.reduce(
         (state_, sprName) =>  fp.reduce(
-            (state__, behavior) => (
-                [behNam, params] = getBehaviorNameAndParams(behavior),
-                errorCheckBehavior(behNam, state__)
+            (state__, behavior) => {
+                const [behNam, params] = getBehaviorNameAndParams(behavior)
+                return errorCheckBehavior(behNam, state__)
                     (behaviors[behNam].update(
                         {ui, params, me:sprName, ...behaviorUtils, utils:behaviorUtils})
-                        (state__))),
+                        (state__))
+            },
             state_,
             state.map.spriteList[sprName].behaviors
         ),
