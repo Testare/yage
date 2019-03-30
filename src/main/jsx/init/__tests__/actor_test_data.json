@@ -1,0 +1,186 @@
+{
+    "stubs": {
+    },
+    "testcases": {
+        "simple_actor": {
+            "given": {
+                "name":"ACTOR",
+                "main": {
+                    "height":10,
+                    "width":10
+                }
+            }, 
+            "expected": {
+                "main": {
+                    "src":"ACTOR.png",
+                    "offsetX": 0,
+                    "offsetY": 0,
+                    "height":10,
+                    "width":10,
+                    "frames":[]
+                }
+            }
+        },
+        "simple_animation": {
+            "given": {
+                "name":"ACTOR",
+                "main": {
+                    "height":10,
+                    "width":10,
+                    "frames": [
+                        {
+                            "ticks":5,
+                            "collisionData": [
+                                {
+                                    "physical":true,
+                                    "type":"ghost",
+                                    "shape":"circle",
+                                    "coords":"5,5,5"
+                                },
+                                {
+                                    "physical":false,
+                                    "type":"example",
+                                    "shape":"square",
+                                    "coords":[3,3,7,7]
+                                }
+                            ]
+                        },
+                        {
+                            "ticks":10
+                        }
+                    ]
+                }
+            },
+            "expected": {
+                "main": {
+                    "src":"ACTOR.png",
+                    "offsetX": 0,
+                    "offsetY": 0,
+                    "height":10,
+                    "width":10,
+                    "frames":[
+                        {
+                            "ticks":5,
+                            "collisionData": [
+                                {
+                                    "physical":true,
+                                    "type":"ghost",
+                                    "shape":"circle",
+                                    "coords":[5,5,5]
+                                },
+                                {
+                                    "physical":false,
+                                    "type":"example",
+                                    "shape":"square",
+                                    "coords":[3,3,7,7]
+                                }
+                            ]
+                        },
+                        {
+                            "ticks":10,
+                            "collisionData": []
+                        }
+                    ]
+                }
+            }
+        },
+        "two_animations": {
+            "given": {
+                "name":"ACTOR",
+                "main": {
+                    "height":10,
+                    "width":10
+                }, 
+                "running": {
+                    "height":50,
+                    "width":100
+                }
+            }, 
+            "expected": {
+                "main": {
+                    "src":"ACTOR.png",
+                    "offsetX": 0,
+                    "offsetY": 0,
+                    "height":10,
+                    "width":10,
+                    "frames":[]
+                },
+                "running": {
+                    "src":"ACTOR.running.png",
+                    "offsetX": 0,
+                    "offsetY": 0,
+                    "height":50,
+                    "width":100,
+                    "frames":[]
+                }
+            }
+        },
+        "complex_actor": {
+            "given": {
+                "name":"ACTOR",
+                "main": {
+                    "height":10,
+                    "width":10,
+                    "src":"complex.png",
+                    "offsetX":5,
+                    "offsetY":5,
+                    "frames": [
+                        {
+                            "ticks":5,
+                            "collisionData": [
+                                {
+                                    "physical":true,
+                                    "type":"ghost",
+                                    "shape":"circle",
+                                    "coords":"0,0,5"
+                                },
+                                {
+                                    "physical":false,
+                                    "type":"example",
+                                    "shape":"square",
+                                    "coords":[-2,-2,2,2]
+                                }
+                            ]
+                        },
+                        {
+                            "ticks":10
+                        }
+                    ]
+                }
+            },
+            "expected": {
+                "main": {
+                    "src":"complex.png",
+                    "offsetX": 5,
+                    "offsetY": 5,
+                    "height":10,
+                    "width":10,
+                    "frames":[
+                        {
+                            "ticks":5,
+                            "collisionData": [
+                                {
+                                    "physical":true,
+                                    "type":"ghost",
+                                    "shape":"circle",
+                                    "coords":[0,0,5]
+                                },
+                                {
+                                    "physical":false,
+                                    "type":"example",
+                                    "shape":"square",
+                                    "coords":[-2,-2,2,2]
+
+                                }
+                            ]
+                        },
+                        {
+                            "ticks":10,
+                            "collisionData": []
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -56,6 +56,4 @@ const spriteInit = assets => (spr, spriteGroups) => {
     }
 } 
 
-
-
 module.exports.init = spriteInit

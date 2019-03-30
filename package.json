@@ -13,10 +13,10 @@
     "start": "electron . 'assets'",
     "makedo": "npm run build && npm start",
     "build": "npm run build:jsx -s && npm run build:docs -s",
-    "build:jsx": "babel src/main/jsx -d yage",
+    "build:jsx": "babel src/main/jsx -d yage --ignore '**/__tests__/*'",
     "build:docs": "cp -r src/main/docs/* yage",
     "postinstall": "npm run build",
-    "watch": "babel -w src/main/jsx -d yage"
+    "watch": "babel -w src/main/jsx -d yage --ignore '**/__tests__/*'"
   },
   "files": [
     "build"
@@ -34,25 +34,27 @@
     "react-dom": "^15.5.4"
   },
   "babel": {
+    "ignore": [
+      "**/*.spec.jsx"
+    ],
     "presets": [
-      "react",
-      "env"
+      "@babel/react",
+      "@babel/env"
     ],
     "plugins": [
       "macros",
-      "transform-class-properties",
-      "transform-object-rest-spread"
+      "@babel/proposal-class-properties",
+      "@babel/proposal-object-rest-spread"
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.3",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-react": "^7.0.0",
     "babel-plugin-macros": "^2.2.0",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
     "electron-react-devtools": "^0.4.0",
     "jest": "^24.1.0"
   }

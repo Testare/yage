@@ -1,9 +1,9 @@
 const _ = require('lodash/fp')
-
+const {init:actorInit} = require('./actor')
 
 // Actors should not change, ever.
 // They're like a collection of animations.
-// PLAYERS change, indicating which animaiton the actor
+// PLAYERS change, indicating which animation the actor
 // plays, how long until the next frame, what frame they're
 // on currently.
 
@@ -16,20 +16,6 @@ const _ = require('lodash/fp')
 // for mods.
 
 let actorCache = {} 
-
-const parseCD = _.cond([
-    [({coords}) => _.isString(coords), ({coords, ...cd}) => ({...cd, coords:_.map(_.toNumber,coords.split(','))})],
-    [({coords}) => _.isArray(coords), _.map(_.toNumber)],
-    [_.stubTrue, ({coords, ...obj}) => {throw Error(`Can't recognize coord format "${coords}" in ${obj}!`)}]
-])
-
-const actorInit = ({name,...actor}) => _.mapValues.convert({'cap':false})((animation, animName) => ({
-    src: (animName === 'main') ? `${name}.png` : `${name}.${animName}.png`, 
-    offsetX: 0,
-    offsetY: 0,
-    ...animation,
-    frames:_.map(x=>({...x, collisionData:_.map(parseCD,x.collisionData)}), animation.frames)
-}), actor)
 
 module.exports.init = assets => actor => {
     const {actor:actorName, ...player} = (typeof actor === 'string') ? {actor:actor} : actor

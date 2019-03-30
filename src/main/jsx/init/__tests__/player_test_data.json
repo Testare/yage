@@ -1,0 +1,48 @@
+{
+    "stubs": {
+        "actor": "ACTOR",
+        "initializedActor": "INITIALIZED_ACTOR",
+        "actorName": "ACTOR_NAME"
+    },
+    "assets": {
+        "actors": {
+            "ACTOR_NAME": "ACTOR"
+        }
+    },
+    "inputs": {
+        "test_load_string": "ACTOR_NAME",
+        "test_load_data_simple": {
+            "actor": "ACTOR_NAME"
+        },
+        "test_load_data": {
+            "currentFrame":10, 
+            "flipped":true,
+            "animation":"mane",
+            "ticks": 10,
+            "actor": "ACTOR_NAME"
+        }
+    },
+    "outputs": {
+        "test_load_string": {
+            "currentFrame":0, 
+            "flipped":false,
+            "animation":"main",
+            "ticks": 0,
+            "actor": "INITIALIZED_ACTOR"
+        },
+        "test_load_data_simple": {
+            "currentFrame":0, 
+            "flipped":false,
+            "animation":"main",
+            "ticks": 0,
+            "actor": "INITIALIZED_ACTOR"
+        },
+        "test_load_data": {
+            "currentFrame":10, 
+            "flipped":true,
+            "animation":"mane",
+            "ticks": 0,
+            "actor": "INITIALIZED_ACTOR"
+        }
+    }
+}

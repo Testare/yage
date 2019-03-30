@@ -4,3 +4,4 @@ build/
 yage/
 workshop
 assets/saves/*
+.vscode
