@@ -1,0 +1,196 @@
+{
+    "stubs": {
+        "spriteGroups": [
+            "enemies"
+        ],
+        "player": {
+            "actor":{
+                "main":{
+                    "offsetX":5,
+                    "offsetY":5
+                }
+            },
+            "animation":"main"
+        }
+    },
+    "testcases": {
+        "simple_master": {
+            "assets": {
+            },
+            "given": {
+                "player": "PLAYER_NAME",
+                "collidesWith": [
+                    "enemies"
+                ]
+            }, 
+            "expected": {
+                "behaviors": [],
+                "collidesWith": 0,
+                "groups": 0,
+                "zFrame": 20,
+                "data": {},
+                "player":"PLAYER_STUB"
+            }
+        },
+        "simple_template_master": {
+            "assets": {
+                "templateSprites": {
+                    "EXAMPLE_TEMPLATE": {
+                        "player": "PLAYER_NAME",
+                        "zFrame": 10
+                    }
+                }
+            },
+            "given": {
+                "fromTemplate":"EXAMPLE_TEMPLATE"
+            }, 
+            "expected": {
+                "behaviors": [],
+                "collidesWith": 0,
+                "groups": 0,
+                "zFrame": 10,
+                "data": {},
+                "player":"PLAYER_STUB"
+            }
+        },
+        "overridden_template_master": {
+            "assets": {
+                "templateSprites": {
+                    "EXAMPLE_TEMPLATE": {
+                        "player": "PLAYER_NAME",
+                        "zFrame":10
+                    }
+                }
+            },
+            "given": {
+                "fromTemplate":"EXAMPLE_TEMPLATE",
+                "zFrame":0
+            }, 
+            "expected": {
+                "behaviors": [],
+                "collidesWith": 0,
+                "groups": 0,
+                "zFrame": 0,
+                "data": {},
+                "player":"PLAYER_STUB"
+            }
+        },
+        "simple_nonmaster": {
+            "assets": {
+            },
+            "given": {
+                "player": "PLAYER_NAME",
+                "collidesWith": [
+                    "enemies"
+                ],
+                "physics": {
+                    "posX":50
+                }
+            }, 
+            "expected": {
+                "behaviors": [],
+                "collidesWith": 0,
+                "groups": 0,
+                "zFrame": 20,
+                "data": {},
+                "player": {
+                    "actor":{
+                        "main":{
+                            "offsetX":5,
+                            "offsetY":5
+                        }
+                    },
+                    "animation":"main"
+                },
+                "physics": {
+                    "posX":45,
+                    "posY":-5,
+                    "velX":0,
+                    "velY":0
+                }
+            }
+        },
+        "simple_template_nonmaster": {
+            "assets": {
+                "templateSprites": {
+                    "EXAMPLE_TEMPLATE": {
+                        "player": "PLAYER_NAME",
+                        "zFrame": 10
+                    }
+                }
+            },
+            "given": {
+                "fromTemplate":"EXAMPLE_TEMPLATE",
+                "physics": {
+                    "posX":10,
+                    "posY":30
+                }
+            }, 
+            "expected": {
+                "behaviors": [],
+                "collidesWith": 0,
+                "groups": 0,
+                "zFrame": 10,
+                "data": {},
+                "player": {
+                    "actor":{
+                        "main":{
+                            "offsetX":5,
+                            "offsetY":5
+                        }
+                    },
+                    "animation":"main"
+                },
+                "physics": {
+                    "posX":5,
+                    "posY":25,
+                    "velX":0,
+                    "velY":0
+                }
+            }
+        },
+        "overridden_template_nonmaster": {
+            "assets": {
+                "templateSprites": {
+                    "EXAMPLE_TEMPLATE": {
+                        "player": "PLAYER_NAME",
+                        "physics": {
+                            "velX":-10,
+                            "posX":0
+                        }
+                    }
+                }
+            },
+            "given": {
+                "fromTemplate":"EXAMPLE_TEMPLATE",
+                "zFrame":0,
+                "physics": {
+                    "posX": 50,
+                    "posY": 50
+                }
+            }, 
+            "expected": {
+                "behaviors": [],
+                "collidesWith": 0,
+                "groups": 0,
+                "zFrame": 0,
+                "data": {},
+                "player": {
+                    "actor":{
+                        "main":{
+                            "offsetX":5,
+                            "offsetY":5
+                        }
+                    },
+                    "animation":"main"
+                },
+                "physics": {
+                    "velX":-10,
+                    "velY":0,
+                    "posX":45,
+                    "posY":45
+                }
+            }
+        }
+    }
+}
