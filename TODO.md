@@ -46,6 +46,9 @@
     * rename config.json to game.json?
     * Default map "src" attribute
     * Clean up init module?
+* Map background:
+    * Repeat background toggle
+    * Scale background image option
 
 # After 1.0
 * yage ide (name?) to help create the "assets" object for different games

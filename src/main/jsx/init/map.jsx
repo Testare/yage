@@ -3,6 +3,10 @@ const _fp = require('lodash/fp')
 const sprite = require("./sprite")
 const {initializeBehaviors} = require('./behaviors')
 
+const spriteRemap2 = (assets, sprList, spriteGroupMap) => _fp.compose(
+    _fp.partition(sprite=>!_.isEmpty(sprite.physics))
+)
+
 // TODO This can probably be updated with some lodash functions and mapping the values
 // CLEANUP
 const spriteRemap = (assets, sprList, spriteGroupMap) => Object.keys(sprList).reduce(
@@ -37,7 +41,7 @@ const getAnimations = _fp.compose(
     _fp.flatMap(sprite => _fp.map(anim => anim.src, sprite.player.actor))
 )
 
-const init = assets => ({audio, spriteList:sprites,...initState}, spriteGroups) => {
+const init = assets => ({audio={}, spriteList:sprites={},...initState}, spriteGroups) => {
     const [spriteList, masterSpriteList] = spriteRemap(assets, sprites, spriteGroups)
     return initializeBehaviors(assets, 
         {

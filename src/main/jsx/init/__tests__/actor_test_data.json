@@ -2,25 +2,6 @@
     "stubs": {
     },
     "testcases": {
-        "simple_actor": {
-            "given": {
-                "name":"ACTOR",
-                "main": {
-                    "height":10,
-                    "width":10
-                }
-            }, 
-            "expected": {
-                "main": {
-                    "src":"ACTOR.png",
-                    "offsetX": 0,
-                    "offsetY": 0,
-                    "height":10,
-                    "width":10,
-                    "frames":[]
-                }
-            }
-        },
         "simple_animation": {
             "given": {
                 "name":"ACTOR",

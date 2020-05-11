@@ -1,0 +1,20 @@
+{
+    "main": {
+        "src": "michelle-rabbit.png",
+        "width": 25,
+        "height": 61,
+        "frames": [
+            {
+                "ticks":90,
+                "collisionData": [
+                    {
+                        "physical":true,
+                        "type":"ghost",
+                        "shape":"box",
+                        "coords":"0,0,25,61"
+                    }
+                ]
+            }
+        ]
+    }
+}

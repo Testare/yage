@@ -21,6 +21,20 @@
                 "enemies"
             ]
         },
+        "frank": {
+            "player": {
+                "actor":"rabbit",
+                "flipped": true
+            },
+            "zFrame":20,
+            "physics": {
+                "posX":490,
+                "posY":96
+            },
+            "behaviors": [
+                "wasd"
+            ]
+        },
         "larry2": {
             "player": {
                 "actor": "larry",

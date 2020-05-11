@@ -1,10 +1,10 @@
-const _ = require('lodash/fp')
-const map = require("./map")
-const {initializeBehaviors} = require('./behaviors')
+import { compose, head, reduce } from 'lodash/fp'
+import { init as mapInit } from "./map"
+import { initializeBehaviors } from './behaviors'
 
-const initSpriteGroups = _.compose(
-    _.head,
-    _.reduce(
+const initSpriteGroups = compose(
+    head,
+    reduce(
         ([obj,n], groupName) => (groupName === 'map') 
             ? [obj,n] 
             : [{...obj, [groupName]:n}, 0b10*n],
@@ -22,10 +22,10 @@ const gameInit = assets => {
         defaultSaveLocation:"assets/saves",
         ...assets.config,
         spriteGroups,
-        map: map.init(assets)(assets.maps[assets.config.map], spriteGroups),
+        map: mapInit(assets)(assets.maps[assets.config.map], spriteGroups),
         assetPath:assets.assetPath
         //Load assets and config and initialize from there
     })
 }
 
-module.exports.init = gameInit
+export const init = gameInit
